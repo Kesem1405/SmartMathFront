@@ -7,7 +7,6 @@ function Login({ toggleForm }) {
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Handle the form submission
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -18,12 +17,9 @@ function Login({ toggleForm }) {
                 password,
             });
 
-            // Check for successful login response
             if (response.status === 200) {
-                // Store token or session info in localStorage
                 localStorage.setItem("userToken", response.data.token);
 
-                // Redirect or update UI (you can also use react-router to navigate)
                 window.location.href = "/"; // or use your custom redirect
             }
         } catch (err) {
@@ -33,7 +29,6 @@ function Login({ toggleForm }) {
         }
     };
 
-    // Disable the sign-in button if fields are empty
     const isFormValid = email && password;
 
     return (

@@ -8,7 +8,6 @@ function App() {
     const [isLogin, setIsLogin] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Check if user is logged in
     useEffect(() => {
         const token = localStorage.getItem("userToken");
         if (token) {
@@ -20,9 +19,8 @@ function App() {
         setIsLogin((prev) => !prev);
     };
 
-    // Redirect user if they are already logged in
     if (isLoggedIn) {
-        return <div>Welcome back!</div>; // Or redirect to your dashboard/home
+        return <div>Welcome back!</div>;
     }
 
     return (
