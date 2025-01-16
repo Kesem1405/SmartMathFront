@@ -49,7 +49,7 @@ function Register({ toggleForm }) {
                 setError("Email is already in use.");
                 setIsSubmitting(false);
             } else {
-                await axios.post("http://localhost:8080/register", { email, password });
+                await axios.post("http://localhost:8080/user/register", { email, password });
                 window.location.href = "/"; // or use your custom redirect
             }
         } catch (err) {
