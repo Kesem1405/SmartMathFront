@@ -104,3 +104,16 @@ p {
   text-align: center;
   margin-top: 20px;
 }
+
+/* Position the buttons in the top-right corner */
+.user-register {
+  position: fixed; /* Use fixed positioning to keep buttons in place while scrolling */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  z-index: 1000; /* Ensure buttons are above other content */
+}
+
+/* Optional: Add some spacing between the buttons */
+.user-register .btn {
+  margin-left: 10px; /* Space between buttons */
+}
