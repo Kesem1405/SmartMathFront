@@ -10,20 +10,19 @@ function Login({ toggleForm }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setError("");
 
         try {
-            const response = await axios.post("http://localhost:8080/user/login", {
-                email,
-                password,
+            // Send login request to the backend with query parameters
+            const response = await axios.post("http://localhost:8080/user/login", null, {
+                params: { email, password } // Send email and password as query parameters
             });
 
             if (response.status === 200) {
-                localStorage.setItem("userToken", response.data.token);
-
-                window.location.href = "/"; // or use your custom redirect
+                localStorage.setItem("userToken", response.data.token); // Save the token (if applicable)
+                window.location.href = "/"; // Redirect to home page
             }
         } catch (err) {
-            // Handle login failure
             setError("Invalid email or password.");
             setIsSubmitting(false);
         }

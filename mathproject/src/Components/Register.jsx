@@ -35,30 +35,41 @@ function Register({ toggleForm }) {
     const handleRegister = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        if (!emailRegex.test(email)) {
-            setError("Invalid email format.");
-            setIsSubmitting(false);
-            return;
-        }
+        setError("");
 
         try {
-            const response = await axios.post("http://localhost:8080/check-email", { email });
-
-            if (response.data.isEmailTaken) {
-                setError("Email is already in use.");
+            // Validate email format
+            if (!emailRegex.test(email)) {
+                setError("Invalid email format.");
                 setIsSubmitting(false);
-            } else {
-                await axios.post("http://localhost:8080/user/register", { email, password });
-                window.location.href = "/"; // or use your custom redirect
+                return;
+            }
+
+            // Validate password criteria
+            if (!passwordCriteria.minLength || !passwordCriteria.specialChar || !passwordCriteria.capitalLetter) {
+                setError("Password must be at least 8 characters long, contain a capital letter, and a special character.");
+                setIsSubmitting(false);
+                return;
+            }
+
+            const response = await axios.post("http://localhost:8080/user/register", null, {
+                params: { email, password } // Send parameters as query params
+            });
+
+            if (response.status === 200) {
+                window.location.href = "/"; // Redirect to home page
             }
         } catch (err) {
-            setError("An error occurred. Please try again.");
+            if (err.response && err.response.data) {
+                setError(err.response.data);
+            } else {
+                setError("An error occurred. Please try again.");
+            }
             setIsSubmitting(false);
         }
     };
 
-    const isFormValid = emailRegex.test(email) && passwordCriteria.minLength && passwordCriteria.specialChar && passwordCriteria.capitalLetter && password.length >= 8;
+    const isFormValid = emailRegex.test(email) && passwordCriteria.minLength && passwordCriteria.specialChar && passwordCriteria.capitalLetter;
 
     return (
         <form onSubmit={handleRegister}>
@@ -95,7 +106,7 @@ function Register({ toggleForm }) {
                 </div>
             </div>
 
-            {error && <div className="text-danger">{error}</div>}
+            {error && <div className="alert alert-danger">{error}</div>}
 
             <button
                 type="submit"
