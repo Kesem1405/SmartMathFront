@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
-import "./style.css"; // Custom styles
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import "./style.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal } from "react-bootstrap";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Modal, Button } from "react-bootstrap"; // Import Bootstrap Modal and Button
+import Dashboard from "./components/Dashboard";
+import Profile from './components/Profile';
 
 function App() {
-    const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Register
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-    const [showAuthModal, setShowAuthModal] = useState(false); // Control visibility of the modal
+    const [isLogin, setIsLogin] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showAuthModal, setShowAuthModal] = useState(false);
 
-    // Check if the user is already logged in
+
+    const goToDashboard = () => {
+        navigate("/Dashboard"); // ניווט לדשבורד
+    };
+
     useEffect(() => {
         const token = localStorage.getItem("userToken");
         if (token) {
@@ -18,62 +25,84 @@ function App() {
         }
     }, []);
 
-    // Toggle between Login and Register forms
     const toggleForm = () => {
         setIsLogin((prev) => !prev);
     };
 
-    // Show the authentication modal (Login or Register)
     const handleAuthButtonClick = (isLoginForm) => {
         setIsLogin(isLoginForm);
         setShowAuthModal(true);
     };
 
-    // Close the authentication modal
     const handleCloseAuthModal = () => {
         setShowAuthModal(false);
     };
 
-    // Handle user sign out
     const handleSignOut = () => {
-        localStorage.removeItem("userToken"); // Clear the token from localStorage
-        setIsLoggedIn(false); // Update the logged-in state
+        localStorage.removeItem("userToken");
+        setIsLoggedIn(false);
     };
 
-    // If the user is logged in, show a welcome message and a Sign Out button
-    if (isLoggedIn) {
-        return (
-            <div className="text-center mt-5">
-                <h1>Welcome back!</h1>
-                <button
-                    className="btn btn-danger mt-3"
-                    onClick={handleSignOut}
-                >
-                    Sign Out
-                </button>
-            </div>
-        );
-    }
-
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh", backgroundPosition: 'center' }}>
-            {/* Homepage with Login and Register buttons */}
-            <div className="user-register">
-                <button
-                    className="btn btn-primary mx-2"
-                    onClick={() => handleAuthButtonClick(true)}
-                >
-                    Login
-                </button>
-                <button
-                    className="btn btn-secondary mx-2"
-                    onClick={() => handleAuthButtonClick(false)}
-                >
-                    Register
-                </button>
-            </div>
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        isLoggedIn ? (
+                            <div className="text-center mt-5">
+                                <h1>Welcome Back !</h1>
+                                <button className="btn btn-danger mt-3" onClick={goToDashboard}>
+                                    Start
+                                </button>
+                                <button
+                                    className="btn btn-danger mt-3"
+                                    onClick={handleSignOut}
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
+                        ) : (
+                            <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ height: "100vh", backgroundPosition: "center" }}
+                            >
+                                <div className="user-register">
+                                    <button
+                                        className="btn btn-primary mx-2"
+                                        onClick={() => handleAuthButtonClick(true)}
+                                    >
+                                        Login
+                                    </button>
+                                    <button
+                                        className="btn btn-secondary mx-2"
+                                        onClick={() => handleAuthButtonClick(false)}
+                                    >
+                                        Register
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    }
+                />
+                <Route
+                    path="/Dashboard"
+                    element={
+                        isLoggedIn ? (
+                            <Dashboard />
+                        ) : (
+                            <div className="text-center mt-5">
+                                <h1>You need to login to access the Dashboard</h1>
+                            </div>
+                        )
+                    }
+                />
+                <Route
+                    path="/Profile"
+                    element={<Profile/>}
+                />
+            </Routes>
 
-            {/* Modal for Login and Register forms */}
             <Modal show={showAuthModal} onHide={handleCloseAuthModal} centered>
                 <Modal.Header closeButton>
                     <Modal.Title className="text-primary">
@@ -95,30 +124,19 @@ function App() {
                             <Login
                                 toggleForm={toggleForm}
                                 setIsLoggedIn={setIsLoggedIn}
-                                closeModal={handleCloseAuthModal} // Pass closeModal function to Login
+                                closeModal={handleCloseAuthModal}
                             />
                         ) : (
                             <Register
                                 toggleForm={toggleForm}
                                 setIsLoggedIn={setIsLoggedIn}
-                                closeModal={handleCloseAuthModal} // Pass closeModal function to Register
+                                closeModal={handleCloseAuthModal}
                             />
                         )}
                     </div>
-                    <div className="text-center mt-3">
-                        <p
-                            style={{ color: "#59238F" }}
-                            onClick={toggleForm}
-                            className="btn"
-                        >
-                            {isLogin
-                                ? "Don't have an account? Sign Up"
-                                : "Already have an account? Sign In"}
-                        </p>
-                    </div>
                 </Modal.Body>
             </Modal>
-        </div>
+        </Router>
     );
 }
 
