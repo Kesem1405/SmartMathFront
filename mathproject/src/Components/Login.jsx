@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Login({ toggleForm }) {
+function Login({ toggleForm, setIsLoggedIn, closeModal }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -13,14 +13,14 @@ function Login({ toggleForm }) {
         setError("");
 
         try {
-            // Send login request to the backend with query parameters
             const response = await axios.post("http://localhost:8080/user/login", null, {
-                params: { email, password } // Send email and password as query parameters
+                params: { email, password }
             });
 
             if (response.status === 200) {
-                localStorage.setItem("userToken", response.data.token); // Save the token (if applicable)
-                window.location.href = "/"; // Redirect to home page
+                localStorage.setItem("userToken", response.data.token);
+                setIsLoggedIn(true); // Update login status
+                closeModal(); // Close the modal
             }
         } catch (err) {
             setError("Invalid email or password.");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Register({ toggleForm }) {
+function Register({ toggleForm, setIsLoggedIn, closeModal }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -38,14 +38,12 @@ function Register({ toggleForm }) {
         setError("");
 
         try {
-            // Validate email format
             if (!emailRegex.test(email)) {
                 setError("Invalid email format.");
                 setIsSubmitting(false);
                 return;
             }
 
-            // Validate password criteria
             if (!passwordCriteria.minLength || !passwordCriteria.specialChar || !passwordCriteria.capitalLetter) {
                 setError("Password must be at least 8 characters long, contain a capital letter, and a special character.");
                 setIsSubmitting(false);
@@ -53,11 +51,12 @@ function Register({ toggleForm }) {
             }
 
             const response = await axios.post("http://localhost:8080/user/register", null, {
-                params: { email, password } // Send parameters as query params
+                params: { email, password }
             });
 
             if (response.status === 200) {
-                window.location.href = "/"; // Redirect to home page
+                setIsLoggedIn(true); // Update login status
+                closeModal(); // Close the modal
             }
         } catch (err) {
             if (err.response && err.response.data) {

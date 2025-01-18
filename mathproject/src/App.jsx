@@ -3,11 +3,12 @@ import "./style.css"; // Custom styles
 import Login from "./components/Login";
 import Register from "./components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from "react-bootstrap"; // Import Bootstrap Modal and Button
 
 function App() {
     const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Register
     const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-    const [showAuthForm, setShowAuthForm] = useState(false); // Control visibility of auth forms
+    const [showAuthModal, setShowAuthModal] = useState(false); // Control visibility of the modal
 
     // Check if the user is already logged in
     useEffect(() => {
@@ -22,10 +23,15 @@ function App() {
         setIsLogin((prev) => !prev);
     };
 
-    // Show the authentication form (Login or Register)
+    // Show the authentication modal (Login or Register)
     const handleAuthButtonClick = (isLoginForm) => {
         setIsLogin(isLoginForm);
-        setShowAuthForm(true);
+        setShowAuthModal(true);
+    };
+
+    // Close the authentication modal
+    const handleCloseAuthModal = () => {
+        setShowAuthModal(false);
     };
 
     // Handle user sign out
@@ -52,26 +58,29 @@ function App() {
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh", backgroundPosition: 'center' }}>
             {/* Homepage with Login and Register buttons */}
-            {!showAuthForm && (
-                <div className="user-register">
-                    <button
-                        className="btn btn-primary mx-2"
-                        onClick={() => handleAuthButtonClick(true)}
-                    >
-                        Login
-                    </button>
-                    <button
-                        className="btn btn-secondary mx-2"
-                        onClick={() => handleAuthButtonClick(false)}
-                    >
-                        Register
-                    </button>
-                </div>
-            )}
+            <div className="user-register">
+                <button
+                    className="btn btn-primary mx-2"
+                    onClick={() => handleAuthButtonClick(true)}
+                >
+                    Login
+                </button>
+                <button
+                    className="btn btn-secondary mx-2"
+                    onClick={() => handleAuthButtonClick(false)}
+                >
+                    Register
+                </button>
+            </div>
 
-            {/* Show Login or Register form based on state */}
-            {showAuthForm && (
-                <div className="loginBox bg-dark p-4 rounded">
+            {/* Modal for Login and Register forms */}
+            <Modal show={showAuthModal} onHide={handleCloseAuthModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-primary">
+                        {isLogin ? "Sign In" : "Sign Up"}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                     <div className="d-flex justify-content-center mb-4">
                         <img
                             className="user"
@@ -81,14 +90,19 @@ function App() {
                             width="100px"
                         />
                     </div>
-                    <h3 className="text-center text-primary">
-                        {isLogin ? "Sign In" : "Sign Up"}
-                    </h3>
                     <div className={`form ${isLogin ? "sign-in" : "sign-up"}`}>
                         {isLogin ? (
-                            <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />
+                            <Login
+                                toggleForm={toggleForm}
+                                setIsLoggedIn={setIsLoggedIn}
+                                closeModal={handleCloseAuthModal} // Pass closeModal function to Login
+                            />
                         ) : (
-                            <Register toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} />
+                            <Register
+                                toggleForm={toggleForm}
+                                setIsLoggedIn={setIsLoggedIn}
+                                closeModal={handleCloseAuthModal} // Pass closeModal function to Register
+                            />
                         )}
                     </div>
                     <div className="text-center mt-3">
@@ -102,8 +116,8 @@ function App() {
                                 : "Already have an account? Sign In"}
                         </p>
                     </div>
-                </div>
-            )}
+                </Modal.Body>
+            </Modal>
         </div>
     );
 }
