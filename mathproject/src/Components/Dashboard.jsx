@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
 import axios from "axios";
 
-function Dashboard({ handleSignOut }) {
-    const [currentQuestion, setCurrentQuestion] = useState(null); // Current question
-    const [userAnswer, setUserAnswer] = useState(""); // User's answer
-    const [score, setScore] = useState(0); // User's score
+function Dashboard() {
+    const [currentQuestion, setCurrentQuestion] = useState(null);
+    const [userAnswer, setUserAnswer] = useState("");
+    const [score, setScore] = useState(0);
+    const [feedbackMessage, setFeedbackMessage] = useState("");
+    const [countMistake, setCountMistake] = useState(0);
 
     useEffect(() => {
-        // Fetch the first question when the component mounts
         fetchQuestion();
     }, [score]);
 
@@ -24,6 +24,8 @@ function Dashboard({ handleSignOut }) {
             .get(`http://localhost:8080/user/math/generate-question/${difficulty}`)
             .then((response) => {
                 setCurrentQuestion(response.data);
+                setFeedbackMessage("");
+                setCountMistake(0);
             })
             .catch((error) => {
                 console.error("Error fetching question:", error);
@@ -37,15 +39,15 @@ function Dashboard({ handleSignOut }) {
     const handleSubmitAnswer = () => {
         if (parseInt(userAnswer) === currentQuestion.answer) {
             setScore(score + 1);
+        } else {
+            setCountMistake(countMistake+1);
+            setFeedbackMessage("Wrong answer. Try again!");
         }
-        // Fetch the next question
-        fetchQuestion();
         setUserAnswer("");
     };
 
     return (
         <div>
-            <Navbar handleSignOut={handleSignOut} />
             <div className="container mt-5">
                 <h2>Math Questions</h2>
                 {currentQuestion && (
@@ -62,7 +64,15 @@ function Dashboard({ handleSignOut }) {
                         </button>
                     </div>
                 )}
+                {feedbackMessage && (
+                    <div className="mt-3">
+                        <p className={feedbackMessage === "Correct answer!" ? "text-success" : "text-danger"}>
+                            {feedbackMessage}
+                        </p>
+                    </div>
+                )}
                 <div className="mt-3">
+                    <h5>Number of mistake in the exercise: {countMistake}</h5>
                     <h5>Score: {score}</h5>
                 </div>
             </div>

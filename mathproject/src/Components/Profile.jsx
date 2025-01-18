@@ -33,7 +33,6 @@ function Profile() {
 
     return (
         <div>
-            <Navbar />
             <div className="profile-container">
                 <h2>Profile Page</h2>
                 <div className="profile-details">

@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
-import Profile from './components/Profile';
+import Profile from "./components/Profile";
+import Navbar from "./components/Navbar"; //
 
 function App() {
     const [isLogin, setIsLogin] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showAuthModal, setShowAuthModal] = useState(false);
-
-
-    const goToDashboard = () => {
-        navigate("/Dashboard"); // ניווט לדשבורד
-    };
 
     useEffect(() => {
         const token = localStorage.getItem("userToken");
@@ -45,22 +41,17 @@ function App() {
 
     return (
         <Router>
+            {isLoggedIn && <Navbar handleSignOut={handleSignOut} />}
             <Routes>
                 <Route
                     path="/"
                     element={
                         isLoggedIn ? (
                             <div className="text-center mt-5">
-                                <h1>Welcome Back !</h1>
-                                <button className="btn btn-danger mt-3" onClick={goToDashboard}>
-                                    Start
-                                </button>
-                                <button
-                                    className="btn btn-danger mt-3"
-                                    onClick={handleSignOut}
-                                >
-                                    Sign Out
-                                </button>
+                                <h1>Welcome to our exercise website!</h1>
+                                <h1>On this site you can practice math questions at different levels of difficulty, earn points and improve each time.</h1>
+                                <h1>Every 10 points the difficulty level will increase.</h1>
+                                <h1>To Start go to Dashboard</h1>
                             </div>
                         ) : (
                             <div
@@ -87,19 +78,11 @@ function App() {
                 />
                 <Route
                     path="/Dashboard"
-                    element={
-                        isLoggedIn ? (
-                            <Dashboard />
-                        ) : (
-                            <div className="text-center mt-5">
-                                <h1>You need to login to access the Dashboard</h1>
-                            </div>
-                        )
-                    }
+                    element={isLoggedIn ? <Dashboard handleSignOut={handleSignOut} /> : <RedirectToLogin />}
                 />
                 <Route
                     path="/Profile"
-                    element={<Profile/>}
+                    element={isLoggedIn ? <Profile handleSignOut={handleSignOut} /> : <RedirectToLogin />}
                 />
             </Routes>
 
@@ -139,5 +122,11 @@ function App() {
         </Router>
     );
 }
+
+const RedirectToLogin = () => (
+    <div className="text-center mt-5">
+        <h1>You need to login to access this page</h1>
+    </div>
+);
 
 export default App;
