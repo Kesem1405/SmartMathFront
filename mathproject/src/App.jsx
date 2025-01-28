@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
@@ -9,14 +9,10 @@ import Dashboard from "./components/Dashboard";
 import Profile from './components/Profile';
 
 function App() {
-    const [isLogin, setIsLogin] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showAuthModal, setShowAuthModal] = useState(false);
-
-
-    const goToDashboard = () => {
-        navigate("/Dashboard"); // ניווט לדשבורד
-    };
+    const [authFormType, setAuthFormType] = useState("login"); // 'login' or 'register'
+    const navigate = useNavigate(); // useNavigate hook
 
     useEffect(() => {
         const token = localStorage.getItem("userToken");
@@ -25,12 +21,8 @@ function App() {
         }
     }, []);
 
-    const toggleForm = () => {
-        setIsLogin((prev) => !prev);
-    };
-
-    const handleAuthButtonClick = (isLoginForm) => {
-        setIsLogin(isLoginForm);
+    const handleAuthButtonClick = (formType) => {
+        setAuthFormType(formType);
         setShowAuthModal(true);
     };
 
@@ -41,43 +33,40 @@ function App() {
     const handleSignOut = () => {
         localStorage.removeItem("userToken");
         setIsLoggedIn(false);
+        navigate("/"); // Navigate to the home page
+    };
+
+    const goToDashboard = () => {
+        navigate("/dashboard"); // Navigate to the dashboard
     };
 
     return (
-        <Router>
+        <>
             <Routes>
                 <Route
                     path="/"
                     element={
                         isLoggedIn ? (
                             <div className="text-center mt-5">
-                                <h1>Welcome Back !</h1>
+                                <h1>Welcome Back!</h1>
+                                {/* Button to navigate to the dashboard */}
                                 <button className="btn btn-danger mt-3" onClick={goToDashboard}>
-                                    Start
+                                    Go to Dashboard
                                 </button>
-                                <button
-                                    className="btn btn-danger mt-3"
-                                    onClick={handleSignOut}
-                                >
+                                {/* Button to sign out */}
+                                <button className="btn btn-danger mt-3" onClick={handleSignOut}>
                                     Sign Out
                                 </button>
                             </div>
                         ) : (
-                            <div
-                                className="d-flex justify-content-center align-items-center"
-                                style={{ height: "100vh", backgroundPosition: "center" }}
-                            >
+                            <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
                                 <div className="user-register">
-                                    <button
-                                        className="btn btn-primary mx-2"
-                                        onClick={() => handleAuthButtonClick(true)}
-                                    >
+                                    {/* Button to open the login modal */}
+                                    <button className="btn btn-primary mx-2" onClick={() => handleAuthButtonClick("login")}>
                                         Login
                                     </button>
-                                    <button
-                                        className="btn btn-secondary mx-2"
-                                        onClick={() => handleAuthButtonClick(false)}
-                                    >
+                                    {/* Button to open the register modal */}
+                                    <button className="btn btn-secondary mx-2" onClick={() => handleAuthButtonClick("register")}>
                                         Register
                                     </button>
                                 </div>
@@ -86,27 +75,20 @@ function App() {
                     }
                 />
                 <Route
-                    path="/Dashboard"
-                    element={
-                        isLoggedIn ? (
-                            <Dashboard />
-                        ) : (
-                            <div className="text-center mt-5">
-                                <h1>You need to login to access the Dashboard</h1>
-                            </div>
-                        )
-                    }
+                    path="/dashboard"
+                    element={isLoggedIn ? <Dashboard handleSignOut={handleSignOut} /> : <Navigate to="/" />}
                 />
                 <Route
-                    path="/Profile"
-                    element={<Profile/>}
+                    path="/profile"
+                    element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
                 />
             </Routes>
 
+            {/* Modal for login/register */}
             <Modal show={showAuthModal} onHide={handleCloseAuthModal} centered>
                 <Modal.Header closeButton>
                     <Modal.Title className="text-primary">
-                        {isLogin ? "Sign In" : "Sign Up"}
+                        {authFormType === "login" ? "Sign In" : "Sign Up"}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -119,16 +101,16 @@ function App() {
                             width="100px"
                         />
                     </div>
-                    <div className={`form ${isLogin ? "sign-in" : "sign-up"}`}>
-                        {isLogin ? (
+                    <div className={`form ${authFormType === "login" ? "sign-in" : "sign-up"}`}>
+                        {authFormType === "login" ? (
                             <Login
-                                toggleForm={toggleForm}
+                                toggleForm={() => setAuthFormType("register")}
                                 setIsLoggedIn={setIsLoggedIn}
                                 closeModal={handleCloseAuthModal}
                             />
                         ) : (
                             <Register
-                                toggleForm={toggleForm}
+                                toggleForm={() => setAuthFormType("login")}
                                 setIsLoggedIn={setIsLoggedIn}
                                 closeModal={handleCloseAuthModal}
                             />
@@ -136,8 +118,17 @@ function App() {
                     </div>
                 </Modal.Body>
             </Modal>
+        </>
+    );
+}
+
+// Wrap App with Router
+function AppWrapper() {
+    return (
+        <Router>
+            <App />
         </Router>
     );
 }
 
-export default App;
+export default AppWrapper;
