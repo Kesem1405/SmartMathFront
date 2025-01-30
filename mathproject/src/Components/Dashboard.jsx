@@ -10,7 +10,7 @@ function Dashboard( handleSignOut ) {
     const [userAnswer, setUserAnswer] = useState("");
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
-    const [level] = useState("EASY");
+    const [difficulty] = useState("1");
     const [timer, setTimer] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [error, setError] = useState(null);
@@ -42,7 +42,7 @@ function Dashboard( handleSignOut ) {
             setError(null);
             setFeedback(null);
 
-            const response = await axios.get(`http://localhost:8080/question/generate/${level}`, {
+            const response = await axios.get(`http://localhost:8080/user/math/generate-question/${difficulty}`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -61,7 +61,7 @@ function Dashboard( handleSignOut ) {
 
     useEffect(() => {
         fetchQuestion();
-    }, [level]);
+    }, [difficulty]);
 
     const handleAnswerChange = (event) => {
         setUserAnswer(event.target.value);
@@ -105,7 +105,7 @@ function Dashboard( handleSignOut ) {
             <div className="dashboard-container">
                 <div className="card shadow-lg p-4">
                     <div className="d-flex justify-content-between">
-                        <p className="text-secondary mb-4">Current Difficulty: <strong>{level}</strong></p>
+                        <p className="text-secondary mb-4">Current Difficulty: <strong>{difficulty}</strong></p>
                     </div>
                     <h2 className="text-center mb-4">Math Questions</h2>
                     <p className="text-center text-secondary mb-4">Score: {score} | Streak: {streak} | Time: {timer}s</p>
