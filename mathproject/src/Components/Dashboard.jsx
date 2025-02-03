@@ -1,22 +1,31 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Add navigate for redirect
 import Navbar from "./Navbar";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure this is properly loaded
-import { Modal } from "react-bootstrap"; // For the feedback modal
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { Modal } from "react-bootstrap";
 
-function Dashboard( handleSignOut ) {
+function Dashboard() {
+    const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [userAnswer, setUserAnswer] = useState("");
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
-    const [difficulty] = useState("1");
+    const [difficulty, setDifficulty] = useState("1");
     const [timer, setTimer] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState(null);
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+    // Check if the user is logged in
+    useEffect(() => {
+        if (!localStorage.getItem("userToken")) {
+            navigate("/auth");
+        }
+    }, [navigate]);
 
     useEffect(() => {
         let interval;
@@ -28,27 +37,20 @@ function Dashboard( handleSignOut ) {
         return () => clearInterval(interval);
     }, [isTimerRunning]);
 
-    // Debugging log to check modal feedback state
-    useEffect(() => {
-        if (feedback) {
-            console.log("Feedback state updated: ", feedback); // Check if feedback is being set
-            setShowFeedbackModal(true); // Trigger modal when feedback is updated
-        }
-    }, [feedback]);
-
     const fetchQuestion = async () => {
         try {
             setLoading(true);
             setError(null);
             setFeedback(null);
 
-            const response = await axios.get(`http://localhost:8080/user/math/generate-question/${difficulty}`, {
+            const response = await axios.get(`http://localhost:8080/question/generate/${difficulty}`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
 
             setCurrentQuestion(response.data);
+            setDifficulty(response.data.difficulty);  // Update difficulty based on the response
             setTimer(0);
             setIsTimerRunning(true);
         } catch (err) {
@@ -84,19 +86,22 @@ function Dashboard( handleSignOut ) {
             setScore((prevScore) => prevScore + 1);
             setStreak((prevStreak) => prevStreak + 1);
             setFeedback("Correct! Well done.");
-            setShowFeedbackModal(true);
         } else {
             setStreak(0);
             setFeedback(`Incorrect! The correct answer was ${correctAnswer}.`);
-            setShowFeedbackModal(true);
         }
 
         setUserAnswer(""); // Clear the answer field
-        fetchQuestion();
+        fetchQuestion(); // Fetch the next question
     };
 
     const handleCloseModal = () => {
         setShowFeedbackModal(false);
+    };
+
+    const handleSignOut = () => {
+        localStorage.removeItem("userToken");
+        navigate("/auth"); // Redirect to login page after logout
     };
 
     return (
