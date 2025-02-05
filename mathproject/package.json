@@ -13,9 +13,11 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "compass-mixins": "^0.12.12",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.5",
     "sass": "^1.83.1"
   },
   "devDependencies": {

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types"; // ✅ Import PropTypes
 import axios from "axios";
 
-function Login({ toggleForm, setIsLoggedIn, closeModal }) {
+function Login({ toggleForm, onAuthSuccess }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -18,17 +19,14 @@ function Login({ toggleForm, setIsLoggedIn, closeModal }) {
             });
 
             if (response.status === 200) {
-                localStorage.setItem("userToken", response.data.token);
-                setIsLoggedIn(true); // Update login status
-                closeModal(); // Close the modal
+                localStorage.setItem("userToken", response.data.token); // Ensure 'token' is returned
+                onAuthSuccess(); // Redirect to dashboard
             }
         } catch (err) {
-            setError("Invalid email or password.");
+            setError(err.response?.data?.message || "Invalid email or password.");
             setIsSubmitting(false);
         }
     };
-
-    const isFormValid = email && password;
 
     return (
         <form onSubmit={handleLogin}>
@@ -52,16 +50,20 @@ function Login({ toggleForm, setIsLoggedIn, closeModal }) {
                     required
                 />
             </div>
-            {error && <div className="text-danger">{error}</div>}
-            <button
-                type="submit"
-                className="btn btn-primary w-100"
-                disabled={!isFormValid || isSubmitting}
-            >
+            {error && <div className="alert alert-danger">{error}</div>}
+            <button type="submit" className="btn btn-primary w-100" disabled={!email || !password || isSubmitting}>
                 {isSubmitting ? "Signing In..." : "Sign In"}
+            </button>
+            <button type="button" className="btn btn-link w-100 mt-2" onClick={toggleForm}>
+                Don&#39;t have an account? Sign Up
             </button>
         </form>
     );
 }
+
+Login.propTypes = {
+    toggleForm: PropTypes.func.isRequired,
+    onAuthSuccess: PropTypes.func.isRequired,
+};
 
 export default Login;
