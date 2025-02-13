@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import for navigation
 import Navbar from "./Navbar";
 import "./Profile.css";
 
 function Profile() {
     const [userData, setUserData] = useState({
-        name: "",
         email: "",
-        preferredLanguage: "English",
+        password: "",
     });
+    const [errorMessage, setErrorMessage] = useState(""); // For error messages
+    const navigate = useNavigate(); // Hook for routing
 
     useEffect(() => {
-        // כאן תוכל להוסיף קריאה ל-API או להביא את המידע מקובץ המקומי
         const storedUserData = {
-            email: "",
-            password: "",
+            email: userData.email,
+            password: userData.password,
         };
 
         setUserData(storedUserData);
@@ -27,8 +28,27 @@ function Profile() {
         }));
     };
 
-    const saveChanges = () => {
-        console.log("Changes saved:", userData);
+    const saveChanges = async () => {
+        setErrorMessage(""); // Clear previous error message
+        try {
+            const response = await fetch("http://localhost:8080/user/update-profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (response.ok) {
+                navigate("/dashboard");
+            } else {
+                const errorData = await response.json();
+                setErrorMessage(errorData.message || "An error occurred while saving changes.");
+            }
+        } catch (error) {
+            // Handle fetch error
+            setErrorMessage("Failed to save changes. Please try again later.");
+        }
     };
 
     return (
@@ -48,17 +68,18 @@ function Profile() {
                     <div>
                         <label>Password:</label>
                         <input
-                            type="Password"
-                            name="Password"
-                            value={userData.Password}
+                            type="password"
+                            name="password"
+                            value={userData.password}
                             onChange={handleChange}
                         />
                     </div>
                     <button onClick={saveChanges}>Save changes</button>
                 </div>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
         </div>
     );
-};
+}
 
 export default Profile;
