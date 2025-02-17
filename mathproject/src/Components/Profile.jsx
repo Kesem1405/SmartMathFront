@@ -1,9 +1,12 @@
+import  { useState, useEffect } from "react";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import for navigation
 import Navbar from "./Navbar";
 import "./Profile.css";
+import { useNavigate } from "react-router-dom"; // Add navigate for redirect
+
 
 function Profile() {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: "",
         password: "",
@@ -17,6 +20,7 @@ function Profile() {
             password: userData.password,
         };
 
+
         setUserData(storedUserData);
     }, []);
 
@@ -28,6 +32,7 @@ function Profile() {
         }));
     };
 
+ 
     const saveChanges = async () => {
         setErrorMessage(""); // Clear previous error message
         try {
