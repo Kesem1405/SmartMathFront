@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Add navigate for redirect
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,20 +11,22 @@ function Dashboard() {
     const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [userAnswer, setUserAnswer] = useState("");
-    const [score, setScore] = useState(0);
-    const [streak, setStreak] = useState(0);
-    const [difficulty, setDifficulty] = useState("1");
+    const [score, setScore] = useState(() => parseInt(localStorage.getItem("score")) || 0);
+    const [streak, setStreak] = useState(() => parseInt(localStorage.getItem("streak")) || 0);
+    const [difficulty, setDifficulty] = useState("EASY");
     const [timer, setTimer] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [feedback, setFeedback] = useState(null);
+    const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+    const [animationClass, setAnimationClass] = useState("");
 
-    // Check if the user is logged in
     useEffect(() => {
         if (!localStorage.getItem("userToken")) {
             navigate("/auth");
+        } else {
+            fetchQuestion();
         }
     }, [navigate]);
 
@@ -42,7 +44,6 @@ function Dashboard() {
         try {
             setLoading(true);
             setError(null);
-            setFeedback(null);
 
             const response = await axios.get(`http://localhost:8080/question/generate/${difficulty}`, {
                 headers: {
@@ -51,7 +52,6 @@ function Dashboard() {
             });
 
             setCurrentQuestion(response.data);
-            setDifficulty(response.data.difficulty);  // Update difficulty based on the response
             setTimer(0);
             setIsTimerRunning(true);
         } catch (err) {
@@ -62,10 +62,6 @@ function Dashboard() {
         }
     };
 
-    useEffect(() => {
-        fetchQuestion();
-    }, [difficulty]);
-
     const handleAnswerChange = (event) => {
         setUserAnswer(event.target.value);
     };
@@ -73,9 +69,7 @@ function Dashboard() {
     const handleSubmitAnswer = () => {
         setIsTimerRunning(false);
 
-        if (!currentQuestion) return;
-
-        if (!userAnswer.trim()) {
+        if (!currentQuestion || !userAnswer.trim()) {
             setFeedback("Please enter an answer before submitting.");
             return;
         }
@@ -84,42 +78,71 @@ function Dashboard() {
         const userAnswerNumber = parseInt(userAnswer, 10);
 
         if (userAnswerNumber === correctAnswer) {
-            setScore((prevScore) => prevScore + 1);
-            setStreak((prevStreak) => prevStreak + 1);
             setFeedback("Correct! Well done.");
+            setAnimationClass("correct-animation");
+            const newScore = score + 1;
+            const newStreak = streak + 1;
+
+            setScore(newScore);
+            setStreak(newStreak);
+            localStorage.setItem("score", newScore);
+            localStorage.setItem("streak", newStreak);
+
+            // Update difficulty based on streak
+            if (newStreak >= 3) {
+                let newDifficulty;
+                switch (difficulty) {
+                    case "EASY":
+                        newDifficulty = "MEDIUM";
+                        break;
+                    case "MEDIUM":
+                        newDifficulty = "HARD";
+                        break;
+                    default:
+                        newDifficulty = difficulty; // Stay at HARD if already at the highest level
+                        break;
+                }
+
+                setFeedback(`Congratulations! You've leveled up to ${newDifficulty}.`);
+                setDifficulty(newDifficulty);
+            }
         } else {
-            setStreak(0);
             setFeedback(`Incorrect! The correct answer was ${correctAnswer}.`);
+            setAnimationClass("incorrect-animation");
+            setStreak(0);
+            localStorage.setItem("streak", 0);
         }
 
-        setUserAnswer(""); // Clear the answer field
-        fetchQuestion(); // Fetch the next question
+        setUserAnswer("");
+        setShowFeedbackModal(true);
+        fetchQuestion(); // Fetch a new question with the updated difficulty
     };
 
     const handleCloseModal = () => {
         setShowFeedbackModal(false);
+        setAnimationClass("");
     };
 
     const handleSignOut = () => {
         localStorage.removeItem("userToken");
-        navigate("/auth"); // Redirect to login page after logout
+        localStorage.removeItem("score");
+        localStorage.removeItem("streak");
+        navigate("/auth");
     };
 
     return (
         <div>
             <Navbar handleSignOut={handleSignOut} />
             <div className="dashboard-container">
-                <div className="card shadow-lg p-4">
-                    <div className="d-flex justify-content-between">
-                        <p className="text-secondary mb-4">Current Difficulty: <strong>{difficulty}</strong></p>
-                    </div>
-                    <h2 className="text-center mb-4">Math Questions</h2>
-                    <p className="text-center text-secondary mb-4">Score: {score} | Streak: {streak} | Time: {timer}s</p>
+                <div className={`card ${animationClass}`}>
+                    <p className="text-secondary text-center mb-2">Current Difficulty: <strong>{difficulty}</strong></p>
+                    <h2 className="text-center mb-3">Math Questions</h2>
+                    <p className="text-center text-secondary mb-3">Score: {score} | Streak: {streak} | Time: {timer}s</p>
                     {loading && <div className="text-center">Loading question...</div>}
                     {error && <div className="text-danger text-center">Error: {error}</div>}
                     {currentQuestion && (
                         <div>
-                            <h4 className="text-center mb-3" style={{ fontSize: "1.75rem" }}>{currentQuestion.question}</h4>
+                            <h4 className="text-center mb-3">{currentQuestion.question}</h4>
                             <div className="input-group my-3">
                                 <input
                                     type="text"
@@ -132,17 +155,10 @@ function Dashboard() {
                                     Submit
                                 </button>
                             </div>
-                            {feedback && (
-                                <div className={`text-center mt-3 ${feedback.includes("Correct") ? "text-success" : "text-danger"}`}>
-                                    {feedback}
-                                </div>
-                            )}
                         </div>
                     )}
                 </div>
             </div>
-
-            {/* Modal for feedback */}
             <Modal show={showFeedbackModal} onHide={handleCloseModal} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Answer Feedback</Modal.Title>
