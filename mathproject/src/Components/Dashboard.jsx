@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import '../App.css';
 import { Modal } from "react-bootstrap";
+import Notebook from "./Notebook.jsx"; // Import the Notebook component
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -20,7 +21,6 @@ function Dashboard() {
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-    const [animationClass, setAnimationClass] = useState("");
 
     useEffect(() => {
         if (!localStorage.getItem("userToken")) {
@@ -52,6 +52,7 @@ function Dashboard() {
             });
 
             setCurrentQuestion(response.data);
+            setDifficulty(response.data.difficulty);
             setTimer(0);
             setIsTimerRunning(true);
         } catch (err) {
@@ -79,7 +80,6 @@ function Dashboard() {
 
         if (userAnswerNumber === correctAnswer) {
             setFeedback("Correct! Well done.");
-            setAnimationClass("correct-animation");
             const newScore = score + 1;
             const newStreak = streak + 1;
 
@@ -102,25 +102,21 @@ function Dashboard() {
                         newDifficulty = difficulty; // Stay at HARD if already at the highest level
                         break;
                 }
-
-                setFeedback(`Congratulations! You've leveled up to ${newDifficulty}.`);
                 setDifficulty(newDifficulty);
             }
         } else {
             setFeedback(`Incorrect! The correct answer was ${correctAnswer}.`);
-            setAnimationClass("incorrect-animation");
             setStreak(0);
             localStorage.setItem("streak", 0);
         }
 
         setUserAnswer("");
         setShowFeedbackModal(true);
-        fetchQuestion(); // Fetch a new question with the updated difficulty
+        fetchQuestion();  // Continue fetching question even if the answer is incorrect
     };
 
     const handleCloseModal = () => {
         setShowFeedbackModal(false);
-        setAnimationClass("");
     };
 
     const handleSignOut = () => {
@@ -130,33 +126,50 @@ function Dashboard() {
         navigate("/auth");
     };
 
+    const handleClearNotebook = () => {
+        // This function is called when the notebook is cleared
+        console.log("Notebook cleared");
+    };
+
     return (
         <div>
             <Navbar handleSignOut={handleSignOut} />
             <div className="dashboard-container">
-                <div className={`card ${animationClass}`}>
-                    <p className="text-secondary text-center mb-2">Current Difficulty: <strong>{difficulty}</strong></p>
-                    <h2 className="text-center mb-3">Math Questions</h2>
-                    <p className="text-center text-secondary mb-3">Score: {score} | Streak: {streak} | Time: {timer}s</p>
-                    {loading && <div className="text-center">Loading question...</div>}
-                    {error && <div className="text-danger text-center">Error: {error}</div>}
-                    {currentQuestion && (
-                        <div>
-                            <h4 className="text-center mb-3">{currentQuestion.question}</h4>
-                            <div className="input-group my-3">
-                                <input
-                                    type="text"
-                                    value={userAnswer}
-                                    onChange={handleAnswerChange}
-                                    className="form-control"
-                                    placeholder="Enter your answer"
-                                />
-                                <button onClick={handleSubmitAnswer} className="btn btn-primary">
-                                    Submit
-                                </button>
-                            </div>
+                <div className="row">
+                    <div className="col-md-8">
+                        <div className="card shadow-lg p-4">
+                            <p className="text-secondary text-center mb-2">Current Difficulty: <strong>{difficulty}</strong></p>
+                            <h2 className="text-center mb-3">Math Questions</h2>
+                            <p className="text-center text-secondary mb-3">Score: {score} | Streak: {streak} | Time: {timer}s</p>
+                            {loading && <div className="text-center">Loading question...</div>}
+                            {error && <div className="text-danger text-center">Error: {error}</div>}
+                            {currentQuestion && (
+                                <div>
+                                    <h4 className="text-center mb-3">{currentQuestion.question}</h4>
+                                    <div className="input-group my-3">
+                                        <input
+                                            type="text"
+                                            value={userAnswer}
+                                            onChange={handleAnswerChange}
+                                            className="form-control"
+                                            placeholder="Enter your answer"
+                                        />
+                                        <button onClick={handleSubmitAnswer} className="btn btn-primary">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    {feedback && (
+                                        <div className={`text-center mt-3 ${feedback.includes("Correct") ? "text-success" : "text-danger"}`}>
+                                            {feedback}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
-                    )}
+                    </div>
+                    <div className="col-md-4">
+                        <Notebook onClear={handleClearNotebook} />
+                    </div>
                 </div>
             </div>
             <Modal show={showFeedbackModal} onHide={handleCloseModal} centered>
