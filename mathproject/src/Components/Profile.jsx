@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import  { useState, useEffect } from "react";
 import "./Profile.css";
+import { useNavigate } from "react-router-dom"; // Add navigate for redirect
+
 
 function Profile() {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         name: "",
         email: "",
@@ -29,6 +31,8 @@ function Profile() {
 
     const saveChanges = () => {
         console.log("Changes saved:", userData);
+        alert("Changes saved successfully!");
+        navigate("/dashboard");
     };
 
     return (

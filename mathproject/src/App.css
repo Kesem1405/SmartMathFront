@@ -62,6 +62,12 @@ body {
   width: 100vh;
 }
 
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
 .card {
   max-width: 600px;
   width: 100%;
