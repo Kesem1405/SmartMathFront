@@ -11,15 +11,17 @@ function AuthPage() {
     useEffect(() => {
         if (localStorage.getItem("userToken")) {
             navigate("/dashboard"); // Redirect if already logged in
-        }
+        }else{  navigate("/auth");}
     }, [navigate]);
 
-    useEffect(() => {
-        const token = localStorage.getItem("userToken");
-        if (!token) {
-            navigate("/auth");
-        }
-    }, [navigate]);
+    //קוד כפול
+    //
+    // useEffect(() => {
+    //     const token = localStorage.getItem("userToken");
+    //     if (!token) {
+    //         navigate("/auth");
+    //     }
+    // }, [navigate]);
 
     const handleAuthSuccess = () => {
         navigate("/dashboard"); // Redirect after login/register

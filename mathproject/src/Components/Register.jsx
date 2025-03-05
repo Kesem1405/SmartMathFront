@@ -16,15 +16,20 @@ function Register() {
     });
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
     const validatePassword = (pwd) => {
-        setPasswordCriteria({
+        const criteria = {
             minLength: pwd.length >= 8,
             specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(pwd),
             capitalLetter: /[A-Z]/.test(pwd),
-        });
-    };
+        };
+        setPasswordCriteria(criteria);
 
+        if (!criteria.minLength || !criteria.specialChar || !criteria.capitalLetter) {
+            setError("Password must be at least 8 characters, contain a capital letter, and a special character.");
+        } else {
+            setError("");
+        }
+    };
     const handlePasswordChange = (e) => {
         const pwd = e.target.value;
         setPassword(pwd);
@@ -36,15 +41,7 @@ function Register() {
         setIsSubmitting(true);
         setError("");
 
-        // Ensure email and password criteria are valid
-        if (!emailRegex.test(email)) {
-            setError("Invalid email format.");
-            setIsSubmitting(false);
-            return;
-        }
-
-        if (!passwordCriteria.minLength || !passwordCriteria.specialChar || !passwordCriteria.capitalLetter) {
-            setError("Password must be at least 8 characters long, contain a capital letter, and a special character.");
+        if (!isFormValid()) {
             setIsSubmitting(false);
             return;
         }
@@ -67,7 +64,26 @@ function Register() {
     };
 
 
+    const isFormValid = () => {
+        return (
+            !isSubmitting &&
+            emailRegex.test(email) &&
+            passwordCriteria.minLength &&
+            passwordCriteria.specialChar &&
+            passwordCriteria.capitalLetter
+        );
+    };
 
+    const handleEmailChange = (e) => {
+        const newEmail = e.target.value;
+        setEmail(newEmail);
+
+        if (!emailRegex.test(newEmail)) {
+            setError("Invalid email format.");
+        } else {
+            setError(""); // נקה את השגיאה אם הכל תקין
+        }
+    };
 
     return (
         <div className="container mt-5">
@@ -79,7 +95,7 @@ function Register() {
                         className="form-control"
                         placeholder="Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                         required
                     />
                 </div>
@@ -111,17 +127,12 @@ function Register() {
                 <button
                     type="submit"
                     className="btn btn-primary w-100"
-                    disabled={isSubmitting}
+                    disabled={!isFormValid()}
                 >
                     {isSubmitting ? "Signing Up..." : "Sign Up"}
                 </button>
             </form>
-            <p className="mt-3">
-                Already have an account?{" "}
-                <a href="/login" className="text-primary">
-                    Sign In
-                </a>
-            </p>
+
         </div>
     );
 }
