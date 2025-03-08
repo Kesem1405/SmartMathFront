@@ -48,18 +48,37 @@ function Register() {
 
         try {
             const response = await axios.post("http://localhost:8080/user/register", {
-                email,  // Send email and password in the request body
+                email,
                 password
             });
 
-            if (response.status === 201) {
-                localStorage.setItem("userToken", response.data.token); // Store the token
-                navigate("/dashboard", { replace: true }); // Make sure to use 'replace: true' to prevent going back to register
+            const data = response.data;
+
+            if (data.success && data.token) {
+                localStorage.setItem("userToken", data.token);
+                navigate("/dashboard", { replace: true });
+            } else {
+                setError(getErrorMessage(data.errorCode));
             }
         } catch (err) {
             setError(err.response?.data || "An error occurred. Please try again.");
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const getErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 101:
+                return "This email is already in use.";
+            case 102:
+                return "Invalid email format.";
+            case 103:
+                return "Password must be at least 8 characters long, contain a capital letter, and a special character.";
+            case -1:
+                return "Please fill in all fields.";
+            default:
+                return "An unexpected error occurred.";
         }
     };
 

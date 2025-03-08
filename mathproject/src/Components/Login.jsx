@@ -18,13 +18,30 @@ function Login({ toggleForm, onAuthSuccess }) {
                 params: { email, password }
             });
 
-            if (response.status === 200) {
-                localStorage.setItem("userToken", response.data.token); // Ensure 'token' is returned
-                onAuthSuccess(); // Redirect to dashboard
+            const { status, data } = response;
+
+            if (status === 200 && data.success && data.token) {
+                localStorage.setItem("userToken", data.token);
+                onAuthSuccess();
+            } else {
+                setError(getErrorMessage(data.errorCode));
             }
+
         } catch (err) {
-            setError(err.response?.data?.message || "Invalid email or password.");
+            setError(err.response?.data || "Invalid email or password.");
+        } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const getErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 104:
+                return "User does not exist. Please check your email and password.";
+            case -1:
+                return "Please fill in all required fields.";
+            default:
+                return "An unexpected error occurred. Please try again.";
         }
     };
 
