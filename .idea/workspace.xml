@@ -19,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JSX File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -104,7 +105,11 @@
       <workItem from="1739824161791" duration="299000" />
       <workItem from="1741109194156" duration="236000" />
       <workItem from="1741164773432" duration="5862000" />
-      <workItem from="1741468151918" duration="3880000" />
+      <workItem from="1741468151918" duration="7714000" />
+      <workItem from="1741542693182" duration="1125000" />
+      <workItem from="1741806222007" duration="1864000" />
+      <workItem from="1741874395042" duration="3304000" />
+      <workItem from="1742058599143" duration="1752000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -154,7 +159,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1741215448707</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL‎-00007" summary="Update">
+      <option name="closed" value="true" />
+      <created>1741476653386</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL‎-00007" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1741476653386</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

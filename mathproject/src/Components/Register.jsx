@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {SERVER_URL} from "./Constants.js";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -47,41 +48,24 @@ function Register() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/user/register", {
-                email,
-                password
-            });
+            const userDto = { email, password };
+            const response = await axios.post(SERVER_URL +"/api/user/register",
+                userDto);
 
             const data = response.data;
 
-            if (data.success && data.token) {
+            if (data.success) {
                 localStorage.setItem("userToken", data.token);
                 navigate("/dashboard", { replace: true });
             } else {
-                setError(getErrorMessage(data.errorCode));
+                setError(data.message);
             }
         } catch (err) {
-            setError(err.response?.data || "An error occurred. Please try again.");
+            setError(err.response?.data?.message || "An error occurred. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
-
-    const getErrorMessage = (errorCode) => {
-        switch (errorCode) {
-            case 101:
-                return "This email is already in use.";
-            case 102:
-                return "Invalid email format.";
-            case 103:
-                return "Password must be at least 8 characters long, contain a capital letter, and a special character.";
-            case -1:
-                return "Please fill in all fields.";
-            default:
-                return "An unexpected error occurred.";
-        }
-    };
-
 
     const isFormValid = () => {
         return (
@@ -100,7 +84,7 @@ function Register() {
         if (!emailRegex.test(newEmail)) {
             setError("Invalid email format.");
         } else {
-            setError(""); // נקה את השגיאה אם הכל תקין
+            setError("");
         }
     };
 
