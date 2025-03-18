@@ -44,13 +44,15 @@ function Dashboard() {
         try {
             setLoading(true);
             setError(null);
-
-            const response = await axios.get(`http://localhost:8080/question/generate/${difficulty}`, {
+    
+            const token = localStorage.getItem("userToken");
+    
+            const response = await axios.get(`http://localhost:8080/api/question/generate?token=${token}`, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
             });
-
+    
             setCurrentQuestion(response.data);
             setDifficulty(response.data.difficulty);
             setTimer(0);
@@ -75,7 +77,7 @@ function Dashboard() {
             return;
         }
 
-        const correctAnswer = parseInt(currentQuestion.answer, 10);
+        const correctAnswer = parseInt(currentQuestion.correctAnswer, 10);
         const userAnswerNumber = parseInt(userAnswer, 10);
 
         if (userAnswerNumber === correctAnswer) {
@@ -138,14 +140,15 @@ function Dashboard() {
                 <div className="row">
                     <div className="col-md-8">
                         <div className="card shadow-lg p-4">
-                            <p className="text-secondary text-center mb-2">Current Difficulty: <strong>{difficulty}</strong></p>
+                            <p className="text-
+                            .secondary text-center mb-2">Current Difficulty: <strong>{difficulty}</strong></p>
                             <h2 className="text-center mb-3">Math Questions</h2>
                             <p className="text-center text-secondary mb-3">Score: {score} | Streak: {streak} | Time: {timer}s</p>
                             {loading && <div className="text-center">Loading question...</div>}
                             {error && <div className="text-danger text-center">Error: {error}</div>}
                             {currentQuestion && (
                                 <div>
-                                    <h4 className="text-center mb-3">{currentQuestion.question}</h4>
+                                    <h4 className="text-center mb-3">{currentQuestion.context}</h4>
                                     <div className="input-group my-3">
                                         <input
                                             type="text"
