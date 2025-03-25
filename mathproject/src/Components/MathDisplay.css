@@ -1,0 +1,28 @@
+.math-display {
+    font-family: "Times New Roman", serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    direction: ltr;
+    white-space: nowrap;
+}
+
+.math-error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+    font-family: monospace;
+}
+
+@media (max-width: 768px) {
+    .math-display {
+        font-size: 1.2rem;
+        overflow-x: auto;
+        padding: 0.5rem;
+    }
+}

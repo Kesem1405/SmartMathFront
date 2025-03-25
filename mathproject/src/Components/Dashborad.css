@@ -1,0 +1,70 @@
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px; /* רוחב הסרגל הצד */
+    display: flex;
+    flex-direction: column;
+}
+
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.question-container {
+    flex: 2;
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* שאר העיצובים נשארים כמו קודם */
+
+@media (max-width: 992px) {
+    .content-area {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .question-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 60px; /* רוחב סרגל צד מצומצם */
+    }
+}
+/* בערך בשורה 100 בקובץ ה-CSS, אחרי שאר הכללים */
+.question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.answer-input {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* עיצוב לטקסט מתמטי */
+.katex {
+    font-size: 1.4rem !important;
+    direction: ltr;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .katex {
+        font-size: 1.1rem !important;
+    }
+}
