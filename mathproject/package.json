@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/x-data-grid": "^7.28.1",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "compass-mixins": "^0.12.12",

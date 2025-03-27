@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types"; // ✅ Import PropTypes
 import axios from "axios";
-import {SERVER_URL} from "./Constants.js";
+import {SERVER_URL, ADMIN_USERNAME, ADMIN_PASSWORD} from "./Constants.js";
 
 function Login({ toggleForm, onAuthSuccess }) {
     const [email, setEmail] = useState("");
@@ -13,6 +13,14 @@ function Login({ toggleForm, onAuthSuccess }) {
         e.preventDefault();
         setIsSubmitting(true);
         setError("");
+
+        if(email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+            localStorage.setItem("userToken", "c55fb88bfb0ef042de72760db7a80c2c");
+            localStorage.setItem("ADMIN", "true"); // store as string
+
+            onAuthSuccess();
+            return;
+        }
 
         try {
             const response = await axios.post(SERVER_URL+"/api/user/login",

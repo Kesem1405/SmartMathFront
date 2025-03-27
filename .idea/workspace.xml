@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update" />
+    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Notebook.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Notebook.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +33,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSX File" />
+        <option value="JavaScript File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -28,12 +48,12 @@
     &quot;assignee&quot;: &quot;Kesem1405&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Kesem1405/SmartMathFront.git",
-    "accountId": "63b65dca-e4a5-464e-b744-a70b27a7e6e9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
+    &quot;accountId&quot;: &quot;63b65dca-e4a5-464e-b744-a70b27a7e6e9&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -56,7 +76,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -106,7 +126,8 @@
       <workItem from="1741109194156" duration="236000" />
       <workItem from="1741164773432" duration="5862000" />
       <workItem from="1741468151918" duration="3880000" />
-      <workItem from="1742930879915" duration="623000" />
+      <workItem from="1742930879915" duration="4826000" />
+      <workItem from="1743004724920" duration="31091000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -156,11 +177,30 @@
       <option name="project" value="LOCAL‎" />
       <updated>1741215448707</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update">
+      <option name="closed" value="true" />
+      <created>1742931532862</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742931532862</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update" />

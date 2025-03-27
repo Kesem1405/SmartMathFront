@@ -52,7 +52,7 @@ function MathDisplay({ expression }) {
 
     try {
         const formatted = cleanEquation(expression);
-        return <div className="math-display">{formatted}</div>;
+        return <div className="math-display">{formatted} = ?</div>;
     } catch (error) {
         console.error('Error formatting equation:', error);
         return <div className="math-error">{expression}</div>;

@@ -8,6 +8,8 @@ function AuthPage() {
     const [authFormType, setAuthFormType] = useState("login"); // 'login' or 'register'
     const navigate = useNavigate();
 
+
+
     useEffect(() => {
         if (localStorage.getItem("userToken")) {
             navigate("/dashboard"); // Redirect if already logged in

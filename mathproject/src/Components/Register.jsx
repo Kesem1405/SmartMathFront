@@ -6,6 +6,9 @@ import {SERVER_URL} from "./Constants.js";
 function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
@@ -37,6 +40,16 @@ function Register() {
         validatePassword(pwd);
     };
 
+    const handleFirstNameChange = (e) => {
+        const fn = e.target.value;
+        setFirstName(fn);
+    };
+
+    const handleLastNameChange = (e) => {
+        const ln = e.target.value;
+        setLastName(ln);
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -48,7 +61,7 @@ function Register() {
         }
 
         try {
-            const userDto = { email, password };
+            const userDto = { email, password, firstName, lastName };
             const response = await axios.post(SERVER_URL +"/api/user/register",
                 userDto);
 
@@ -113,16 +126,37 @@ function Register() {
                         required
                     />
                     <div className="passwordCriteria mt-2">
-                        <p style={{ color: passwordCriteria.minLength ? "green" : "red" }}>
+                        <p style={{color: passwordCriteria.minLength ? "green" : "red"}}>
                             Minimum 8 characters {passwordCriteria.minLength ? "✔️" : "❌"}
                         </p>
-                        <p style={{ color: passwordCriteria.specialChar ? "green" : "red" }}>
+                        <p style={{color: passwordCriteria.specialChar ? "green" : "red"}}>
                             Special character {passwordCriteria.specialChar ? "✔️" : "❌"}
                         </p>
-                        <p style={{ color: passwordCriteria.capitalLetter ? "green" : "red" }}>
+                        <p style={{color: passwordCriteria.capitalLetter ? "green" : "red"}}>
                             Capital letter {passwordCriteria.capitalLetter ? "✔️" : "❌"}
                         </p>
                     </div>
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="שם פרטי"
+                            value={firstName}
+                            onChange={handleFirstNameChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="שם משפחה"
+                            value={lastName}
+                            onChange={handleLastNameChange}
+                            required
+                        />
+                    </div>
+
                 </div>
 
                 {error && <div className="alert alert-danger">{error}</div>}

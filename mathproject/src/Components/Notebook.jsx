@@ -14,12 +14,12 @@ function Notebook({ onClear }) {
 
     return (
         <div className="notebook-container">
-            <h4 className="text-center mb-3">Notebook</h4>
+            <h4 className="text-center mb-3">מחברת עזר</h4>
             <textarea
                 className="notebook"
                 value={notes}
                 onChange={handleChange}
-                placeholder="Write your solution here..."
+                placeholder="מחברת טיוטה - היעזר בי לפתירת התרגילים "
                 rows={10}
                 style={{
                     width: "100%",
@@ -34,8 +34,7 @@ function Notebook({ onClear }) {
                     resize: "none", // Prevent resizing
                 }}
             />
-            <button onClick={handleClear} className="btn btn-secondary mt-3">
-                Clear Notebook
+            <button onClick={handleClear} className="btn btn-secondary mt-3">ניקוי מחברת  🗑
             </button>
         </div>
     );

@@ -6,8 +6,9 @@ import Notebook from "./Notebook";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "mathproject/src/Dashborad.css";
+import "./Dashborad.css";
 import MathDisplay from "./MathDisplay.jsx";
+
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -99,29 +100,31 @@ function Dashboard() {
 
                 <div className="content-area">
                     <div className="question-container">
-                        <div className="stats-bar">
-                            <span>ניקוד: {score}</span>
-                            <span>רצף: {streak}</span>
-                            <span>זמן: {timer} שניות</span>
-                        </div>
-
                         {loading && <div className="loading-spinner"></div>}
                         {error && <div className="error-alert">{error}</div>}
-
                         {currentQuestion && (
                             <>
-                                <MathDisplay expression={currentQuestion.context} />
-                                <div className="answer-input">
-                                    <input
-                                        type="number"
-                                        value={userAnswer}
-                                        onChange={(e) => setUserAnswer(e.target.value)}
-                                        placeholder="הכנס תשובה"
-                                    />
-                                    <button onClick={handleSubmitAnswer}>שלח</button>
-                                </div>
+                                <MathDisplay expression={currentQuestion.context}/>
                             </>
                         )}
+                    </div>
+
+                    <div className="stats-and-button-container">
+                        <div className="stats-bar">
+                            <div> ✅ : {score} </div>
+                            <div> רצף : {streak} </div>
+                            <div> ⏱️ : {timer} שניות</div>
+                        </div>
+
+                        <div className="answer-input">
+                            <input
+                                type="number"
+                                value={userAnswer}
+                                onChange={(e) => setUserAnswer(e.target.value)}
+                                placeholder="הכנס תשובה"
+                            />
+                            <button className="submit-button" onClick={handleSubmitAnswer}>שלח</button>
+                        </div>
                     </div>
 
                     <Notebook/>

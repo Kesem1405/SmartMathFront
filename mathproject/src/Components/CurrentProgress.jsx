@@ -1,6 +1,6 @@
-import React from 'react';
+import 'react';
 import { FaCalculator, FaTrophy, FaChartLine } from 'react-icons/fa';
-import 'mathproject/src/CurrentProgress.css';
+import './CurrentProgress.css';
 
 function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
     const difficultyLevels = {
@@ -21,14 +21,14 @@ function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
             <div className="progress-section">
                 <div className="difficulty-info">
                     <FaChartLine className="me-2" />
-                    <span>נושא: {topic}</span>
+                    <span>{topic} : נושא </span>
                 </div>
 
                 <div className="progress-display">
                     <div className="progress-labels">
-                        <span>רמת קושי:</span>
                         <span className="difficulty-label">{currentLevel.label}</span>
-                        {difficulty === 'HARD' && <FaTrophy className="trophy-icon" />}
+                        {difficulty === 'HARD' && <FaTrophy className="trophy-icon"/>}
+                        <span> : רמת קושי</span>
                     </div>
 
                     <div className="progress-bar-container">

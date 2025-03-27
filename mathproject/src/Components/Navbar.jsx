@@ -1,31 +1,46 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css"; // Import the updated CSS file
 
 const Navbar = ({ handleSignOut }) => {
     const navigate = useNavigate();
-
+    const [isAdmin, setIsAdmin] = useState(false);
     const signOutAndRedirect = () => {
         handleSignOut();
-        navigate("/"); // ניתוב לעמוד הראשי אחרי התנתקות
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("ADMIN");
+        navigate("/"); // Redirect to home after sign out
     };
 
+    useEffect(() => {
+        const isAdmin = localStorage.getItem("ADMIN");
+        if (isAdmin === "true") {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+        }
+    }, []);
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container">
-                <Link className="navbar-brand" to="/Dashboard">Dashboard</Link>
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/Profile">Profile</Link>
-                        </li>
-                        <li className="nav-item">
-                            <button className="btn btn-outline-danger nav-link" onClick={signOutAndRedirect}>
-                                Sign Out
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <nav className="emoji-navbar">
+            <ol>
+                <li className="menu-item">
+                    <Link to="/Dashboard"> מסך הבית</Link>
+                </li>
+                <li className="menu-item">
+                    <Link to="/Profile"> פרופיל</Link>
+                </li>
+                {isAdmin ? (
+                <li className="menu-item">
+                    <Link to="/AdminPanel"> מנהל</Link>
+                </li>
+                ) : (<p></p>) }
+                <li className="menu-item">
+                    <button className="button" onClick={signOutAndRedirect}>
+                        🚪 התנתק
+                    </button>
+                </li>
+            </ol>
         </nav>
     );
 };
