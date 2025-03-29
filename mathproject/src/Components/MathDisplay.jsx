@@ -1,50 +1,52 @@
-import React from 'react';
+import  { useEffect, useState } from 'react';
 import './MathDisplay.css';
 
-function MathDisplay({ expression }) {
+function MathDisplay({ expression, triggerAnimation }) {
+    const [animationKey, setAnimationKey] = useState(0);
+
+    useEffect(() => {
+        // Reset animation when triggerAnimation changes
+        setAnimationKey(prevKey => prevKey + 1);
+    }, [triggerAnimation]);
+
     const cleanEquation = (expr) => {
-        // שלב 0: בדיקת קלט בסיסית
         if (!expr || typeof expr !== 'string') {
             return 'Invalid expression';
         }
 
         let cleaned = expr
-            .replace(/\\[a-z⋅˚]+/g, '') // מסיר תווים מיוחדים
-            .replace(/\s+/g, ' ') // משאיר רווח בודד בין איברים
-            .replace(/·/g, '*'); // ממיר נקודת כפל לכוכבית
+            .replace(/\s+/g, ' ')
+            .replace(/·/g, '×')
+            .replace(/\*/g, '×')
+            .replace(/\//g, '÷')
+            .replace(/([+\-×÷=()])/g, ' $1 ');
 
-        // שלב 1: ניקוי אופרטורים רצופים
         cleaned = cleaned
             .replace(/\+\-/g, '-')
             .replace(/\-\+/g, '-')
             .replace(/\+\+/g, '+')
-            .replace(/\-\-/g, '+');
+            .replace(/\-\-/g, '+')
+            .replace(/\s+/g, ' ')
+            .trim();
 
-        // שלב 2: הסרת סוגריים מיותרים תוך שמירה על סדר פעולות
         const removeRedundantParentheses = (str) => {
             let result = str;
             let previous;
-
             do {
                 previous = result;
-                // מסיר סוגריים סביב מונח בודד שאינו דורש סדר פעולות
-                result = result.replace(/\((-?\d+[a-zA-Z]?)\)/g, '$1');
-                // מסיר סוגריים כפולים מיותרים
-                result = result.replace(/\(\(([^()]+)\)\)/g, '($1)');
+                result = result.replace(/^\((.*)\)$/g, '$1');
+                result = result.replace(/\((\d+)\)/g, '$1');
             } while (result !== previous);
-
             return result;
         };
 
         cleaned = removeRedundantParentheses(cleaned);
 
-        // שלב 3: עיצוב סופי
         cleaned = cleaned
-            .replace(/\*/g, '') // מסיר כוכביות כפל
-            .replace(/x/gi, 'X') // ממיר x ל-X גדול
-            // מוסיף רווחים סביב אופרטורים וסוגריים
+            .replace(/\*/g, '')
+            .replace(/x/gi, 'X')
             .replace(/([+\-*=()])/g, ' $1 ')
-            .replace(/\s+/g, ' ') // מנקה רווחים כפולים
+            .replace(/\s+/g, ' ')
             .trim();
 
         return cleaned;
@@ -52,7 +54,22 @@ function MathDisplay({ expression }) {
 
     try {
         const formatted = cleanEquation(expression);
-        return <div className="math-display">{formatted} = ?</div>;
+        return (
+            <div className="math-display animate-three" key={animationKey}>
+                {formatted.split('').map((char, index) => (
+                    <span
+                        key={index}
+                        style={{
+                            animationDelay: `${index * 0.05}s`,
+                            display: char === ' ' ? 'inline' : 'inline-block'
+                        }}
+                    >
+                        {char}
+                    </span>
+                ))}
+                <span style={{ animationDelay: `${formatted.length * 0.05}s` }}>= ?</span>
+            </div>
+        );
     } catch (error) {
         console.error('Error formatting equation:', error);
         return <div className="math-error">{expression}</div>;

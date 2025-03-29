@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from "react";
+import  {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css"; // Import the updated CSS file
 
-const Navbar = ({ handleSignOut }) => {
+const Navbar = ( {handleSignOut} ) => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
     const signOutAndRedirect = () => {
         handleSignOut();
         localStorage.removeItem("userToken");
         localStorage.removeItem("ADMIN");
+        localStorage.removeItem("score");
+        localStorage.removeItem("streak");
         navigate("/"); // Redirect to home after sign out
     };
 
@@ -35,11 +37,9 @@ const Navbar = ({ handleSignOut }) => {
                     <Link to="/AdminPanel"> מנהל</Link>
                 </li>
                 ) : (<p></p>) }
-                <li className="menu-item">
                     <button className="button" onClick={signOutAndRedirect}>
                         🚪 התנתק
                     </button>
-                </li>
             </ol>
         </nav>
     );

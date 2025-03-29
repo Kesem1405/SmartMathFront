@@ -6,9 +6,9 @@ import Notebook from "./Notebook";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Dashborad.css";
+import "./Dashboard.css";
 import MathDisplay from "./MathDisplay.jsx";
-
+import {topicTranslations} from "./Constants.js";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -24,6 +24,8 @@ function Dashboard() {
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+    const [animationTrigger, setAnimationTrigger] = useState(0);
+
 
     useEffect(() => {
         if (!localStorage.getItem("userToken")) {
@@ -50,7 +52,7 @@ function Dashboard() {
             const response = await axios.get(`http://localhost:8080/api/question/generate?token=${token}`);
             setCurrentQuestion(response.data);
             setDifficulty(response.data.difficulty);
-            setTopic(response.data.topic);
+            setTopic(topicTranslations[response.data.topic] || response.data.topic);
             setTimer(0);
             setIsTimerRunning(true);
         } catch (err) {
@@ -65,7 +67,7 @@ function Dashboard() {
         if (!currentQuestion || !userAnswer.trim()) return;
 
         const isCorrect = parseInt(userAnswer) === currentQuestion.correctAnswer;
-        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : `תשובה לא נכונה. התשובה הנכונה: ${currentQuestion.correctAnswer}`);
+        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : `תשובה שגויה, התשובה : ${currentQuestion.correctAnswer}`);
 
         if (isCorrect) {
             const newScore = score + 1;
@@ -85,6 +87,9 @@ function Dashboard() {
 
         setShowFeedbackModal(true);
         setUserAnswer("");
+
+        // Trigger animation before fetching new question
+        setAnimationTrigger(prev => prev + 1);
         fetchQuestion();
     };
 
@@ -104,7 +109,10 @@ function Dashboard() {
                         {error && <div className="error-alert">{error}</div>}
                         {currentQuestion && (
                             <>
-                                <MathDisplay expression={currentQuestion.context}/>
+                                <MathDisplay
+                                    expression={currentQuestion.context}
+                                    triggerAnimation={animationTrigger}
+                                />
                             </>
                         )}
                     </div>
@@ -136,7 +144,7 @@ function Dashboard() {
                     <Modal.Title>תוצאה</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p className={feedback.includes("נכונה") ? "text-success" : "text-danger"}>
+                    <p className={`${feedback.includes("נכונה") ? "text-success" : "text-danger"}`}>
                         {feedback}
                     </p>
                 </Modal.Body>

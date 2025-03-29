@@ -10,12 +10,13 @@
 .math-display {
     font-family: "Bebas Neue", sans-serif;
     justify-content: center;
-    margin-top: 25%;
+    margin-top: 22%;
     font-size: 2rem;
     text-align: center;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    color: black;
+    color: #ffffff;
+    border: 2px solid #bdc3c7;
     font-weight: bold;
     direction: ltr;
     white-space: nowrap;
@@ -36,4 +37,37 @@
         overflow-x: auto;
         padding: 0.5rem;
     }
+}
+
+.animate-three span {
+    color: #ffffff;
+    opacity: 0;
+    transform: translate(-300px, 0) scale(0);
+    animation: sideSlide .5s forwards;
+}
+
+@keyframes sideSlide {
+    60% {
+        transform: translate(20px, 0) scale(1);
+        color: #ffffff;
+    }
+    80% {
+        transform: translate(20px, 0) scale(1);
+        color: #ffffff;
+    }
+    99% {
+        transform: translate(0) scale(1.2);
+        color: #00efff;
+    }
+    100% {
+        transform: translate(0) scale(1);
+        opacity: 1;
+        color: #ffffff;
+    }
+}
+
+.math-error {
+    color: red;
+    font-size: 1.2rem;
+    margin: 10px 0;
 }

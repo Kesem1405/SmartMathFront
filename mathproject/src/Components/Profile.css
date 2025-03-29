@@ -1,21 +1,36 @@
+.profile-layout {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .profile-container {
-    max-width: 600px;
-    margin: 20px auto;
+    margin-bottom: 20rem;
+    flex: 1;
+    max-width: 500px;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 10px;
 }
 
+.progress-container {
+    flex: 1;
+    max-width: 500px;
+}
 .profile-details div {
     margin-bottom: 15px;
 }
 
 label {
     font-weight: bold;
+    display: block;
 }
 
-input,
-select {
+
+input, select {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -34,4 +49,36 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+.error-message {
+    color: #f44336;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .profile-layout {
+        flex-direction: column;
+    }
+
+    .profile-container,
+    .progress-container {
+        max-width: 100%;
+    }
+}
+
+.MuiCard-root {
+    transition: transform 0.2s;
+}
+
+.MuiCard-root:hover {
+    transform: translateY(-2px);
+}
+
+.MuiTypography-h3 {
+    font-weight: 700 !important;
+}
+
+.MuiTypography-h5 {
+    font-weight: 600 !important;
 }

@@ -5,25 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
-      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Feedback.js" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Feedback.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Notebook.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Notebook.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,23 +62,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/WebProjects/SmartMathFront23052/mathproject/src/Components",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "ts.external.directory.path": "D:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WebProjects/SmartMathFront23052/mathproject/src/Components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
@@ -127,7 +126,8 @@
       <workItem from="1741164773432" duration="5862000" />
       <workItem from="1741468151918" duration="3880000" />
       <workItem from="1742930879915" duration="4826000" />
-      <workItem from="1743004724920" duration="31091000" />
+      <workItem from="1743004724920" duration="31562000" />
+      <workItem from="1743246005948" duration="16588000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -185,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742931532862</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update">
+      <option name="closed" value="true" />
+      <created>1743111826564</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743111826564</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

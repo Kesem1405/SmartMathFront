@@ -1,11 +1,15 @@
 import 'react';
+import '../App.css'
 
-const Feedback = ( feedback ) => {
+const Feedback = (feedback ) => {
+
     return (
         feedback && (
-            <div className={`text-center mt-3 ${feedback.includes("Correct") ? "text-success" : "text-danger"}`}>
+            // eslint-disable-next-line react/prop-types
+            <p className={feedback.includes("נכונה") ? "text-success" : "text-danger"}
+               style={{border: '1px solid red'}}>  {/* Temporary debug border */}
                 {feedback}
-            </div>
+            </p>
         )
     );
 };

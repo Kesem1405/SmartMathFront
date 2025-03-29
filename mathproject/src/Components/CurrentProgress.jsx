@@ -1,13 +1,43 @@
 import 'react';
 import { FaCalculator, FaTrophy, FaChartLine } from 'react-icons/fa';
 import './CurrentProgress.css';
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
+    const [firstName, setFirstName] = useState("");
+
     const difficultyLevels = {
         'EASY': { value: 1, color: '#28a745', label: 'מתחיל' },
         'MEDIUM': { value: 2, color: '#ffc107', label: 'בינוני' },
         'HARD': { value: 3, color: '#dc3545', label: 'מתקדם' }
     };
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+            // Handle case where token doesn't exist
+            return;
+        }
+
+        axios.get(`http://localhost:8080/api/user/info`, {
+            params: { token }
+        })
+            .then((response) => {
+                if (response.data) {
+                    setFirstName(response.data.firstName);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching user info:", error);
+                if (error.response?.status === 404) {
+                    // Handle user not found
+                } else {
+                    // Handle other errors
+                }
+            });
+    }, []);
 
     const currentLevel = difficultyLevels[difficulty] || difficultyLevels['EASY'];
 
@@ -15,13 +45,13 @@ function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
         <div className="sidebar-progress">
             <div className="sidebar-header">
                 <FaCalculator className="sidebar-icon" />
-                <h3>SmartMath</h3>
+                <h3> שלום  {firstName}</h3>
             </div>
 
             <div className="progress-section">
                 <div className="difficulty-info">
                     <FaChartLine className="me-2" />
-                    <span>{topic} : נושא </span>
+                    <span> נושא : {topic}</span>
                 </div>
 
                 <div className="progress-display">
