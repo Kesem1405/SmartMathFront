@@ -65,7 +65,12 @@
         color: #ffffff;
     }
 }
+@media (min-width: 1200px) {
+    .math-display{
+        font-size: 1.2rem;
+    }
 
+}
 .math-error {
     color: red;
     font-size: 1.2rem;
