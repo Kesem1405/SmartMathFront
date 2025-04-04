@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Dashboard.css";
 import MathDisplay from "./MathDisplay.jsx";
 import {topicTranslations} from "./Constants.js";
+import DashboardTour from "./DashboardTour.jsx";
+
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -95,6 +97,7 @@ function Dashboard() {
 
     return (
         <div className="dashboard-layout">
+            <DashboardTour />
             <CurrentProgress topic={topic} difficulty={difficulty}/>
 
             <div className="main-content">
@@ -107,6 +110,7 @@ function Dashboard() {
                     <div className="question-container">
                         {loading && <div className="loading-spinner"></div>}
                         {error && <div className="error-alert">{error}</div>}
+                        {!error && <div className="question-text">פתור את התרגיל הבא : </div>}
                         {currentQuestion && (
                             <>
                                 <MathDisplay
