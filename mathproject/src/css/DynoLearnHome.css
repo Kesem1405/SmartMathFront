@@ -1,0 +1,218 @@
+/* Base styles */
+.dyno-learn-home {
+    font-family: 'Comic Neue', cursive;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* Floating shapes */
+.floating-shapes-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-shape {
+    position: absolute;
+    opacity: 0.7;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    background-color: transparent !important;
+    border-left: solid transparent;
+    border-right: solid transparent;
+    border-bottom: solid;
+}
+
+.square {
+    border-radius: 10%;
+}
+
+/* Pentagon */
+.pentagon {
+    clip-path: polygon(
+            50% 0%,
+            100% 38%,
+            82% 100%,
+            18% 100%,
+            0% 38%
+    );
+    background-color: transparent !important;
+}
+
+/* Hexagon */
+.hexagon {
+    clip-path: polygon(
+            25% 0%,
+            75% 0%,
+            100% 50%,
+            75% 100%,
+            25% 100%,
+            0% 50%
+    );
+    background-color: transparent !important;
+}
+
+/* Star */
+.star {
+    clip-path: polygon(
+            50% 0%,
+            61% 35%,
+            98% 35%,
+            68% 57%,
+            79% 91%,
+            50% 70%,
+            21% 91%,
+            32% 57%,
+            2% 35%,
+            39% 35%
+    );
+    background-color: transparent !important;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Hero section */
+.hero {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 50px;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.hero-content.animation-0 {
+    transform: rotate(-1deg);
+}
+.hero-content.animation-1 {
+    transform: rotate(1deg);
+}
+.hero-content.animation-2 {
+    transform: scale(1.01);
+}
+.hero-content.animation-3 {
+    transform: scale(0.99);
+}
+
+.title-dyno {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #E76F51;
+    text-shadow: 3px 3px 0 #F4A261;
+}
+
+.title-learn {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #2A9D8F;
+    text-shadow: 3px 3px 0 #8AB17D;
+}
+
+.equation-display {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.equation {
+    font-size: 3rem;
+    font-family: 'Courier New', monospace;
+    color: #264653;
+    animation: fadeIn 0.5s;
+}
+
+.equation-sub {
+    font-size: 1rem;
+    color: #6A4C93;
+    margin-top: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Content sections */
+.content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-equation {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-equation .highlight {
+    color: #E76F51;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title-dyno, .title-learn {
+        font-size: 2.5rem;
+    }
+
+    .equation {
+        font-size: 2rem;
+    }
+}
+
+.equation-display {
+    /* Existing styles */
+    min-height: 120px; /* Give enough space for the equation and subtitle */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.copyright {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #6A4C93;
+    opacity: 0.8;
+}

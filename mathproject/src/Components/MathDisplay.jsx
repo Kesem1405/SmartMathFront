@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import './MathDisplay.css';
+import '../css/MathDisplay.css';
 
 function MathDisplay({ expression, triggerAnimation }) {
     const [animationKey, setAnimationKey] = useState(0);

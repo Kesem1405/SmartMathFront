@@ -1,0 +1,155 @@
+.accessibility-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.accessibility-button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.accessibility-button:hover,
+.accessibility-button:focus {
+    background-color: #0052a3;
+    transform: scale(1.1);
+    outline: none;
+}
+
+.accessibility-menu {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    direction: rtl;
+}
+
+.accessibility-menu[aria-hidden="false"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.accessibility-menu h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.accessibility-option {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.accessibility-option > span {
+    flex: 1 0 100%;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: right;
+}
+
+.accessibility-option button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    color: #333;
+    min-width: 100px;
+}
+
+.accessibility-option button:hover,
+.accessibility-option button:focus {
+    background-color: #e0e0e0;
+    outline: none;
+    color: #000;
+}
+
+.accessibility-option button[aria-pressed="true"] {
+    background-color: #0066cc;
+    color: white;
+    border-color: #0052a3;
+}
+
+.accessibility-option button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Global accessibility styles */
+.high-contrast {
+    --text-color: #000;
+    --bg-color: #fff;
+    --primary-color: #0000ff;
+    --secondary-color: #ffff00;
+
+    color: var(--text-color) !important;
+    background-color: var(--bg-color) !important;
+}
+
+.high-contrast a {
+    color: var(--primary-color) !important;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select {
+    border: 2px solid var(--text-color) !important;
+}
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.dark-mode {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode a {
+    color: #bb86fc !important;
+}
+
+.dark-mode button {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+.underline-links a {
+    text-decoration: underline !important;
+}
+
+.readable-font {
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.5px !important;
+}

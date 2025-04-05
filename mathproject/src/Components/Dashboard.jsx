@@ -6,9 +6,8 @@ import Notebook from "./Notebook";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Dashboard.css";
+import "../css/Dashboard.css";
 import MathDisplay from "./MathDisplay.jsx";
-import {topicTranslations} from "./Constants.js";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -24,8 +23,6 @@ function Dashboard() {
     const [loading, setLoading] = useState(false);
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-    const [animationTrigger, setAnimationTrigger] = useState(0);
-
 
     useEffect(() => {
         if (!localStorage.getItem("userToken")) {
@@ -52,7 +49,7 @@ function Dashboard() {
             const response = await axios.get(`http://localhost:8080/api/question/generate?token=${token}`);
             setCurrentQuestion(response.data);
             setDifficulty(response.data.difficulty);
-            setTopic(topicTranslations[response.data.topic] || response.data.topic);
+            setTopic(response.data.topic);
             setTimer(0);
             setIsTimerRunning(true);
         } catch (err) {
@@ -67,7 +64,7 @@ function Dashboard() {
         if (!currentQuestion || !userAnswer.trim()) return;
 
         const isCorrect = parseInt(userAnswer) === currentQuestion.correctAnswer;
-        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : `תשובה שגויה, התשובה : ${currentQuestion.correctAnswer}`);
+        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : `תשובה לא נכונה. התשובה הנכונה: ${currentQuestion.correctAnswer}`);
 
         if (isCorrect) {
             const newScore = score + 1;
@@ -87,9 +84,6 @@ function Dashboard() {
 
         setShowFeedbackModal(true);
         setUserAnswer("");
-
-        // Trigger animation before fetching new question
-        setAnimationTrigger(prev => prev + 1);
         fetchQuestion();
     };
 
@@ -105,34 +99,29 @@ function Dashboard() {
 
                 <div className="content-area">
                     <div className="question-container">
+                        <div className="stats-bar">
+                            <span>ניקוד: {score}</span>
+                            <span>רצף: {streak}</span>
+                            <span>זמן: {timer} שניות</span>
+                        </div>
+
                         {loading && <div className="loading-spinner"></div>}
                         {error && <div className="error-alert">{error}</div>}
+
                         {currentQuestion && (
                             <>
-                                <MathDisplay
-                                    expression={currentQuestion.context}
-                                    triggerAnimation={animationTrigger}
-                                />
+                                <MathDisplay expression={currentQuestion.context} />
+                                <div className="answer-input">
+                                    <input
+                                        type="number"
+                                        value={userAnswer}
+                                        onChange={(e) => setUserAnswer(e.target.value)}
+                                        placeholder="הכנס תשובה"
+                                    />
+                                    <button onClick={handleSubmitAnswer}>שלח</button>
+                                </div>
                             </>
                         )}
-                    </div>
-
-                    <div className="stats-and-button-container">
-                        <div className="stats-bar">
-                            <div> ✅ : {score} </div>
-                            <div> רצף : {streak} </div>
-                            <div> ⏱️ : {timer} שניות</div>
-                        </div>
-
-                        <div className="answer-input">
-                            <input
-                                type="number"
-                                value={userAnswer}
-                                onChange={(e) => setUserAnswer(e.target.value)}
-                                placeholder="הכנס תשובה"
-                            />
-                            <button className="submit-button" onClick={handleSubmitAnswer}>שלח</button>
-                        </div>
                     </div>
 
                     <Notebook/>
@@ -144,7 +133,7 @@ function Dashboard() {
                     <Modal.Title>תוצאה</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p className={`${feedback.includes("נכונה") ? "text-success" : "text-danger"}`}>
+                    <p className={feedback.includes("נכונה") ? "text-success" : "text-danger"}>
                         {feedback}
                     </p>
                 </Modal.Body>

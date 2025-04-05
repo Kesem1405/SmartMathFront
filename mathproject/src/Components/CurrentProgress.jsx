@@ -1,6 +1,6 @@
 import 'react';
 import { FaCalculator, FaTrophy, FaChartLine } from 'react-icons/fa';
-import './CurrentProgress.css';
+import '../css/CurrentProgress.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
 

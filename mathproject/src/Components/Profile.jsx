@@ -76,6 +76,7 @@ function Profile() {
 
     if (loading) {
         return (
+
             <Box display="flex" justifyContent="center" mt={4}>
                 <CircularProgress />
             </Box>
@@ -83,6 +84,8 @@ function Profile() {
     }
 
     return (
+
+
         <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
             <Navbar handleSignOut={() => {
                 localStorage.removeItem("userToken");

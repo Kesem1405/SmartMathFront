@@ -1,6 +1,7 @@
 import  {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Navbar.css"; // Import the updated CSS file
+import "../css/Navbar.css";
+import AboutPage from "./AboutPage.jsx"; // Import the updated CSS file
 
 const Navbar = ( {handleSignOut} ) => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Navbar = ( {handleSignOut} ) => {
         localStorage.removeItem("ADMIN");
         localStorage.removeItem("score");
         localStorage.removeItem("streak");
-        navigate("/"); // Redirect to home after sign out
+        navigate("homePage"); // Redirect to home after sign out
     };
 
     useEffect(() => {
@@ -32,14 +33,18 @@ const Navbar = ( {handleSignOut} ) => {
                 <li className="menu-item">
                     <Link to="/Profile"> פרופיל</Link>
                 </li>
-                {isAdmin ? (
                 <li className="menu-item">
-                    <Link to="/AdminPanel"> מנהל</Link>
+                    <Link to="/aboutPage"> אודות</Link>
                 </li>
-                ) : (<p></p>) }
-                    <button className="button" onClick={signOutAndRedirect}>
-                        🚪 התנתק
-                    </button>
+                {isAdmin ? (
+                    <li className="menu-item">
+                        <Link to="/AdminPanel"> מנהל</Link>
+                    </li>
+
+                ) : (<p></p>)}
+                <button className="button" onClick={signOutAndRedirect}>
+                    🚪 התנתק
+                </button>
             </ol>
         </nav>
     );

@@ -1,0 +1,146 @@
+Index: mathproject/src/Components/CurrentProgress.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport { FaCalculator, FaTrophy, FaChartLine } from 'react-icons/fa';\r\nimport 'mathproject/src/CurrentProgress.css';\r\n\r\nfunction CurrentProgress({ topic = \"AddSub\", difficulty = \"EASY\" }) {\r\n    const difficultyLevels = {\r\n        'EASY': { value: 1, color: '#28a745', label: 'מתחיל' },\r\n        'MEDIUM': { value: 2, color: '#ffc107', label: 'בינוני' },\r\n        'HARD': { value: 3, color: '#dc3545', label: 'מתקדם' }\r\n    };\r\n\r\n    const currentLevel = difficultyLevels[difficulty] || difficultyLevels['EASY'];\r\n\r\n    return (\r\n        <div className=\"sidebar-progress\">\r\n            <div className=\"sidebar-header\">\r\n                <FaCalculator className=\"sidebar-icon\" />\r\n                <h3>SmartMath</h3>\r\n            </div>\r\n\r\n            <div className=\"progress-section\">\r\n                <div className=\"difficulty-info\">\r\n                    <FaChartLine className=\"me-2\" />\r\n                    <span>נושא: {topic}</span>\r\n                </div>\r\n\r\n                <div className=\"progress-display\">\r\n                    <div className=\"progress-labels\">\r\n                        <span>רמת קושי:</span>\r\n                        <span className=\"difficulty-label\">{currentLevel.label}</span>\r\n                        {difficulty === 'HARD' && <FaTrophy className=\"trophy-icon\" />}\r\n                    </div>\r\n\r\n                    <div className=\"progress-bar-container\">\r\n                        <div\r\n                            className=\"progress-fill\"\r\n                            style={{\r\n                                height: `${(currentLevel.value / 3) * 100}%`,\r\n                                backgroundColor: currentLevel.color\r\n                            }}\r\n                        ></div>\r\n                    </div>\r\n\r\n                    <div className=\"level-indicator\">\r\n                        <span>3</span>\r\n                        <span>2</span>\r\n                        <span>1</span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default CurrentProgress;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mathproject/src/Components/CurrentProgress.jsx b/mathproject/src/Components/CurrentProgress.jsx
+--- a/mathproject/src/Components/CurrentProgress.jsx	(revision 91444c17558a586e7829839753484b8291c3be5b)
++++ b/mathproject/src/Components/CurrentProgress.jsx	(date 1743188514016)
+@@ -1,6 +1,6 @@
+ import React from 'react';
+ import { FaCalculator, FaTrophy, FaChartLine } from 'react-icons/fa';
+-import 'mathproject/src/CurrentProgress.css';
++import './CurrentProgress.css';
+ 
+ function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
+     const difficultyLevels = {
+Index: mathproject/src/Components/Dashboard.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { useState, useEffect } from \"react\";\r\nimport { useNavigate } from \"react-router-dom\";\r\nimport Navbar from \"./Navbar\";\r\nimport CurrentProgress from \"./CurrentProgress\";\r\nimport Notebook from \"./Notebook\";\r\nimport { Modal } from \"react-bootstrap\";\r\nimport axios from \"axios\";\r\nimport \"bootstrap/dist/css/bootstrap.min.css\";\r\nimport \"mathproject/src/Dashborad.css\";\r\nimport MathDisplay from \"./MathDisplay.jsx\";\r\n\r\nfunction Dashboard() {\r\n    const navigate = useNavigate();\r\n    const [currentQuestion, setCurrentQuestion] = useState(null);\r\n    const [userAnswer, setUserAnswer] = useState(\"\");\r\n    const [score, setScore] = useState(() => parseInt(localStorage.getItem(\"score\")) || 0);\r\n    const [streak, setStreak] = useState(() => parseInt(localStorage.getItem(\"streak\")) || 0);\r\n    const [difficulty, setDifficulty] = useState(\"EASY\");\r\n    const [topic, setTopic] = useState(\"AddSub\");\r\n    const [timer, setTimer] = useState(0);\r\n    const [isTimerRunning, setIsTimerRunning] = useState(false);\r\n    const [error, setError] = useState(null);\r\n    const [loading, setLoading] = useState(false);\r\n    const [feedback, setFeedback] = useState(\"\");\r\n    const [showFeedbackModal, setShowFeedbackModal] = useState(false);\r\n\r\n    useEffect(() => {\r\n        if (!localStorage.getItem(\"userToken\")) {\r\n            navigate(\"/auth\");\r\n        } else {\r\n            fetchQuestion();\r\n        }\r\n    }, [navigate]);\r\n\r\n    useEffect(() => {\r\n        let interval;\r\n        if (isTimerRunning) {\r\n            interval = setInterval(() => {\r\n                setTimer(prev => prev + 1);\r\n            }, 1000);\r\n        }\r\n        return () => clearInterval(interval);\r\n    }, [isTimerRunning]);\r\n\r\n    const fetchQuestion = async () => {\r\n        try {\r\n            setLoading(true);\r\n            const token = localStorage.getItem(\"userToken\");\r\n            const response = await axios.get(`http://localhost:8080/api/question/generate?token=${token}`);\r\n            setCurrentQuestion(response.data);\r\n            setDifficulty(response.data.difficulty);\r\n            setTopic(response.data.topic);\r\n            setTimer(0);\r\n            setIsTimerRunning(true);\r\n        } catch (err) {\r\n            setError(err.response?.data || \"שגיאה בטעינת שאלה\");\r\n        } finally {\r\n            setLoading(false);\r\n        }\r\n    };\r\n\r\n    const handleSubmitAnswer = () => {\r\n        setIsTimerRunning(false);\r\n        if (!currentQuestion || !userAnswer.trim()) return;\r\n\r\n        const isCorrect = parseInt(userAnswer) === currentQuestion.correctAnswer;\r\n        setFeedback(isCorrect ? \"תשובה נכונה! \uD83C\uDF89\" : `תשובה לא נכונה. התשובה הנכונה: ${currentQuestion.correctAnswer}`);\r\n\r\n        if (isCorrect) {\r\n            const newScore = score + 1;\r\n            const newStreak = streak + 1;\r\n            setScore(newScore);\r\n            setStreak(newStreak);\r\n            localStorage.setItem(\"score\", newScore);\r\n            localStorage.setItem(\"streak\", newStreak);\r\n\r\n            if (newStreak >= 3 && difficulty !== \"HARD\") {\r\n                setDifficulty(prev => prev === \"EASY\" ? \"MEDIUM\" : \"HARD\");\r\n            }\r\n        } else {\r\n            setStreak(0);\r\n            localStorage.setItem(\"streak\", 0);\r\n        }\r\n\r\n        setShowFeedbackModal(true);\r\n        setUserAnswer(\"\");\r\n        fetchQuestion();\r\n    };\r\n\r\n    return (\r\n        <div className=\"dashboard-layout\">\r\n            <CurrentProgress topic={topic} difficulty={difficulty}/>\r\n\r\n            <div className=\"main-content\">\r\n                <Navbar handleSignOut={() => {\r\n                    localStorage.removeItem(\"userToken\");\r\n                    navigate(\"/auth\");\r\n                }}/>\r\n\r\n                <div className=\"content-area\">\r\n                    <div className=\"question-container\">\r\n                        <div className=\"stats-bar\">\r\n                            <span>ניקוד: {score}</span>\r\n                            <span>רצף: {streak}</span>\r\n                            <span>זמן: {timer} שניות</span>\r\n                        </div>\r\n\r\n                        {loading && <div className=\"loading-spinner\"></div>}\r\n                        {error && <div className=\"error-alert\">{error}</div>}\r\n\r\n                        {currentQuestion && (\r\n                            <>\r\n                                <MathDisplay expression={currentQuestion.context} />\r\n                                <div className=\"answer-input\">\r\n                                    <input\r\n                                        type=\"number\"\r\n                                        value={userAnswer}\r\n                                        onChange={(e) => setUserAnswer(e.target.value)}\r\n                                        placeholder=\"הכנס תשובה\"\r\n                                    />\r\n                                    <button onClick={handleSubmitAnswer}>שלח</button>\r\n                                </div>\r\n                            </>\r\n                        )}\r\n                    </div>\r\n\r\n                    <Notebook/>\r\n                </div>\r\n            </div>\r\n\r\n            <Modal show={showFeedbackModal} onHide={() => setShowFeedbackModal(false)} centered>\r\n                <Modal.Header closeButton>\r\n                    <Modal.Title>תוצאה</Modal.Title>\r\n                </Modal.Header>\r\n                <Modal.Body>\r\n                    <p className={feedback.includes(\"נכונה\") ? \"text-success\" : \"text-danger\"}>\r\n                        {feedback}\r\n                    </p>\r\n                </Modal.Body>\r\n            </Modal>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default Dashboard;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mathproject/src/Components/Dashboard.jsx b/mathproject/src/Components/Dashboard.jsx
+--- a/mathproject/src/Components/Dashboard.jsx	(revision 91444c17558a586e7829839753484b8291c3be5b)
++++ b/mathproject/src/Components/Dashboard.jsx	(date 1743188419763)
+@@ -6,7 +6,7 @@
+ import { Modal } from "react-bootstrap";
+ import axios from "axios";
+ import "bootstrap/dist/css/bootstrap.min.css";
+-import "mathproject/src/Dashborad.css";
++import "./Dashborad.css";
+ import MathDisplay from "./MathDisplay.jsx";
+ 
+ function Dashboard() {
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c38afb66-7f6d-481a-ae96-367e823a44de\" name=\"Changes\" comment=\"Update\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n        <option value=\"JSX File\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Kesem1405&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/Kesem1405/SmartMathFront.git\",\r\n    \"accountId\": \"63b65dca-e4a5-464e-b744-a70b27a7e6e9\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2syaNnvjugGIjCJa9NwGlql8WDB\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"last_opened_file_path\": \"D:/WebProjects/SmartMathFront23052/mathproject/src/Components\",\r\n    \"list.type.of.created.stylesheet\": \"CSS\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"npm.dev.executor\": \"Run\",\r\n    \"ts.external.directory.path\": \"C:\\\\Program Files\\\\JetBrains\\\\WebStorm 2024.1.2\\\\plugins\\\\javascript-plugin\\\\jsLanguageServicesImpl\\\\external\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\WebProjects\\SmartMathFront23052\\mathproject\\src\\Components\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\shira\\WebstormProjects\\SmartMathFront\\mathproject\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"dev\" type=\"js.build_tools.npm\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <package-json value=\"$PROJECT_DIR$/mathproject/package.json\" />\r\n      <command value=\"run\" />\r\n      <scripts>\r\n        <script value=\"dev\" />\r\n      </scripts>\r\n      <node-interpreter value=\"project\" />\r\n      <envs />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"npm.dev\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c38afb66-7f6d-481a-ae96-367e823a44de\" name=\"Changes\" comment=\"\" />\r\n      <created>1739430230574</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1739430230574</updated>\r\n      <workItem from=\"1739430231699\" duration=\"4664000\" />\r\n      <workItem from=\"1739805392443\" duration=\"13786000\" />\r\n      <workItem from=\"1739824161791\" duration=\"299000\" />\r\n      <workItem from=\"1741109194156\" duration=\"236000\" />\r\n      <workItem from=\"1741164773432\" duration=\"5862000\" />\r\n      <workItem from=\"1741468151918\" duration=\"3880000\" />\r\n      <workItem from=\"1742930879915\" duration=\"623000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1739434977410</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1739434977410</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1739806425929</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1739806425929</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1739821036051</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1739821036051</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1739823816954</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1739823816954</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1739824410913</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1739824410913</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E-00006\" summary=\"Update\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1741215448707</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\u200E\" />\r\n      <updated>1741215448707</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Update\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Update\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 91444c17558a586e7829839753484b8291c3be5b)
++++ b/.idea/workspace.xml	(date 1743597805284)
+@@ -4,7 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update" />
++    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -13,9 +17,9 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="JavaScript File" />
+         <option value="JSX File" />
+         <option value="CSS File" />
++        <option value="JavaScript File" />
+       </list>
+     </option>
+   </component>
+@@ -28,12 +32,12 @@
+     &quot;assignee&quot;: &quot;Kesem1405&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/Kesem1405/SmartMathFront.git",
+-    "accountId": "63b65dca-e4a5-464e-b744-a70b27a7e6e9"
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
++    &quot;accountId&quot;: &quot;f937f569-0fe8-41c3-815c-b2fa08aeb2e7&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+@@ -43,23 +47,23 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "master",
+-    "last_opened_file_path": "D:/WebProjects/SmartMathFront23052/mathproject/src/Components",
+-    "list.type.of.created.stylesheet": "CSS",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "npm.dev.executor": "Run",
+-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;last_opened_file_path&quot;: &quot;D:/WebProjects/SmartMathFront23052/mathproject/src/Components&quot;,
++    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
++    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
+@@ -88,7 +92,7 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
++        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -107,6 +111,7 @@
+       <workItem from="1741164773432" duration="5862000" />
+       <workItem from="1741468151918" duration="3880000" />
+       <workItem from="1742930879915" duration="623000" />
++      <workItem from="1743188264453" duration="807000" />
+     </task>
+     <task id="LOCAL-00001" summary="Update">
+       <option name="closed" value="true" />

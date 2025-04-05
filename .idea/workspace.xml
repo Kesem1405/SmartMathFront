@@ -4,25 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
-      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.css" afterDir="false" />
+    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="logo icon&#10;home page&#10;accessibility button&#10;about page">
+      <change afterPath="$PROJECT_DIR$/.idea/SmartMathFront.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2025_15_44_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2025_15_44__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/public/DynoLearn icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/AccessibilityButton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/DynoLearnHome.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/PageNotFound.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/Testimonials.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/css/AboutPage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/css/AccessibilityButton.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/css/DynoLearnHome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/css/Testimonials.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/images/einstein.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/images/shimon.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/public/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/public/vite.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/AdminPanel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/CurrentProgress.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/CurrentProgress.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/Dashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashborad.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Feedback.js" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Feedback.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/MathDisplay.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/Navbar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/Profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/main.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +49,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="JSX File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -50,7 +67,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
-    &quot;accountId&quot;: &quot;63b65dca-e4a5-464e-b744-a70b27a7e6e9&quot;
+    &quot;accountId&quot;: &quot;f937f569-0fe8-41c3-815c-b2fa08aeb2e7&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -62,28 +79,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/WebProjects/SmartMathFront23052/mathproject/src/Components&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/WebProjects/SmartMathFront23052/mathproject/src/Components",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\src\css" />
+      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\src\images" />
+      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\public" />
       <recent name="C:\Users\shira\WebstormProjects\SmartMathFront\mathproject" />
     </key>
   </component>
@@ -107,7 +128,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
       </set>
     </attachedChunks>
   </component>
@@ -125,9 +146,9 @@
       <workItem from="1741109194156" duration="236000" />
       <workItem from="1741164773432" duration="5862000" />
       <workItem from="1741468151918" duration="3880000" />
-      <workItem from="1742930879915" duration="4826000" />
-      <workItem from="1743004724920" duration="31562000" />
-      <workItem from="1743246005948" duration="16588000" />
+      <workItem from="1742930879915" duration="623000" />
+      <workItem from="1743704818930" duration="18780000" />
+      <workItem from="1743883690990" duration="2899000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -177,41 +198,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1741215448707</updated>
     </task>
-    <task id="LOCAL-00007" summary="Update">
-      <option name="closed" value="true" />
-      <created>1742931532862</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1742931532862</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Update">
-      <option name="closed" value="true" />
-      <created>1743111826564</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1743111826564</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
+    <option name="LAST_COMMIT_MESSAGE" value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
   </component>
 </project>
