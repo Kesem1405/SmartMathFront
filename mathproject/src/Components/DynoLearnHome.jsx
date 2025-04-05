@@ -12,6 +12,7 @@ const DynoLearnHome = () => {
 
     const equations = [
         "2 + 2 = 4",
+
         "3 × 5 = 15",
         "x² + y² = z²",
         "π ≈ 3.14159",

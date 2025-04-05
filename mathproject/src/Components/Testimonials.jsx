@@ -13,7 +13,7 @@ const Testimonials = () => {
         {
             avatar: "👩",
             text: "הבת שלי השתפרה במתמטיקה בצורה מדהימה תוך כמה שבועות בלבד!",
-            name: "שרה, אמא"
+            name: "שרי, אמא"
         },
         {
             avatar: "👨",

@@ -2,14 +2,14 @@ import 'react';
 import '../css/AboutPage.css';
 import { FaBrain, FaGamepad, FaUsers, FaRobot } from 'react-icons/fa';
 import Navbar from "./Navbar";
-import shimonImage from '../images/shimon.jpeg'
+import shimonImage from '../images/shimonImage.jpeg'
 
 
 const AboutPage = () => {
     return (
 
         <div className="about-container">
-            <br/>
+
             <br/>
             <br/>
             <br/>

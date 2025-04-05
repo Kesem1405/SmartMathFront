@@ -111,7 +111,7 @@ const AccessibilityButton = () => {
         <div className="accessibility-container">
             <button
                 className="accessibility-button"
-                aria-label="אפשרויות נגישות"
+                aria-label="נגישות"
                 aria-expanded={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
