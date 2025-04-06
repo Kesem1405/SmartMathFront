@@ -3,6 +3,8 @@ import '../css/AboutPage.css';
 import { FaBrain, FaGamepad, FaUsers, FaRobot } from 'react-icons/fa';
 import Navbar from "./Navbar";
 import shimonImage from '../images/shimonImage.jpeg'
+import kesemImage from '../images/kesem.jpeg'
+import elonImage from '../images/elon.jpeg'
 
 
 const AboutPage = () => {
@@ -138,7 +140,7 @@ const AboutPage = () => {
                     {/* Team Member 2 */}
                     <div className="team-member">
                         <img
-                            src=""
+                            src={kesemImage}
                             alt="קסם"
                             className="member-photo"
                         />
@@ -160,7 +162,7 @@ const AboutPage = () => {
                     {/* Team Member 4 */}
                     <div className="team-member">
                         <img
-                            src=""
+                            src={elonImage}
                             alt="אילון"
                             className="member-photo"
                         />

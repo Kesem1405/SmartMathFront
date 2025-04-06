@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/SmartMath-Front3.iml" afterDir="false" />
+    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="logo icon&#10;home page&#10;accessibility button&#10;about page">
+      <change afterPath="$PROJECT_DIR$/mathproject/src/images/elon.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathproject/src/images/kesem.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/public/DynoLearn icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/public/AppIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AccessibilityButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AccessibilityButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/DynoLearnHome.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/DynoLearnHome.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/PageNotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/PageNotFound.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Testimonials.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Testimonials.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/AboutPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/AboutPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/AccessibilityButton.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/AccessibilityButton.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/DynoLearnHome.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/DynoLearnHome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/Testimonials.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/Testimonials.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
-    &quot;accountId&quot;: &quot;63b65dca-e4a5-464e-b744-a70b27a7e6e9&quot;
+    &quot;accountId&quot;: &quot;f937f569-0fe8-41c3-815c-b2fa08aeb2e7&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -80,6 +73,7 @@
       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\src\images" />
       <recent name="C:\Users\shira\WebstormProjects\SmartMathFront\mathproject" />
     </key>
   </component>
@@ -103,7 +97,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
       </set>
     </attachedChunks>
   </component>
@@ -126,6 +120,8 @@
       <workItem from="1743246005948" duration="17557000" />
       <workItem from="1743491766815" duration="5456000" />
       <workItem from="1743761308242" duration="2066000" />
+      <workItem from="1743888783869" duration="311000" />
+      <workItem from="1743925018163" duration="2300000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -207,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743576718550</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL‎-00011" summary="logo icon&#10;home page&#10;accessibility button&#10;about page">
+      <option name="closed" value="true" />
+      <created>1743887322495</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL‎-00011" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1743887322495</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +230,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
+    <option name="LAST_COMMIT_MESSAGE" value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
   </component>
 </project>

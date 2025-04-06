@@ -6,7 +6,7 @@ import Notebook from "./Notebook";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Dashboard.css";
+import "../css/Dashboard.css";
 import MathDisplay from "./MathDisplay.jsx";
 import {topicTranslations} from "./Constants.js";
 import DashboardTour from "./DashboardTour.jsx";
