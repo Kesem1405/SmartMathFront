@@ -1,0 +1,22 @@
+.animated-icon {
+    display: inline-flex;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.animated-icon video {
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    transition: transform 0.3s ease;
+}
+
+/* Hover effects */
+.hover-effect:hover video {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+/* Active state */
+.animated-icon.active video {
+    filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
