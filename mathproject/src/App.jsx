@@ -7,19 +7,22 @@ import AboutPage from "./Components/AboutPage.jsx";
 import PageNotFound from "./Components/PageNotFound.jsx";
 import AccessibilityButton from './Components/AccessibilityButton.jsx'
 import HomePage from './Components/DynoLearnHome.jsx'
+
 function App() {
     return (
         <Router>
             <AccessibilityButton />
             <Routes>
+                <Route path="/" element={<HomePage />} />
 
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/adminpanel" element={<AdminPanel />}/>
                 <Route path="/aboutPage" element={<AboutPage />}/>
+                <Route path="/home" element={<HomePage />}/>
+
                 <Route path="*" element={<PageNotFound />}/>
-                <Route path="home" element={<HomePage />}/>
             </Routes>
         </Router>
     );

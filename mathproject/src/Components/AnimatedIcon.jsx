@@ -6,7 +6,7 @@ const AnimatedIcon = ({ src, alt, hoverEffect = true, size = 24 }) => {
 
     useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.defaultMuted = true; // Required for autoplay
+            videoRef.current.defaultMuted = true;
             videoRef.current.playsInline = true;
         }
     }, []);
