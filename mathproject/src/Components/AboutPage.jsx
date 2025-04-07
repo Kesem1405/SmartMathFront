@@ -5,7 +5,8 @@ import Navbar from "./Navbar";
 import shimonImage from '../images/shimonImage.jpeg'
 import kesemImage from '../images/kesem.jpeg'
 import elonImage from '../images/elon.jpeg'
-
+import hilaImage from '../images/hila.jpeg'
+import shiraImage from '../images/shira.jpeg'
 
 const AboutPage = () => {
     return (
@@ -97,7 +98,7 @@ const AboutPage = () => {
                     {/* Team Member 3 */}
                     <div className="team-member">
                         <img
-                            src=""
+                            src={shiraImage}
                             alt="שירה"
                             className="member-photo"
                         />
@@ -126,7 +127,7 @@ const AboutPage = () => {
                     </div>
                     <div className="team-member">
                         <img
-                            src=""
+                            src={hilaImage}
                             alt="הילה"
                             className="member-photo"
                         />
