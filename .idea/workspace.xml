@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/mathproject/src/hooks/Responsive/useBreakpoint.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/hooks/Responsive/useResponsiveClass.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/hooks/Responsive/useWindowSize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/images/hila.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mathproject/src/images/shira.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2025_15_44__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_02_04_2025_15_44__Changes_.xml" afterDir="false" />
+    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
+      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/ForgotPasswordForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSX File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -42,12 +40,9 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
-    &quot;accountId&quot;: &quot;f937f569-0fe8-41c3-815c-b2fa08aeb2e7&quot;
+    &quot;accountId&quot;: &quot;63b65dca-e4a5-464e-b744-a70b27a7e6e9&quot;
   }
 }</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -59,7 +54,6 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -80,7 +74,6 @@
       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\src\images" />
       <recent name="C:\Users\shira\WebstormProjects\SmartMathFront\mathproject" />
     </key>
   </component>
@@ -101,6 +94,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -120,9 +120,6 @@
       <workItem from="1743246005948" duration="17557000" />
       <workItem from="1743491766815" duration="5456000" />
       <workItem from="1743761308242" duration="2066000" />
-      <workItem from="1743888783869" duration="311000" />
-      <workItem from="1743925018163" duration="7584000" />
-      <workItem from="1744022197327" duration="3276000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -204,23 +201,7 @@
       <option name="project" value="LOCAL" />
       <updated>1743576718550</updated>
     </task>
-    <task id="LOCAL‎-00011" summary="logo icon&#10;home page&#10;accessibility button&#10;about page">
-      <option name="closed" value="true" />
-      <created>1743887322495</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL‎-00011" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1743887322495</updated>
-    </task>
-    <task id="LOCAL‎-00012" summary="initial commit">
-      <option name="closed" value="true" />
-      <created>1743928693337</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL‎-00012" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1743928693337</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,8 +220,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update" />
-    <MESSAGE value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
-    <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
 </project>

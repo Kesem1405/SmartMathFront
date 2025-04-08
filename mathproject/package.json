@@ -19,6 +19,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "compass-mixins": "^0.12.12",
+    "crypto-js": "^4.2.0",
     "framer-motion": "^12.6.3",
     "katex": "^0.16.21",
     "mathproject": "file:",
