@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import sha256 from "crypto-js/sha256";
 
 function ForgotPasswordForm({ onBack }) {
     const [email, setEmail] = useState("");
@@ -11,41 +10,48 @@ function ForgotPasswordForm({ onBack }) {
 
     const handleEmailSubmit = async () => {
         try {
-            await axios.post("/api/user/forgotpassword", { email });
+            await axios.post("http://localhost:8080/api/user/forgot-password", null, {
+                params: { email }
+            });
             setStep(2);
             setMessage("✅ קוד האימות נשלח אליך לאימייל.");
         } catch (error) {
             setMessage("❌ שליחת הקוד נכשלה. נסה שוב.");
+            console.error("Error in forgot password:", error);
         }
     };
 
     const handleCodeSubmit = async () => {
-        const hashedCode = sha256(code).toString();
-        console.log(code + " Original code");
-        console.log(hashedCode + " Hash code")
+
         try {
-            await axios.post("/api/user/verifycode", {
-                email,
-                code: hashedCode,
+            const response = await axios.post("http://localhost:8080/api/user/code-verification", {
+                email: email,
+                code: code
             });
-            setStep(3); // Move to password reset step
-            setMessage("✅ הקוד אומת בהצלחה. כעת תוכל לשנות את הסיסמה.");
+
+            if (response.data) {
+                setStep(3);
+                setMessage("✅ הקוד אומת בהצלחה. כעת תוכל לשנות את הסיסמה.");
+            } else {
+                setMessage("❌ הקוד שגוי. נסה שוב.");
+            }
         } catch (err) {
-            setMessage("❌ הקוד שגוי. נסה שוב.");
+            setMessage("❌ שגיאה באימות הקוד. נסה שוב.");
+            console.error("Error in code verification:", err);
         }
     };
 
     const handlePasswordReset = async () => {
-        const hashedPassword = sha256(password).toString();
         try {
-            await axios.post("/api/user/resetpassword", {
-                email,
-                newPassword: hashedPassword,
+            await axios.post("http://localhost:8080/api/user/reset-password", {
+                email: email,
+                newPassword: password
             });
             setMessage("✅ הסיסמה עודכנה בהצלחה! חזור להתחברות.");
-            setTimeout(() => onBack(), 2000); // Back to login after 2s
+            setTimeout(() => onBack(), 2000);
         } catch (err) {
             setMessage("❌ שגיאה בעדכון הסיסמה. נסה שוב.");
+            console.error("Error in password reset:", err);
         }
     };
 
