@@ -269,7 +269,7 @@ function Profile() {
                                         <Grid item xs={12} sm={6}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography variant="h6">Total Questions</Typography>
+                                                    <Typography variant="h6">סה''כ שאלות</Typography>
                                                     <Typography variant="h4" color="primary">
                                                         {progressData.totalAnswers}
                                                     </Typography>
@@ -281,7 +281,7 @@ function Profile() {
                                         <Grid item xs={12} sm={6}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography variant="h6">Accuracy</Typography>
+                                                    <Typography variant="h6">אחוזי דיוק </Typography>
                                                     <Typography variant="h4" color="primary">
                                                         {progressData.accuracy}%
                                                     </Typography>
@@ -291,7 +291,7 @@ function Profile() {
                                     </Grid>
 
                                     {/* Topic Statistics */}
-                                    <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Topic Statistics</Typography>
+                                    <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>סטטיסטיקה לפי נושא</Typography>
                                     {topicStats.length > 0 ? (
                                         topicStats.map((topic, index) => (
                                             <Card key={index} sx={{ mb: 2 }}>
@@ -299,15 +299,15 @@ function Profile() {
                                                     <Typography variant="h6">{topic.topicName}</Typography>
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={4}>
-                                                            <Typography>Correct:</Typography>
+                                                            <Typography>תשובות נכונות:</Typography>
                                                             <Typography color="green">{topic.totalCorrect || 0}</Typography>
                                                         </Grid>
                                                         <Grid item xs={4}>
-                                                            <Typography>Total:</Typography>
+                                                            <Typography>סה''כ תשובות:</Typography>
                                                             <Typography>{topic.totalAsked || 0}</Typography>
                                                         </Grid>
                                                         <Grid item xs={4}>
-                                                            <Typography>Accuracy:</Typography>
+                                                            <Typography>אחוזי דיוק:</Typography>
                                                             <Typography>
                                                                 {topic.totalAsked > 0
                                                                     ? Math.round((topic.totalCorrect / topic.totalAsked) * 100)
@@ -315,11 +315,11 @@ function Profile() {
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item xs={6}>
-                                                            <Typography>Best Time:</Typography>
+                                                            <Typography>זמן הכי טוב:</Typography>
                                                             <Typography>{formatDuration(topic.bestTime)}</Typography>
                                                         </Grid>
                                                         <Grid item xs={6}>
-                                                            <Typography>Avg Time:</Typography>
+                                                            <Typography>זמן ממוצע:</Typography>
                                                             <Typography>{formatDuration(topic.averageTime)}</Typography>
                                                         </Grid>
                                                     </Grid>
@@ -328,7 +328,7 @@ function Profile() {
                                         ))
                                     ) : (
                                         <Typography color="text.secondary">
-                                            No topic statistics available yet.
+                                            לא זמין.
                                         </Typography>
                                     )}
                                 </>
