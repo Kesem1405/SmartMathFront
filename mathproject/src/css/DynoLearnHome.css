@@ -1,7 +1,11 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+
 /* Base styles */
 .dyno-learn-home {
     font-family: 'Comic Neue', cursive;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
@@ -94,7 +98,6 @@
     text-align: center;
     position: relative;
     z-index: 1;
-    margin-top: 50px;
 }
 
 .hero-content {
@@ -135,7 +138,6 @@
 }
 
 .equation-display {
-    margin: 2rem 0;
     padding: 1.5rem;
     background: white;
     border-radius: 15px;
@@ -166,7 +168,6 @@
     position: relative;
     z-index: 1;
     max-width: 1200px;
-    margin: 3rem auto;
     padding: 2rem;
 }
 

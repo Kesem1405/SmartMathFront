@@ -7,6 +7,7 @@ import kesemImage from '../images/kesem.jpeg'
 import elonImage from '../images/elon.jpeg'
 import hilaImage from '../images/hila.jpeg'
 import shiraImage from '../images/shira.jpeg'
+import ilayImage from '../images/ilay.jpg'
 
 const AboutPage = () => {
     return (
@@ -22,21 +23,21 @@ const AboutPage = () => {
 
             <div className="section">
                 <h2>קצת עלינו</h2>
-                <p>
-                    .אנחנו קבוצה נלהבת וחדורת מוטיבציה של סטודנטים למדעי המחשב, שהתאחדנו סביב חזון משותף ונועז
-                    להמציא מחדש ולחולל שינוי אמיתי בדרך שבה ילדים לומדים.
-                    אנו מאמינים שהלמידה צריכה להיות חוויה מרתקת, נגישה וחכמה,
-                    ולכן פיתחנו מערכת טכנולוגית חדשנית ופורצת דרך.
-                    ייחודה של המערכת שלנו הוא בכך שהיא לא רק בוחנת ידע,
-                    אלא מתמקדת בהבנה עמוקה של תהליך הלמידה הייחודי של כל ילד וילדה.
-                    אנו מחויבים לרתום את כוחה של הטכנולוגיה כדי ליצור חוויות למידה מותאמות אישית,
-                    כאלה שיציתו את הסקרנות הטבעית ויטפחו הצלחה מתמשכת.
-                    מטרתנו היא להעניק לדור הבא כלים שיאפשרו להם לצמוח,
-                    למצות את מלוא הפוטנציאל הטמון בהם, ולבנות יחד את עתיד החינוך. </p>
+                <p className="vision-text">
+                    <span className="vision-highlight">צוות DynoLearn</span> הוא קבוצת מפתחים צעירה וחדשנית ששואפת לשנות
+                    את פני החינוך הדיגיטלי.
+                    באמצעות טכנולוגיות מתקדמות ואלגוריתמים מתוחכמים, יצרנו פלטפורמה חכמה שמתאימה עצמה באופן אישי
+                    לכל תלמיד - לא רק בודקת ידע, אלא <span
+                    className="vision-highlight">מבינה את דרכי החשיבה</span> ומעצבת חווית למידה מותאמת אישית.
+                    <br/><br/>
+                    החזון שלנו פשוט אך שאפתני: להפוך כל שיעור לחוויה <span
+                    className="vision-highlight">מעוררת השראה</span>, שבה כל ילד מגלה את הכוח האמיתי
+                    של הלמידה - לא כחובה, אלא כמסע מרתק של גילוי וצמיחה.
+                </p>
             </div>
 
             <div className="section">
-                <h2>?איך זה עובד</h2>
+                <h2>איך זה עובד?</h2>
                 <p>
                     חוויות הלימוד עם DynoLearn היא ייחודית ודינמית ביסודה.
                     אצלנו במקום אפליקציה סטטית תקבלו שותף למידה מבוסס מערכות מתוחכמות הלומד אתכם ומתאים את עצמו באופן
@@ -69,7 +70,7 @@ const AboutPage = () => {
 
             <div className="section">
                 <h2>הצוות שלנו</h2>
-                <p>מכירים את האנשים שעושים את זה לקרות</p>
+                <p>הכירו את האנשים שגורמים לזה לקרות</p>
                 <FaUsers className="team-icon"/>
 
                 <div className="team-members">
@@ -118,12 +119,12 @@ const AboutPage = () => {
                     </div>
                     <div className="team-member">
                         <img
-                            src=""
+                            src={ilayImage}
                             alt="אילי"
                             className="member-photo"
                         />
                         <h3>ברלינסקי אילי</h3>
-                        <p className="position">מנהלת שיווק</p>
+                        <p className="position">מנהל שיווק</p>
                     </div>
                     <div className="team-member">
                         <img

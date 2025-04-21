@@ -11,33 +11,55 @@
     --nav-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Navbar wrapper: Vertical layout with logo above menu */
 .math-navbar {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    background: var(--nav-bg);
-    padding: 0 2rem;
-    height: 80px;
-    box-shadow: var(--nav-shadow);
+    padding: 1rem 0;
+    background: transparent;
+    box-shadow: none;
     position: relative;
     z-index: 1000;
 }
 
+/* Logo link positioned above the menu */
 .math-navbar__logo {
-    height: 50px;
-    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 2rem;
+    color: var(--nav-text);
+    margin-bottom: -0.75rem;
+    z-index: 2;
+    margin-bottom: 20px;
 }
 
 .math-navbar__logo img {
-    height: 100%;
+    height: auto;
+    max-height: 50px;
     object-fit: contain;
 }
 
+/* Menu container on white background */
+.math-navbar__menu {
+    background: var(--nav-bg);
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    box-shadow: var(--nav-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Nav items row inside the menu */
 .math-navbar__items {
     display: flex;
     align-items: center;
-    height: 100%;
-    gap: 0.5rem;
+    gap: 1.5rem;
 }
 
 .math-navbar__item {
@@ -45,7 +67,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
     padding: 0 1.5rem;
     text-decoration: none;
     color: var(--nav-text-light);
@@ -55,6 +76,8 @@
     position: relative;
     transition: var(--nav-transition);
     border-bottom: 3px solid transparent;
+    background: none;
+    height: auto;
 }
 
 .math-navbar__item:hover {
@@ -67,17 +90,11 @@
     border-bottom-color: var(--nav-accent);
 }
 
-.math-navbar__item.active .math-navbar__indicator {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.math-navbar__icon {
-    width: 24px;
-    height: 24px;
+.math-navbar__icon-container {
+    width: 36px;
+    height: 36px;
     margin-bottom: 0.5rem;
     transition: var(--nav-transition);
-    filter: grayscale(100%) opacity(0.7);
 }
 
 .math-navbar__item:hover .math-navbar__icon,
@@ -102,11 +119,13 @@
     transition: var(--nav-transition);
 }
 
+.math-navbar__item.active .math-navbar__indicator {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .math-navbar__item--signout {
     color: #FF6B6B;
-    margin-left: 1rem;
-    padding-left: 2rem;
-    border-left: 1px solid #EDF2F7;
 }
 
 .math-navbar__item--signout:hover {
@@ -122,65 +141,46 @@
     filter: sepia(50%) saturate(10000%) hue-rotate(320deg);
 }
 
-/* Responsive Design */
+/* Mobile responsive */
 @media (max-width: 1024px) {
-    .math-navbar {
-        display: flex;
-        justify-content: center; /* Add this line to center horizontally */
-        align-items: center; /* Add this line to center vertically */
-        width: 100%; /* Ensure it takes full width */
-        /* Keep all your existing styles below */
-        background: #ffffff;
-        padding: 0 2rem;
-        height: 80px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        position: relative;
-        z-index: 1000;
+    .math-navbar__menu {
+        padding: 0.5rem 1rem;
     }
-
     .math-navbar__item {
         padding: 0 1rem;
         font-size: 0.8rem;
     }
-
-    .math-navbar__icon {
-        width: 20px;
-        height: 20px;
+    .math-navbar__icon-container {
+        width: 30px;
+        height: 30px;
     }
 }
 
 @media (max-width: 768px) {
-    .math-navbar {
-        height: 70px;
+    .math-navbar__menu {
+        padding: 0.5rem;
     }
-
     .math-navbar__logo {
-        height: 40px;
-        margin-right: 1rem;
+        font-size: 1.5rem;
+        margin-bottom: -0.5rem;
     }
-
     .math-navbar__items {
-        gap: 0.25rem;
+        gap: 1rem;
     }
-
     .math-navbar__item {
         padding: 0 0.75rem;
     }
-
     .math-navbar__label {
         display: none;
     }
-
-    .math-navbar__icon {
+    .math-navbar__icon-container {
+        width: 24px;
+        height: 24px;
         margin-bottom: 0;
-    }
-
-    .math-navbar__item--signout {
-        padding-left: 1rem;
     }
 }
 
-/* Animation */
+/* Bounce animation */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }

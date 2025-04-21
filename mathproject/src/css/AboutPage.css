@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Manrope:wght@400;700&display=swap');
 
 :root {
     --primary: #6a11cb;
@@ -7,11 +7,13 @@
     --text: #2d3748;
     --light-bg: rgba(255, 255, 255, 0.85);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --heading-font: 'Nunito', sans-serif;
+    --body-font: 'Manrope', sans-serif;
 }
 
 /* Base styles */
 .about-container {
-    font-family: 'Comic Neue', cursive;
+    font-family: var(--body-font);
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     padding: 20px;
@@ -31,7 +33,7 @@
     position: relative;
     overflow: hidden;
     border: 3px solid white;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .section::before {
@@ -45,13 +47,15 @@
 }
 
 .section:hover {
-    transform: translateY(-5px) rotate(0.5deg);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 /* Title styles */
 h2 {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 2.2rem;
+    font-family: var(--heading-font);
+    font-weight: 900;
+    font-size: 2.4rem;
     color: var(--primary);
     margin-bottom: 20px;
     position: relative;
@@ -64,17 +68,20 @@ h2::after {
     bottom: -8px;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 4px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
     border-radius: 3px;
+    transform: scaleX(0.8);
+    transform-origin: center;
 }
 
 /* Content styles */
 p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.7;
     color: var(--text);
     margin-bottom: 20px;
+    font-weight: 400;
 }
 
 /* Features grid */
@@ -99,6 +106,7 @@ p {
 .feature:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(106, 17, 203, 0.3);
 }
 
 .feature-icon {
@@ -109,13 +117,49 @@ p {
 }
 
 .feature:hover .feature-icon {
-    transform: scale(1.2) rotate(10deg);
+    transform: scale(1.2);
+}
+.vision-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+}
+
+.vision-highlight {
+    color: var(--primary);
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.vision-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0.3;
+    border-radius: 3px;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.vision-text:hover .vision-highlight::after {
+    opacity: 0.6;
 }
 
 .feature b {
     display: block;
-    font-family: 'Fredoka', sans-serif;
+    font-family: var(--heading-font);
     font-size: 1.3rem;
+    font-weight: 700;
     color: var(--secondary);
     margin-bottom: 10px;
 }
@@ -165,17 +209,24 @@ p {
     border: 3px solid var(--accent);
     margin: 0 auto 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover .member-photo {
+    transform: scale(1.05);
 }
 
 .team-member h3 {
-    font-family: 'Fredoka', sans-serif;
+    font-family: var(--heading-font);
     color: var(--primary);
     margin-bottom: 5px;
+    font-weight: 700;
 }
 
 .position {
     color: var(--secondary);
     font-style: italic;
+    font-weight: 400;
 }
 
 .team-icon {
@@ -183,19 +234,6 @@ p {
     color: var(--accent);
     margin: 20px 0;
     animation: pulse 1.5s infinite alternate;
-}
-
-/* Decorative elements */
-.section::after {
-    content: '';
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236a11cb" opacity="0.1"><path d="M12 2L4 12l8 10 8-10z"/></svg>');
-    background-size: contain;
-    z-index: -1;
 }
 
 /* Animations */
@@ -211,6 +249,10 @@ p {
         margin: 20px 10px;
     }
 
+    h2 {
+        font-size: 2rem;
+    }
+
     .how-it-works, .team-members {
         grid-template-columns: 1fr;
     }
@@ -219,8 +261,14 @@ p {
         max-width: 300px;
         margin: 0 auto;
     }
+}
 
+@media (max-width: 480px) {
     h2 {
         font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1rem;
     }
 }

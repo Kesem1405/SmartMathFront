@@ -97,14 +97,14 @@ function Profile() {
                     {/* Profile Section */}
                     <Grid item xs={12} md={6}>
                         <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
-                            <Typography variant="h5" gutterBottom>Profile Details</Typography>
+                            <Typography variant="h5" gutterBottom>פרטי פרופיל</Typography>
                             <Divider sx={{ my: 2 }} />
 
                             <Box component="form" onSubmit={handleSubmit}>
                                 <TextField
                                     fullWidth
                                     margin="normal"
-                                    label="Email"
+                                    label="דואר אלקטרוני"
                                     name="email"
                                     value={userData.email}
                                     onChange={handleChange}
@@ -114,7 +114,7 @@ function Profile() {
                                 <TextField
                                     fullWidth
                                     margin="normal"
-                                    label="Password"
+                                    label="סיסמה"
                                     name="password"
                                     type="password"
                                     value={userData.password}
@@ -125,7 +125,7 @@ function Profile() {
                                 <TextField
                                     fullWidth
                                     margin="normal"
-                                    label="First Name"
+                                    label="שם פרטי"
                                     name="firstName"
                                     value={userData.firstName}
                                     onChange={handleChange}
@@ -135,7 +135,7 @@ function Profile() {
                                 <TextField
                                     fullWidth
                                     margin="normal"
-                                    label="Last Name"
+                                    label="שם משפחה"
                                     name="lastName"
                                     value={userData.lastName}
                                     onChange={handleChange}
@@ -147,7 +147,7 @@ function Profile() {
                                     variant="contained"
                                     sx={{ mt: 2 }}
                                 >
-                                    Save Changes
+                                    שמור שינויים
                                 </Button>
                             </Box>
 
@@ -162,7 +162,7 @@ function Profile() {
                     {/* Progress Section */}
                     <Grid item xs={12} md={6}>
                         <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
-                            <Typography variant="h5" gutterBottom>Progress Stats</Typography>
+                            <Typography variant="h5" gutterBottom>סטטיסטיקת התקדמות</Typography>
                             <Divider sx={{ my: 2 }} />
 
                             {progressData ? (
@@ -239,7 +239,7 @@ function Profile() {
                                 </Grid>
                             ) : (
                                 <Typography color="text.secondary">
-                                    No progress data available yet
+                                    אין עדיין נתוני התקדמות זמינים.
                                 </Typography>
                             )}
                         </Paper>

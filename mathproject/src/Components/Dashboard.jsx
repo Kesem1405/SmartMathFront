@@ -64,12 +64,37 @@ function Dashboard() {
         }
     };
 
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = async () => {
         setIsTimerRunning(false);
+
         if (!currentQuestion || !userAnswer.trim()) return;
 
-        const isCorrect = parseInt(userAnswer) === currentQuestion.correctAnswer;
-        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : `תשובה שגויה, התשובה : ${currentQuestion.correctAnswer}`);
+        const token = localStorage.getItem("userToken");
+        const numericAnswer = parseInt(userAnswer, 10);
+        if (isNaN(numericAnswer)) {
+            console.error("Invalid answer: not a number");
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                'http://localhost:8080/api/question/submit',
+                {},
+                {
+                    params: {
+                        token: token,
+                        userAnswer: numericAnswer
+                    }
+                }
+            );
+
+            console.log('Server response:', response.data);
+        } catch (error) {
+            console.error('Error submitting answer to server:', error);
+        }
+
+        const isCorrect = numericAnswer === currentQuestion.correctAnswer;
+        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : 'תשובה שגויה, התשובה : ${currentQuestion.correctAnswer}');
 
         if (isCorrect) {
             const newScore = score + 1;
@@ -90,10 +115,11 @@ function Dashboard() {
         setShowFeedbackModal(true);
         setUserAnswer("");
 
-        // Trigger animation before fetching new question
+
         setAnimationTrigger(prev => prev + 1);
         fetchQuestion();
     };
+
 
     return (
         <div className="dashboard-layout">

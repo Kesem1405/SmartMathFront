@@ -98,15 +98,7 @@ const DynoLearnHome = () => {
     }, []);
 
     return (
-        <div className="dyno-learn-home">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+        <div className="dyno-learn-home">  
             {/* Animated background elements */}
             <div className="floating-shapes-container">
                 {floatingShapes.map(shape => (
@@ -129,10 +121,6 @@ const DynoLearnHome = () => {
             {/* Hero section */}
             <header className="hero">
                 <div className={`hero-content animation-${heroAnimation}`}>
-                    <h1>
-                        <span className="title-dyno">Dyno</span>
-                        <span className="title-learn">Learn</span>
-                    </h1>
                     <div>
                         <Navbar/>
                     </div>
