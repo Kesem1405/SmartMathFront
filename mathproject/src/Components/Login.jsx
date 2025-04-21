@@ -33,10 +33,10 @@ function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
                 localStorage.setItem("userToken", data.token);
                 onAuthSuccess();
             } else {
-                setError(data.message || "Login failed. Please try again.");
+                setError(data.message || "התחברות נכשלה, נסה שוב.");
             }
         } catch (err) {
-            setError(err.response?.data?.message || "Invalid email or password.");
+            setError(err.response?.data?.message || "אימייל או סיסמא שגוים.");
         } finally {
             setIsSubmitting(false);
         }
@@ -48,7 +48,7 @@ function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
                 <input
                     type="email"
                     className="form-control"
-                    placeholder="Email"
+                    placeholder="אימייל"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -58,7 +58,7 @@ function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
                 <input
                     type="password"
                     className="form-control"
-                    placeholder="Password"
+                    placeholder="סיסמא"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -66,7 +66,7 @@ function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
             </div>
             {error && <div className="alert alert-danger">{error}</div>}
             <button type="submit" className="btn btn-primary w-100" disabled={!email || !password || isSubmitting}>
-                {isSubmitting ? "Signing In..." : "Sign In"}
+                {isSubmitting ? "מתחבר.." : "התחברות"}
             </button>
         </form>
     );

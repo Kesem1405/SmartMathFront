@@ -28,10 +28,10 @@ function AuthPage() {
             <div className="card p-4 shadow-sm" style={{ maxWidth: "400px", width: "100%" }}>
                 <h2 className="text-center text-primary mb-3">
                     {authFormType === "login"
-                        ? "Sign In"
+                        ? "התחברות"
                         : authFormType === "register"
-                            ? "Sign Up"
-                            : "Reset Password"}
+                            ? "הרשמה"
+                            : "איפוס סיסמא"}
                 </h2>
 
                 <div className="d-flex justify-content-center mb-3">
@@ -61,22 +61,22 @@ function AuthPage() {
                     <div className="text-center mt-3">
                         {authFormType === "login" ? (
                             <p>
-                                Don&#39;t have an account?{" "}
                                 <button className="btn btn-link p-0" onClick={() => toggleForm("register")}>
-                                    Sign Up
+                                    הרשמה
                                 </button>
+                                {" "}  ? אין לך משתמש
                             </p>
                         ) : (
                             <p>
-                                Already have an account?{" "}
+                               כבר יש לך משתמש?{" "}
                                 <button className="btn btn-link p-0" onClick={() => toggleForm("login")}>
-                                    Sign In
+                                    התחברות
                                 </button>
                             </p>
                         )}
                         <p className="mt-2">
                             <button className="btn btn-link p-0" onClick={() => toggleForm("forgot")}>
-                                Forgot Password?
+                                שכחת סיסמא?
                             </button>
                         </p>
                     </div>

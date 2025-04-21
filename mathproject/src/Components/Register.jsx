@@ -29,7 +29,7 @@ function Register() {
         setPasswordCriteria(criteria);
 
         if (!criteria.minLength || !criteria.specialChar || !criteria.capitalLetter) {
-            setError("Password must be at least 8 characters, contain a capital letter, and a special character.");
+            setError("הסיסמא חייבת להיות בעלת אורך של 8 תווים לפחות, אות אחת גדולה, ותו מיוחד.");
         } else {
             setError("");
         }
@@ -74,7 +74,7 @@ function Register() {
                 setError(data.message);
             }
         } catch (err) {
-            setError(err.response?.data?.message || "An error occurred. Please try again.");
+            setError(err.response?.data?.message || "קרה בעיה, תנסה שוב.");
         } finally {
             setIsSubmitting(false);
         }
@@ -95,7 +95,7 @@ function Register() {
         setEmail(newEmail);
 
         if (!emailRegex.test(newEmail)) {
-            setError("Invalid email format.");
+            setError("פורמט האימייל שגוי.");
         } else {
             setError("");
         }
@@ -103,13 +103,13 @@ function Register() {
 
     return (
         <div className="container mt-5">
-            <h2 className="mb-4">Sign Up</h2>
+            <h2 className="mb-4">הרשמה</h2>
             <form onSubmit={handleRegister}>
                 <div className="mb-3">
                     <input
                         type="email"
                         className="form-control"
-                        placeholder="Email"
+                        placeholder="אימייל"
                         value={email}
                         onChange={handleEmailChange}
                         required
@@ -120,7 +120,7 @@ function Register() {
                     <input
                         type="password"
                         className="form-control"
-                        placeholder="Password"
+                        placeholder="סיסמא"
                         value={password}
                         onChange={handlePasswordChange}
                         required
@@ -166,7 +166,7 @@ function Register() {
                     className="btn btn-primary w-100"
                     disabled={!isFormValid()}
                 >
-                    {isSubmitting ? "Signing Up..." : "Sign Up"}
+                    {isSubmitting ? "נרשם.." : "הרשמה"}
                 </button>
             </form>
 

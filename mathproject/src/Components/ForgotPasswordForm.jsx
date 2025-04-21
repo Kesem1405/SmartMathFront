@@ -51,7 +51,7 @@ function ForgotPasswordForm({ onBack }) {
             setTimeout(() => onBack(), 2000);
         } catch (err) {
             setMessage("❌ שגיאה בעדכון הסיסמה. נסה שוב.");
-            console.error("Error in password reset:", err);
+            console.error("קרתה בעיה בשינוי הסיסמא:", err);
         }
     };
 

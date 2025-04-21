@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="heavy commit">
+    <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/ForgotPasswordForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/ForgotPasswordForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSX File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -35,12 +40,9 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Kesem1405/SmartMathFront.git&quot;,
-    &quot;accountId&quot;: &quot;f937f569-0fe8-41c3-815c-b2fa08aeb2e7&quot;
+    &quot;accountId&quot;: &quot;63b65dca-e4a5-464e-b744-a70b27a7e6e9&quot;
   }
 }</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -50,29 +52,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/WebProjects/SmartMathFront23052/mathproject/src/Components",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WebProjects/SmartMathFront23052/mathproject/src/Components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\WebProjects\SmartMathFront23052\mathproject\src\Components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\97254\WebstormProjects\SmartMathFront\mathproject\src\images" />
       <recent name="C:\Users\shira\WebstormProjects\SmartMathFront\mathproject" />
     </key>
   </component>
@@ -96,7 +97,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
       </set>
     </attachedChunks>
   </component>
@@ -119,13 +120,6 @@
       <workItem from="1743246005948" duration="17557000" />
       <workItem from="1743491766815" duration="5456000" />
       <workItem from="1743761308242" duration="2066000" />
-      <workItem from="1743888783869" duration="311000" />
-      <workItem from="1743925018163" duration="7584000" />
-      <workItem from="1744020107280" duration="368000" />
-      <workItem from="1744142971013" duration="2206000" />
-      <workItem from="1744145870088" duration="1012000" />
-      <workItem from="1744192377043" duration="338000" />
-      <workItem from="1745255584325" duration="6306000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -207,47 +201,7 @@
       <option name="project" value="LOCAL" />
       <updated>1743576718550</updated>
     </task>
-    <task id="LOCAL‎-00011" summary="logo icon&#10;home page&#10;accessibility button&#10;about page">
-      <option name="closed" value="true" />
-      <created>1743887322495</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL‎-00011" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1743887322495</updated>
-    </task>
-    <task id="LOCAL‎-00012" summary="initial commit">
-      <option name="closed" value="true" />
-      <created>1743928693337</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL‎-00012" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1743928693337</updated>
-    </task>
-    <task id="LOCAL‎-00013" summary="initial commit">
-      <option name="closed" value="true" />
-      <created>1744020228995</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL‎-00013" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1744020228995</updated>
-    </task>
-    <task id="LOCAL‎-00014" summary="initial commit">
-      <option name="closed" value="true" />
-      <created>1744145286419</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL‎-00014" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1744145286420</updated>
-    </task>
-    <task id="LOCAL‎-00015" summary="heavy commit">
-      <option name="closed" value="true" />
-      <created>1745261820686</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL‎-00015" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1745261820686</updated>
-    </task>
-    <option name="localTasksCounter" value="16" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,9 +220,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update" />
-    <MESSAGE value="logo icon&#10;home page&#10;accessibility button&#10;about page" />
-    <MESSAGE value="initial commit" />
-    <MESSAGE value="heavy commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="heavy commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
 </project>
