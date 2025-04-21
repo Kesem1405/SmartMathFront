@@ -86,6 +86,13 @@
     color: #1f1f1f;
     font-size: 1.2rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+
+
+}
+.user-input{
+    position: relative;
+    left: -26.5%;
 }
 
 .answer-input:focus {
@@ -105,7 +112,7 @@
     height: 44px;
     line-height: 44px;
     margin-top:3%;
-    left:18%;
+    left:-18%;
     outline: 0;
     overflow: hidden;
     padding: 0 20px;

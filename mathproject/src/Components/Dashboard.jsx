@@ -156,6 +156,7 @@ function Dashboard() {
 
                         <div className="answer-input">
                             <input
+                                className={"user-input"}
                                 type="number"
                                 value={userAnswer}
                                 onChange={(e) => setUserAnswer(e.target.value)}
