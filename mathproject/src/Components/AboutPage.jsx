@@ -16,7 +16,7 @@ const AboutPage = () => {
 
 
 
-            <div>
+            <div style={{top:"30%", position:"relative"}}>
                 <Navbar></Navbar>
             </div>
 

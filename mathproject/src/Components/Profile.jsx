@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +15,7 @@ import {
     Button,
     TextField
 } from "@mui/material";
+
 function Profile() {
     const [userData, setUserData] = useState({
         email: "",
@@ -26,34 +28,80 @@ function Profile() {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const [progressData, setProgressData] = useState(null);
+    const [topicStats, setTopicStats] = useState([]);
+
+    // Function to translate topic names from English to Hebrew
+    const translateTopicName = (topicName) => {
+        const translations = {
+            'ADD_SUB': 'חיבור וחיסור',
+            'MULT_DEV': 'כפל וחילוק',
+            'EQ': 'משוואות ישר'
+        };
+        return translations[topicName] || topicName;
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('userToken');
-                const userResponse = await axios.get(`http://localhost:8080/api/user/info?token=${token}`);
+                if (!token) {
+                    throw new Error("No authentication token found");
+                }
+
+                // Fetch user info
+                const userResponse = await axios.get(`http://localhost:8080/api/user/info`, {
+                    params: { token },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 setUserData(userResponse.data);
 
-                // Fetch progress data
-                const progressResponse = await axios.get(`http://localhost:8080/api/progress/get/${userResponse.data.id}`);
-                setProgressData({
-                    ...progressResponse.data,
-                    // Transform the data to match expected format
-                    totalAnswers: progressResponse.data.totalAnswers || 0,
-                    correctAnswers: progressResponse.data.score || 0,
-                    currentLevel: progressResponse.data.currentDifficulty || 'Not specified',
-                    currentTopic: progressResponse.data.currentTopic || 'Not specified'
-                });
+                // Fetch topic statistics
+                const topicStatsResponse = await axios.get(
+                    `http://localhost:8080/api/user/dashboard/stats/topics-rank`,
+                    {
+                        params: { token },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+
+                if (topicStatsResponse.data && topicStatsResponse.data.length > 0) {
+                    const translatedTopics = topicStatsResponse.data.map(topic => ({
+                        ...topic,
+                        topicName: translateTopicName(topic.topicName)
+                    }));
+                    setTopicStats(translatedTopics);
+
+                    const totalAnswers = topicStatsResponse.data.reduce((sum, topic) => sum + (topic.totalAsked || 0), 0);
+                    const correctAnswers = topicStatsResponse.data.reduce((sum, topic) => sum + (topic.totalCorrect || 0), 0);
+
+                    setProgressData({
+                        totalAnswers,
+                        correctAnswers,
+                        accuracy: totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0
+
+
+                    });
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setErrorMessage("Failed to load user data");
+                setErrorMessage(error.response?.data?.message || error.message || "Failed to load user data");
+                if (error.response?.status === 401) {
+                    localStorage.removeItem("userToken");
+                    navigate("/auth");
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -64,19 +112,56 @@ function Profile() {
         e.preventDefault();
         setErrorMessage("");
         try {
+            const token = localStorage.getItem('userToken');
             const response = await axios.post(
                 "http://localhost:8080/api/user/update-profile",
-                userData
+                userData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
             );
             navigate("/dashboard");
         } catch (error) {
-            setErrorMessage(error.response?.data?.message || "Update failed");
+            setErrorMessage(error.response?.data?.message || error.message || "Update failed");
+            if (error.response?.status === 401) {
+                localStorage.removeItem("userToken");
+                navigate("/auth");
+            }
+        }
+    };
+
+    const formatDuration = (isoString) => {
+        if (!isoString) return "N/A";
+
+        // Extract time components from ISO string
+        const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
+        const matches = isoString.match(regex);
+
+        let seconds = 0;
+        if (matches) {
+            const hours = parseInt(matches[1]) || 0;
+            const minutes = parseInt(matches[2]) || 0;
+            seconds = parseInt(matches[3]) || 0;
+            seconds += hours * 3600 + minutes * 60;
+        }
+
+        // Format as 00:01 for seconds only, otherwise Xm Ys
+        if (seconds < 60) {
+            // Pad with leading zero for single-digit seconds
+            const paddedSeconds = seconds.toString().padStart(2, '0');
+            return `00:${paddedSeconds}`;
+        } else {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}m ${secs}s`;
         }
     };
 
     if (loading) {
         return (
-
             <Box display="flex" justifyContent="center" mt={4}>
                 <CircularProgress />
             </Box>
@@ -84,8 +169,6 @@ function Profile() {
     }
 
     return (
-
-
         <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
             <Navbar handleSignOut={() => {
                 localStorage.removeItem("userToken");
@@ -96,51 +179,65 @@ function Profile() {
                 <Grid container spacing={3}>
                     {/* Profile Section */}
                     <Grid item xs={12} md={6}>
-                        <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
+                        <Paper elevation={3} sx={{
+                            p: 3,
+                            borderRadius: 2,
+                            '& .MuiTextField-root': {
+                                marginTop: '8px',
+                                marginBottom: '8px'
+                            }
+                        }}>
                             <Typography variant="h5" gutterBottom>פרטי פרופיל</Typography>
                             <Divider sx={{ my: 2 }} />
 
                             <Box component="form" onSubmit={handleSubmit}>
-                                <TextField
-                                    fullWidth
-                                    margin="normal"
-                                    label="דואר אלקטרוני"
-                                    name="email"
-                                    value={userData.email}
-                                    onChange={handleChange}
-                                    sx={{ mb: 2 }}
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    margin="normal"
-                                    label="סיסמה"
-                                    name="password"
-                                    type="password"
-                                    value={userData.password}
-                                    onChange={handleChange}
-                                    sx={{ mb: 2 }}
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    margin="normal"
-                                    label="שם פרטי"
-                                    name="firstName"
-                                    value={userData.firstName}
-                                    onChange={handleChange}
-                                    sx={{ mb: 2 }}
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    margin="normal"
-                                    label="שם משפחה"
-                                    name="lastName"
-                                    value={userData.lastName}
-                                    onChange={handleChange}
-                                    sx={{ mb: 2 }}
-                                />
+                                <Grid container spacing={2}>
+                                    {[
+                                        { label: "דואר אלקטרוני", name: "email", type: "email" },
+                                        { label: "סיסמה", name: "password", type: "password" },
+                                        { label: "שם פרטי", name: "firstName" },
+                                        { label: "שם משפחה", name: "lastName" }
+                                    ].map((field) => (
+                                        <Grid item xs={12} sm={6} key={field.name}>
+                                            <TextField
+                                                fullWidth
+                                                variant="outlined"
+                                                label={field.label}
+                                                name={field.name}
+                                                type={field.type || "text"}
+                                                value={userData[field.name]}
+                                                onChange={handleChange}
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        '& fieldset': {
+                                                            borderColor: '#e0e0e0',
+                                                        },
+                                                        '&:hover fieldset': {
+                                                            borderColor: '#bdbdbd',
+                                                        },
+                                                        '&.Mui-focused fieldset': {
+                                                            borderColor: '#3f51b5',
+                                                            borderWidth: '1px'
+                                                        },
+                                                    },
+                                                    '& .MuiInputLabel-root': {
+                                                        backgroundColor: 'background.paper',
+                                                        px: 0.5,
+                                                        transform: 'translate(14px, -9px) scale(0.75)',
+                                                        '&.Mui-focused': {
+                                                            color: '#3f51b5'
+                                                        }
+                                                    }
+                                                }}
+                                                InputProps={{
+                                                    style: {
+                                                        height: '48px'
+                                                    }
+                                                }}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
 
                                 <Button
                                     type="submit"
@@ -166,77 +263,75 @@ function Profile() {
                             <Divider sx={{ my: 2 }} />
 
                             {progressData ? (
-                                <Grid container spacing={2}>
-                                    {/* Total Questions Card */}
-                                    <Grid item xs={12} sm={6}>
-                                        <Card>
-                                            <CardContent>
-                                                <Typography variant="h6">Total Questions</Typography>
-                                                <Typography variant="h4" color="primary">
-                                                    {progressData.totalAnswers}
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
+                                <>
+                                    <Grid container spacing={2}>
+                                        {/* Total Questions Card */}
+                                        <Grid item xs={12} sm={6}>
+                                            <Card>
+                                                <CardContent>
+                                                    <Typography variant="h6">Total Questions</Typography>
+                                                    <Typography variant="h4" color="primary">
+                                                        {progressData.totalAnswers}
+                                                    </Typography>
+                                                </CardContent>
+                                            </Card>
+                                        </Grid>
+
+                                        {/* Accuracy Card */}
+                                        <Grid item xs={12} sm={6}>
+                                            <Card>
+                                                <CardContent>
+                                                    <Typography variant="h6">Accuracy</Typography>
+                                                    <Typography variant="h4" color="primary">
+                                                        {progressData.accuracy}%
+                                                    </Typography>
+                                                </CardContent>
+                                            </Card>
+                                        </Grid>
                                     </Grid>
 
-                                    {/* Accuracy Card */}
-                                    <Grid item xs={12} sm={6}>
-                                        <Card>
-                                            <CardContent>
-                                                <Typography variant="h6">Accuracy</Typography>
-                                                <Typography variant="h4" color="primary">
-                                                    {progressData.totalAnswers > 0
-                                                        ? Math.round((progressData.correctAnswers / progressData.totalAnswers) * 100)
-                                                        : 0}%
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-
-                                    {/* Detailed Stats */}
-                                    <Grid item xs={12}>
-                                        <Card sx={{ mt: 2 }}>
-                                            <CardContent>
-                                                <Typography variant="h6" gutterBottom>Detailed Statistics</Typography>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={6}>
-                                                        <Typography>Correct Answers:</Typography>
-                                                        <Typography variant="h5" color="green">
-                                                            {progressData.correctAnswers}
-                                                        </Typography>
+                                    {/* Topic Statistics */}
+                                    <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Topic Statistics</Typography>
+                                    {topicStats.length > 0 ? (
+                                        topicStats.map((topic, index) => (
+                                            <Card key={index} sx={{ mb: 2 }}>
+                                                <CardContent>
+                                                    <Typography variant="h6">{topic.topicName}</Typography>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={4}>
+                                                            <Typography>Correct:</Typography>
+                                                            <Typography color="green">{topic.totalCorrect || 0}</Typography>
+                                                        </Grid>
+                                                        <Grid item xs={4}>
+                                                            <Typography>Total:</Typography>
+                                                            <Typography>{topic.totalAsked || 0}</Typography>
+                                                        </Grid>
+                                                        <Grid item xs={4}>
+                                                            <Typography>Accuracy:</Typography>
+                                                            <Typography>
+                                                                {topic.totalAsked > 0
+                                                                    ? Math.round((topic.totalCorrect / topic.totalAsked) * 100)
+                                                                    : 0}%
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <Typography>Best Time:</Typography>
+                                                            <Typography>{formatDuration(topic.bestTime)}</Typography>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <Typography>Avg Time:</Typography>
+                                                            <Typography>{formatDuration(topic.averageTime)}</Typography>
+                                                        </Grid>
                                                     </Grid>
-                                                    <Grid item xs={6}>
-                                                        <Typography>Wrong Answers:</Typography>
-                                                        <Typography variant="h5" color="red">
-                                                            {progressData.totalAnswers - progressData.correctAnswers}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Card sx={{ mt: 2 }}>
-                                            <CardContent>
-                                                <Typography variant="h6" gutterBottom>Current Status</Typography>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={6}>
-                                                        <Typography>Current Level:</Typography>
-                                                        <Typography variant="h5">
-                                                            {progressData.currentLevel}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={6}>
-                                                        <Typography>Current Topic:</Typography>
-                                                        <Typography variant="h5">
-                                                            {progressData.currentTopic}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                </Grid>
+                                                </CardContent>
+                                            </Card>
+                                        ))
+                                    ) : (
+                                        <Typography color="text.secondary">
+                                            No topic statistics available yet.
+                                        </Typography>
+                                    )}
+                                </>
                             ) : (
                                 <Typography color="text.secondary">
                                     אין עדיין נתוני התקדמות זמינים.
@@ -245,7 +340,6 @@ function Profile() {
                         </Paper>
                     </Grid>
                 </Grid>
-
             </Box>
         </div>
     );
