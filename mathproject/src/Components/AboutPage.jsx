@@ -11,13 +11,9 @@ import ilayImage from '../images/ilay.jpg'
 
 const AboutPage = () => {
     return (
-
         <div className="about-container">
-
-
-
-            <div style={{top:"30%", position:"relative"}}>
-                <Navbar></Navbar>
+            <div className="about-page-navbar">
+                <Navbar/>
             </div>
 
 
@@ -93,7 +89,7 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>חליס קסם</h3>
-                        <p className="position">מנהל מערך FRONTEND</p>
+                        <p className="position"> FRONTEND מנהל מערך </p>
                     </div>
 
                     {/* Team Member 3 */}
@@ -115,7 +111,7 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>סיבוני אילון</h3>
-                        <p className="position">מנהל מערך BACKEND</p>
+                        <p className="position"> BACKEND מנהל מערך </p>
                     </div>
                     <div className="team-member">
                         <img
@@ -133,7 +129,7 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>מלכה הילה</h3>
-                        <p className="position">ראש צוות UX/UI</p>
+                        <p className="position"> UX/UI ראש צוות </p>
                     </div>
                 </div>
             </div>

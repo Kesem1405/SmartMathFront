@@ -7,8 +7,10 @@
     <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AboutPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathproject/src/css/AboutPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/AboutPage.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +118,8 @@
       <workItem from="1743246005948" duration="17557000" />
       <workItem from="1743491766815" duration="5456000" />
       <workItem from="1743761308242" duration="2066000" />
-      <workItem from="1745271608384" duration="712000" />
+      <workItem from="1745271608384" duration="1045000" />
+      <workItem from="1745404868039" duration="2211000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -214,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745270144189</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update">
+      <option name="closed" value="true" />
+      <created>1745273649246</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1745273649246</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

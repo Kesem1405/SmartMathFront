@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Manrope:wght@400;700&display=swap');
 
+
+
 :root {
     --primary: #6a11cb;
     --secondary: #2575fc;
@@ -9,6 +11,7 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     --heading-font: 'Nunito', sans-serif;
     --body-font: 'Manrope', sans-serif;
+
 }
 
 /* Base styles */
@@ -20,6 +23,12 @@
     position: relative;
     overflow-x: hidden;
     text-align: center;
+}
+
+.about-page-navbar{
+    margin-top:15px;
+    position: relative;
+    margin-bottom: 5%;
 }
 
 /* Decorative window frames */

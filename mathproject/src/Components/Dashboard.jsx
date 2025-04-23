@@ -27,6 +27,7 @@ function Dashboard() {
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [animationTrigger, setAnimationTrigger] = useState(0);
+    const isSeenTutorial = localStorage.getItem("hasSeenTour")
 
 
     useEffect(() => {
@@ -39,13 +40,13 @@ function Dashboard() {
 
     useEffect(() => {
         let interval;
-        if (isTimerRunning) {
+        if (isTimerRunning && isSeenTutorial) {
             interval = setInterval(() => {
                 setTimer(prev => prev + 1);
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [isTimerRunning]);
+    }, [isTimerRunning], isSeenTutorial);
 
     const fetchQuestion = async () => {
         try {
@@ -94,7 +95,7 @@ function Dashboard() {
         }
 
         const isCorrect = numericAnswer === currentQuestion.correctAnswer;
-        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : 'תשובה שגויה, התשובה : ${currentQuestion.correctAnswer}');
+        setFeedback(isCorrect ? "תשובה נכונה! 🎉" : ` תשובה שגויה, התשובה הנכונה היא: ${currentQuestion.correctAnswer}`);
 
         if (isCorrect) {
             const newScore = score + 1;
@@ -175,7 +176,7 @@ function Dashboard() {
                     <Modal.Title>תוצאה</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p className={`${feedback.includes("נכונה") ? "text-success" : "text-danger"}`}>
+                    <p className={`${feedback.includes("שגויה") ? "text-danger" : "text-success"}`}>
                         {feedback}
                     </p>
                 </Modal.Body>
