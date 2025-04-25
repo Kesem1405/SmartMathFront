@@ -6,17 +6,17 @@ import ForgotPasswordForm from "./ForgotPasswordForm.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function AuthPage() {
-    const [authFormType, setAuthFormType] = useState("login"); // 'login', 'register', 'forgot'
+    const [authFormType, setAuthFormType] = useState("login");
     const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem("userToken")) {
-            navigate("/dashboard"); // Redirect if already logged in
+            navigate("/dashboard");
         }
     }, [navigate]);
 
     const handleAuthSuccess = () => {
-        navigate("/dashboard"); // Redirect after login/register
+        navigate("/dashboard");
     };
 
     const toggleForm = (formType) => {

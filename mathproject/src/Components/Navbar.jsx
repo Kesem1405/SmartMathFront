@@ -49,7 +49,7 @@ const Navbar = ({ handleSignOut = () => {} }) => {
 
   return (
     <nav className="math-navbar">
-      {/* 1. לוגו מעל */}
+
       <div className="math-navbar__logo-wrapper">
         <Link to="/home" className="math-navbar__logo">
         <span className="title-learn">Learn</span>
@@ -57,7 +57,7 @@ const Navbar = ({ handleSignOut = () => {} }) => {
         </Link>
       </div>
 
-      {/* 2. התפריט על רקע לבן */}
+
       <div className="math-navbar__menu">
         <div className="math-navbar__items">
           {navItems.map(item => {

@@ -12,13 +12,11 @@ const DynoLearnHome = () => {
 
     const equations = [
         "2 + 2 = 4",
-
         "3 × 5 = 15",
         "x² + y² = z²",
         "π ≈ 3.14159",
         "a² + b² = c²",
         "e^(iπ) + 1 = 0",
-        "1 + 2 + 3 + ... + n = n(n+1)/2",
         "E = mc²",
         "F = ma",
         "PV = nRT",
@@ -29,12 +27,10 @@ const DynoLearnHome = () => {
         "sin²(θ) + cos²(θ) = 1",
         "tan(θ) = sin(θ) / cos(θ)",
         "d/dx (x^n) = nx^(n-1)",
-        "∫ x^n dx = (x^(n+1))/(n+1) + C",
-        "∫ (1/x) dx = ln|x| + C",
         "lim (x→0) sin(x)/x = 1",
         "e ≈ 2.71828",
         "n! = 1 × 2 × 3 × ... × n",
-        "∑_{k=0}^∞ ar^k = a / (1-r), |r|<1",
+
 
     ];
 
@@ -56,16 +52,16 @@ const DynoLearnHome = () => {
             });
 
             document.body.removeChild(tempElement);
-            setContainerWidth(maxWidth-108); // Add some padding
+            setContainerWidth(maxWidth-108);
         }
     }, []);
 
-    // Generate random floating shapes
+
     useEffect(() => {
         const shapes = [];
         const types = ['circle', 'square', 'triangle', 'pentagon', 'hexagon', 'star'];
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i <30; i++) {
             shapes.push({
                 id: i,
                 type: types[Math.floor(Math.random() * types.length)],
@@ -81,7 +77,7 @@ const DynoLearnHome = () => {
         setFloatingShapes(shapes);
     }, []);
 
-    // Cycle through equations
+
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveEquation((prev) => (prev + 1) % equations.length);
@@ -89,7 +85,7 @@ const DynoLearnHome = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Hero animation cycle
+
     useEffect(() => {
         const interval = setInterval(() => {
             setHeroAnimation((prev) => (prev + 1) % 4);
@@ -99,7 +95,6 @@ const DynoLearnHome = () => {
 
     return (
         <div className="dyno-learn-home">  
-            {/* Animated background elements */}
             <div className="floating-shapes-container">
                 {floatingShapes.map(shape => (
                     <div
@@ -118,7 +113,6 @@ const DynoLearnHome = () => {
                 ))}
             </div>
 
-            {/* Hero section */}
             <header className="hero">
                 <div className={`hero-content animation-${heroAnimation}`}>
                     <div>
@@ -132,29 +126,27 @@ const DynoLearnHome = () => {
                         style={{width: containerWidth ? `${containerWidth}px` : 'auto'}}
                     >
                         <div className="equation">{equations[activeEquation]}</div>
-                        <div className="equation-sub">Powered by smart algorithms!</div>
+                        <div className="equation-sub">!Powered by smart algorithms</div>
                     </div>
                 </div>
 
             </header>
 
-            {/* Main content */}
             <main className="content">
                 <Testimonials />
             </main>
 
-            {/* Footer */}
             <footer className="footer">
                 <div className="footer-equation">
                     <span>Learning</span>
                     <span className="operator">+</span>
                     <span>Fun</span>
                     <span className="operator">=</span>
-                    <span className="highlight">Success!</span>
+                    <span className="highlight">Success</span>
                 </div>
 
                 <div className="copyright">
-                    © {new Date().getFullYear()} DynoLearn. All rights reserved.
+                    © {new Date().getFullYear()} DynoLearn. All rights reserved
                 </div>
             </footer>
         </div>

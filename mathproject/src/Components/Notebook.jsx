@@ -4,12 +4,12 @@ function Notebook({ onClear }) {
     const [notes, setNotes] = useState("");
 
     const handleChange = (event) => {
-        setNotes(event.target.value); // Update the notebook content
+        setNotes(event.target.value);
     };
 
     const handleClear = () => {
-        setNotes(""); // Clear the notebook content
-        onClear(); // Notify the parent component (if needed)
+        setNotes("");
+        onClear();
     };
 
     return (
@@ -19,7 +19,7 @@ function Notebook({ onClear }) {
                 className="notebook"
                 value={notes}
                 onChange={handleChange}
-                placeholder="מחברת טיוטה - היעזר בי לפתירת התרגילים "
+                placeholder="מחברת טיוטה - כי לפעמים צריך רק מקום קטן לרשום את הבלגן בראש 😄 "
                 rows={10}
                 style={{
                     width: "100%",
@@ -31,10 +31,10 @@ function Notebook({ onClear }) {
                     fontFamily: "monospace",
                     fontSize: "1rem",
                     lineHeight: "1.6em",
-                    resize: "none", // Prevent resizing
+                    resize: "none",
                 }}
             />
-            <button onClick={handleClear} className="btn btn-secondary mt-3">ניקוי מחברת  🗑
+            <button onClick={handleClear} className="btn btn-secondary mt-3">תנקה אותי  🗑
             </button>
         </div>
     );

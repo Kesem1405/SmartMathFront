@@ -74,7 +74,7 @@ function Register() {
                 setError(data.message);
             }
         } catch (err) {
-            setError(err.response?.data?.message || "קרה בעיה, תנסה שוב.");
+            setError(err.response?.data?.message || "קרתה תקלה, תנסה שוב.");
         } finally {
             setIsSubmitting(false);
         }

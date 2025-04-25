@@ -4,6 +4,7 @@ import '../css/CurrentProgress.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+// eslint-disable-next-line react/prop-types
 function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
     const [firstName, setFirstName] = useState("");
 
@@ -17,7 +18,6 @@ function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
     useEffect(() => {
         const token = localStorage.getItem('userToken');
         if (!token) {
-            // Handle case where token doesn't exist
             return;
         }
 
@@ -32,9 +32,7 @@ function CurrentProgress({ topic = "AddSub", difficulty = "EASY" }) {
             .catch((error) => {
                 console.error("Error fetching user info:", error);
                 if (error.response?.status === 404) {
-                    // Handle user not found
                 } else {
-                    // Handle other errors
                 }
             });
     }, []);

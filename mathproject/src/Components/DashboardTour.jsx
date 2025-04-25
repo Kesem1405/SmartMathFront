@@ -34,12 +34,12 @@ const DashboardTour = () => {
 
     const startTour = () => {
         setTourRun(true);
-        setTourKey(prev => prev + 1); // 👈 forces Joyride to restart
+        setTourKey(prev => prev + 1);
     };
 
     return (
         <>
-            {/* Tour Info Button */}
+
             <button
                 onClick={startTour}
                 style={{
@@ -58,9 +58,9 @@ const DashboardTour = () => {
                 ℹ️ מידע
             </button>
 
-            {/* Joyride Tour */}
+
             <Joyride
-                key={tourKey} // Force re-init when restarted
+                key={tourKey}
                 steps={steps}
                 run={tourRun}
                 continuous

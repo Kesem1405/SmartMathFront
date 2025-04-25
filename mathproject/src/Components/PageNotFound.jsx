@@ -8,7 +8,7 @@ const PageNotFound = () => {
     const navigate = useNavigate();
 
     const handleGoHome = () => {
-        navigate("/app/students");
+        navigate("/home");
     };
 
     return (
@@ -28,7 +28,6 @@ const PageNotFound = () => {
                 overflow: "hidden",
             }}
         >
-            {/* Decorative math elements */}
             <Typography variant="h2" sx={{
                 position: "absolute",
                 top: "10%",
@@ -97,10 +96,10 @@ const PageNotFound = () => {
                         lineHeight: 1.6
                     }}
                 >
-                   ... אוי לא! נראה שאיבדת את הדרך לפתרון.
+                    אוי לא! נראה שאיבדת את הדרך לפתרון...
                     <br />
-                    הדף שאתה מחפש לא קיים<br />
-                    אבל אל תדאג ! - אעזור לך לחזור לפתור בעיות
+                    הדף שאתה מחפש לא קיים.<br />
+                    אבל אל תדאג ! - אעזור לך לחזור לפתור בעיות.
                 </Typography>
 
                 <Box sx={{
@@ -143,7 +142,7 @@ const PageNotFound = () => {
                     }}
                     onClick={handleGoHome}
                 >
-                    ! חזרה למתמטיקה כיפית
+                       חזרה למתמטיקה כיפית!
                 </Button>
             </Container>
         </Box>

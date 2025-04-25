@@ -70,7 +70,7 @@ const AboutPage = () => {
                 <FaUsers className="team-icon"/>
 
                 <div className="team-members">
-                    {/* Team Member 1 */}
+
                     <div className="team-member">
                         <img
                             src={shimonImage}
@@ -81,7 +81,7 @@ const AboutPage = () => {
                         <p className="position">מנהל טכנולוגיות</p>
                     </div>
 
-                    {/* Team Member 2 */}
+
                     <div className="team-member">
                         <img
                             src={kesemImage}
@@ -89,10 +89,10 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>חליס קסם</h3>
-                        <p className="position"> FRONTEND מנהל מערך </p>
+                        <p className="position">  מנהל מערך FRONTEND</p>
                     </div>
 
-                    {/* Team Member 3 */}
+
                     <div className="team-member">
                         <img
                             src={shiraImage}
@@ -103,7 +103,6 @@ const AboutPage = () => {
                         <p className="position">מנהלת מוצר</p>
                     </div>
 
-                    {/* Team Member 4 */}
                     <div className="team-member">
                         <img
                             src={elonImage}
@@ -111,7 +110,7 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>סיבוני אילון</h3>
-                        <p className="position"> BACKEND מנהל מערך </p>
+                        <p className="position">  מנהל מערך BACKEND</p>
                     </div>
                     <div className="team-member">
                         <img
@@ -129,7 +128,7 @@ const AboutPage = () => {
                             className="member-photo"
                         />
                         <h3>מלכה הילה</h3>
-                        <p className="position"> UX/UI ראש צוות </p>
+                        <p className="position">  ראש צוות UX/UI</p>
                     </div>
                 </div>
             </div>

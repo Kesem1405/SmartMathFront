@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { SERVER_URL, ADMIN_USERNAME, ADMIN_PASSWORD } from "./Constants.js";
 
-function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
+function Login({onAuthSuccess}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -15,7 +15,7 @@ function Login({ toggleForm, onAuthSuccess, onForgotPassword }) {
         setError("");
 
         if (email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-            localStorage.setItem("userToken", "c55fb88bfb0ef042de72760db7a80c2c");
+            localStorage.setItem("userToken", ADMIN_PASSWORD);
             localStorage.setItem("ADMIN", "true");
             onAuthSuccess();
             return;

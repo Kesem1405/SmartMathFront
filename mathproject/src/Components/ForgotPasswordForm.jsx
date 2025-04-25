@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
+// eslint-disable-next-line react/prop-types
 function ForgotPasswordForm({ onBack }) {
     const [email, setEmail] = useState("");
-    const [step, setStep] = useState(1); // 1: enter email, 2: enter code, 3: new password
+    const [step, setStep] = useState(1);
     const [code, setCode] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");

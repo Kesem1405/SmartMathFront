@@ -31,7 +31,6 @@ function Profile() {
     const [topicStats, setTopicStats] = useState([]);
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
-    // Function to translate topic names from English to Hebrew
     const translateTopicName = (topicName) => {
         const translations = {
             'ADD_SUB': 'חיבור וחיסור',
@@ -49,7 +48,7 @@ function Profile() {
                     throw new Error("No authentication token found");
                 }
 
-                // Fetch user info
+
                 const userResponse = await axios.get(`http://localhost:8080/api/user/info`, {
                     params: { token },
                     headers: {
@@ -59,7 +58,7 @@ function Profile() {
                 });
                 setUserData(userResponse.data);
 
-                // Fetch topic statistics
+
                 const topicStatsResponse = await axios.get(
                     `http://localhost:8080/api/user/dashboard/stats/topics-rank`,
                     {
@@ -139,7 +138,7 @@ function Profile() {
     const formatDuration = (isoString) => {
         if (!isoString) return "N/A";
 
-        // Extract time components from ISO string
+
         const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
         const matches = isoString.match(regex);
 
@@ -151,9 +150,8 @@ function Profile() {
             seconds += hours * 3600 + minutes * 60;
         }
 
-        // Format as 00:01 for seconds only, otherwise Xm Ys
+
         if (seconds < 60) {
-            // Pad with leading zero for single-digit seconds
             const paddedSeconds = seconds.toString().padStart(2, '0');
             return `00:${paddedSeconds}`;
         } else {
@@ -180,7 +178,6 @@ function Profile() {
 
             <Box sx={{ p: 3 }}>
                 <Grid container spacing={3}>
-                    {/* Profile Section */}
                     <Grid item xs={12} md={6}>
                         <Paper elevation={3} sx={{
                             p: 3,
@@ -231,11 +228,7 @@ function Profile() {
                                                         }
                                                     }
                                                 }}
-                                                InputProps={{
-                                                    style: {
-                                                        height: '48px'
-                                                    }
-                                                }}
+
                                             />
                                         </Grid>
                                     ))}
@@ -259,7 +252,6 @@ function Profile() {
                         </Paper>
                     </Grid>
 
-                    {/* Progress Section */}
                     <Grid item xs={12} md={6}>
                         <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
                             <Typography variant="h5" gutterBottom>סטטיסטיקת התקדמות</Typography>
@@ -268,7 +260,6 @@ function Profile() {
                             {progressData ? (
                                 <>
                                     <Grid container spacing={2}>
-                                        {/* Total Questions Card */}
                                         <Grid item xs={12} sm={6}>
                                             <Card>
                                                 <CardContent>
@@ -280,7 +271,6 @@ function Profile() {
                                             </Card>
                                         </Grid>
 
-                                        {/* Accuracy Card */}
                                         <Grid item xs={12} sm={6}>
                                             <Card>
                                                 <CardContent>
@@ -293,7 +283,6 @@ function Profile() {
                                         </Grid>
                                     </Grid>
 
-                                    {/* Topic Statistics */}
                                     <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>סטטיסטיקה לפי נושא</Typography>
                                     {topicStats.length > 0 ? (
                                         topicStats.map((topic, index) => (
