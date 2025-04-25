@@ -29,6 +29,7 @@ function Profile() {
     const navigate = useNavigate();
     const [progressData, setProgressData] = useState(null);
     const [topicStats, setTopicStats] = useState([]);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
 
     // Function to translate topic names from English to Hebrew
     const translateTopicName = (topicName) => {
@@ -108,12 +109,13 @@ function Profile() {
         setUserData(prev => ({ ...prev, [name]: value }));
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMessage("");
         try {
             const token = localStorage.getItem('userToken');
-            const response = await axios.post(
+            await axios.post(
                 "http://localhost:8080/api/user/update-profile",
                 userData,
                 {
@@ -123,7 +125,8 @@ function Profile() {
                     }
                 }
             );
-            navigate("/dashboard");
+            setSubmitSuccess(true);
+            setTimeout(() => setSubmitSuccess(false), 5000);
         } catch (error) {
             setErrorMessage(error.response?.data?.message || error.message || "Update failed");
             if (error.response?.status === 401) {
@@ -194,7 +197,6 @@ function Profile() {
                                 <Grid container spacing={2}>
                                     {[
                                         { label: "דואר אלקטרוני", name: "email", type: "email" },
-                                        { label: "סיסמה", name: "password", type: "password" },
                                         { label: "שם פרטי", name: "firstName" },
                                         { label: "שם משפחה", name: "lastName" }
                                     ].map((field) => (
@@ -242,9 +244,10 @@ function Profile() {
                                 <Button
                                     type="submit"
                                     variant="contained"
+                                    color={submitSuccess ? "success" : "primary"}
                                     sx={{ mt: 2 }}
                                 >
-                                    שמור שינויים
+                                    {submitSuccess ? "השינויים בוצעו בהצלחה" : "שמור שינויים"}
                                 </Button>
                             </Box>
 
@@ -269,7 +272,7 @@ function Profile() {
                                         <Grid item xs={12} sm={6}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography variant="h6">סה''כ שאלות</Typography>
+                                                    <Typography variant="h6">סך הכל שאלות</Typography>
                                                     <Typography variant="h4" color="primary">
                                                         {progressData.totalAnswers}
                                                     </Typography>
@@ -303,7 +306,7 @@ function Profile() {
                                                             <Typography color="green">{topic.totalCorrect || 0}</Typography>
                                                         </Grid>
                                                         <Grid item xs={4}>
-                                                            <Typography>סה''כ תשובות:</Typography>
+                                                            <Typography>סך הכל תשובות:</Typography>
                                                             <Typography>{topic.totalAsked || 0}</Typography>
                                                         </Grid>
                                                         <Grid item xs={4}>
