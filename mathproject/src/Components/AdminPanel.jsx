@@ -1,62 +1,21 @@
 import { useState, useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import {
-    TextField,
-    InputAdornment,
-    Box,
-    Paper,
-    MenuItem,
-    Select,
-    FormControl,
-    InputLabel
-} from '@mui/material';
-import { Search, FilterList } from '@mui/icons-material';
-import { isAdmin, topicTranslations, difficultyTranslations } from './Constants.js';
+import { Alert, Box, Container, Paper, Typography } from '@mui/material';
+import { UserTable } from './UserTable';
+import { FilterControls } from './FilterControls';
+import { UserActivity } from './UserActivity';
+import { isAdmin, topicTranslations, difficultyTranslations } from './Constants';
 import Navbar from "./Navbar.jsx";
+import ChartPanel from "./ChartPanel.jsx";
+import CircularProgress from '@mui/material/CircularProgress';
 
-export function AdminPanel() {
+export const AdminPanel = () => {
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchText, setSearchText] = useState('');
     const [difficultyFilter, setDifficultyFilter] = useState('all');
     const [topicFilter, setTopicFilter] = useState('all');
-
-    useEffect(() => {
-        if (!isAdmin()) return;
-
-        const fetchUsers = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/api/progress/get/all');
-                if (!response.ok) throw new Error('Failed to fetch users');
-                const data = await response.json();
-                setUsers(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUsers();
-    }, []);
-
-    const filteredUsers = users.filter(user => {
-        const matchesSearch =
-            user.userName?.toLowerCase().includes(searchText.toLowerCase()) ||
-            user.fullName?.toLowerCase().includes(searchText.toLowerCase()) ||
-            user.userId?.toString().includes(searchText);
-
-        const matchesDifficulty =
-            difficultyFilter === 'all' ||
-            user.currentDifficulty === difficultyFilter;
-
-        const matchesTopic =
-            topicFilter === 'all' ||
-            user.currentTopic === topicFilter;
-
-        return matchesSearch && matchesDifficulty && matchesTopic;
-    });
 
     const difficultyOptions = [
         { value: 'all', label: 'כל הרמות' },
@@ -74,145 +33,102 @@ export function AdminPanel() {
         }))
     ];
 
-    const columns = [
-        { field: 'userId', headerName: 'ID', width: 70 },
-        { field: 'userName', headerName: 'שם משתמש', width: 150 },
-        { field: 'fullName', headerName: 'שם מלא', width: 150 },
-        {
-            field: 'currentDifficulty',
-            headerName: 'רמה נוכחית',
-            width: 150,
-            valueGetter: (value, row) =>
-                row?.currentDifficulty ? difficultyTranslations[row.currentDifficulty] : 'לא זמין'
-        },
-        {
-            field: 'currentTopic',
-            headerName: 'נושא',
-            width: 150,
-            valueGetter: (value, row) =>
-                row?.currentTopic ? topicTranslations[row.currentTopic] : 'לא זמין'
-        },
-        {
-            field: 'correctAnswers',
-            headerName: 'תשובות נכונות',
-            width: 130,
-            type: 'number',
-            headerAlign: 'left',
-            align: 'left'
-        },
-        {
-            field: 'totalAnswers',
-            headerName: 'סה"כ תשובות',
-            width: 130,
-            type: 'number',
-            headerAlign: 'left',
-            align: 'left'
-        },
-    ];
+    const fetchUsers = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('http://localhost:8080/api/progress/get/all');
+            if (!response.ok) throw new Error('Failed to fetch users');
+            const data = await response.json();
+            setUsers(data);
+            setFilteredUsers(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (!isAdmin()) return;
+        fetchUsers();
+    }, []);
+
+    useEffect(() => {
+        const filtered = users.filter(user => {
+            const matchesSearch =
+                user.userName?.toLowerCase().includes(searchText.toLowerCase()) ||
+                user.fullName?.toLowerCase().includes(searchText.toLowerCase()) ||
+                user.userId?.toString().includes(searchText);
+
+            const matchesDifficulty =
+                difficultyFilter === 'all' ||
+                user.currentDifficulty === difficultyFilter;
+
+            const matchesTopic =
+                topicFilter === 'all' ||
+                user.currentTopic === topicFilter;
+
+            return matchesSearch && matchesDifficulty && matchesTopic;
+        });
+        setFilteredUsers(filtered);
+    }, [users, searchText, difficultyFilter, topicFilter]);
 
     if (!isAdmin()) {
-        return <div>הגישה נדחתה</div>;
-    }
-
-    if (loading) {
-        return <div>טוען...</div>;
-    }
-
-    if (error) {
-        return <div>שגיאה: {error}</div>;
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Alert severity="error">הגישה נדחתה - אין לך הרשאות מנהל</Alert>
+            </Box>
+        );
     }
 
     return (
-        <div className="admin-panel" style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-            <div className="navbar-admin-panel">
+        <Box sx={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
             <Navbar />
-            </div>
-            <Box sx={{ p: 3 }}>
-                <Paper elevation={3} sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-                    <Box sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: 2,
-                        alignItems: 'center',
-                        mb: 3
-                    }}>
-                        <TextField
-                            variant="outlined"
-                            size="small"
-                            placeholder="חפש משתמש..."
-                            value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <Search />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            sx={{ minWidth: 250 }}
-                        />
+            <Container maxWidth="xl" sx={{ py: 4 }}>
+                <Typography variant="h4" component="h1" gutterBottom align="center">
+                    פאנל ניהול
+                </Typography>
 
-                        <FormControl size="small" sx={{ minWidth: 180 }}>
-                            <InputLabel>רמת קושי</InputLabel>
-                            <Select
-                                value={difficultyFilter}
-                                onChange={(e) => setDifficultyFilter(e.target.value)}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <FilterList fontSize="small" />
-                                    </InputAdornment>
-                                }
-                                label="רמת קושי"
-                            >
-                                {difficultyOptions.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                <ChartPanel />
 
-                        <FormControl size="small" sx={{ minWidth: 180 }}>
-                            <InputLabel>נושא</InputLabel>
-                            <Select
-                                value={topicFilter}
-                                onChange={(e) => setTopicFilter(e.target.value)}
-                                label="נושא"
-                            >
-                                {topicOptions.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Box>
+                <Paper elevation={3} sx={{ p: 3, my: 3, borderRadius: 2 }}>
+                    <Typography variant="h5" gutterBottom>
+                        ניהול משתמשים
+                    </Typography>
 
-                    <Box sx={{ height: 600, width: '100%' }}>
-                        <DataGrid
-                            rows={filteredUsers}
-                            columns={columns}
-                            pageSize={10}
-                            rowsPerPageOptions={[10, 25, 50]}
-                            getRowId={(row) => row.userId}
-                            autoHeight
-                            localeText={{
-                                noRowsLabel: 'לא נמצאו תוצאות',
-                                footerRowSelected: count => `${count.toLocaleString()} שורות נבחרו`
-                            }}
-                            sx={{
-                                '& .MuiDataGrid-columnHeaders': {
-                                    backgroundColor: '#1976d2',
-                                    color: 'white',
-                                },
-                                '& .MuiDataGrid-cell': {
-                                    borderRight: '1px solid #f0f0f0',
-                                },
-                            }}
-                        />
-                    </Box>
+                    <FilterControls
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        difficultyFilter={difficultyFilter}
+                        setDifficultyFilter={setDifficultyFilter}
+                        topicFilter={topicFilter}
+                        setTopicFilter={setTopicFilter}
+                        onRefresh={fetchUsers}
+                        difficultyOptions={difficultyOptions}
+                        topicOptions={topicOptions}
+                    />
+
+                    {loading ? (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                            <CircularProgress />
+                        </Box>
+                    ) : error ? (
+                        <Alert severity="error" sx={{ my: 2 }}>
+                            {error}
+                        </Alert>
+                    ) : (
+                        <UserTable users={filteredUsers} loading={loading} />
+                    )}
                 </Paper>
-            </Box>
-        </div>
+
+                <Paper elevation={3} sx={{ p: 3, borderRadius: 2, mt: 3 }}>
+                    <Typography variant="h5" gutterBottom>
+                        פעילות משתמשים
+                    </Typography>
+                    <UserActivity />
+                </Paper>
+            </Container>
+        </Box>
     );
-}
+};

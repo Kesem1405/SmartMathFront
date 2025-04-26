@@ -31,6 +31,8 @@ function Login({onAuthSuccess}) {
 
             if (status === 200 && data.success) {
                 localStorage.setItem("userToken", data.token);
+                localStorage.setItem("ADMIN", data.isAdmin ? "true" : "false");
+
                 onAuthSuccess();
             } else {
                 setError(data.message || "התחברות נכשלה, נסה שוב.");

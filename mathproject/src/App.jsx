@@ -18,7 +18,7 @@ function App() {
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/adminpanel" element={<AdminPanel />}/>
+                <Route path="/admin-panel" element={<AdminPanel />}/>
                 <Route path="/aboutPage" element={<AboutPage />}/>
                 <Route path="/home" element={<HomePage />}/>
 

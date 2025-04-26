@@ -8,8 +8,9 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Dashboard.css";
 import MathDisplay from "./MathDisplay.jsx";
-import {topicTranslations} from "./Constants.js";
+import { topicTranslations } from "./Constants.js";
 import DashboardTour from "./DashboardTour.jsx";
+import StreakCelebration from "./StreakCelebration";
 
 
 function Dashboard() {
@@ -27,7 +28,9 @@ function Dashboard() {
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [animationTrigger, setAnimationTrigger] = useState(0);
-    const isSeenTutorial = localStorage.getItem("hasSeenTour")
+    const [personalizedMessage, setPersonalizedMessage] = useState("");
+    const isSeenTutorial = localStorage.getItem("hasSeenTour");
+    const [showStreakCelebration, setShowStreakCelebration] = useState(false);
 
 
     useEffect(() => {
@@ -35,6 +38,7 @@ function Dashboard() {
             navigate("/auth");
         } else {
             fetchQuestion();
+            fetchPersonalizedMessage();
         }
     }, [navigate]);
 
@@ -46,7 +50,7 @@ function Dashboard() {
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [isTimerRunning], isSeenTutorial);
+    }, [isTimerRunning, isSeenTutorial]);
 
     const fetchQuestion = async () => {
         try {
@@ -62,6 +66,40 @@ function Dashboard() {
             setError(err.response?.data || "שגיאה בטעינת שאלה");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchPersonalizedMessage = async () => {
+        try {
+            const token = localStorage.getItem("userToken");
+            const response = await axios.get(`http://localhost:8080/api/user/behavior?token=${token}`);
+            const clusterId = response.data.clusterId;
+            if (clusterId === 0) {
+                if (successRateAddSub < 0.7) {
+                    setPersonalizedMessage("בואו נתרגל חיבור וחיסור כדי לבנות בסיס חזק!");
+                } else if (successRateMultDev < 0.7) {
+                    setPersonalizedMessage("כל הכבוד! עכשיו נתמקד בכפל וחילוק.");
+                } else {
+                    setPersonalizedMessage("אתה מוכן לאתגר? ננסה משוואות!");
+                }
+            } else if (clusterId === 1) {
+                if (successRateAddSub < 0.7) {
+                    setPersonalizedMessage("חזרה על חיבור וחיסור תעזור לך להתקדם!");
+                } else if (successRateMultDev < 0.7) {
+                    setPersonalizedMessage("מעולה! בוא נתרגל כפל וחילוק.");
+                } else {
+                    setPersonalizedMessage("אתה מתקדם! נתחיל עם משוואות.");
+                }
+            } else if (clusterId === 2) {
+                if (successRateMultDev < 0.7) {
+                    setPersonalizedMessage("נחזק את הכפל והחילוק לפני משוואות.");
+                } else {
+                    setPersonalizedMessage("מדהים! בוא נפתור משוואות מתקדמות!");
+                }
+            }
+        } catch (err) {
+            console.error("Error fetching personalized message:", err);
+            setPersonalizedMessage("בואו נתרגל כדי להתקדם!");
         }
     };
 
@@ -88,7 +126,6 @@ function Dashboard() {
                     }
                 }
             );
-
             console.log('Server response:', response.data);
         } catch (error) {
             console.error('Error submitting answer to server:', error);
@@ -104,72 +141,82 @@ function Dashboard() {
             setStreak(newStreak);
             localStorage.setItem("score", newScore);
             localStorage.setItem("streak", newStreak);
-
+            if (newStreak % 5 === 0) {
+                setShowStreakCelebration(true);
+            }
             if (newStreak >= 3 && difficulty !== "HARD") {
                 setDifficulty(prev => prev === "EASY" ? "MEDIUM" : "HARD");
             }
         } else {
             setStreak(0);
             localStorage.setItem("streak", 0);
+            setShowStreakCelebration(false);
         }
 
         setShowFeedbackModal(true);
         setUserAnswer("");
-
-
         setAnimationTrigger(prev => prev + 1);
         fetchQuestion();
+        fetchPersonalizedMessage();
     };
-
 
     return (
         <div className="dashboard-layout">
             <DashboardTour />
-            <CurrentProgress topic={topic} difficulty={difficulty}/>
+            <CurrentProgress topic={topic} difficulty={difficulty} />
 
             <div className="main-content">
                 <Navbar handleSignOut={() => {
                     localStorage.removeItem("userToken");
                     navigate("/auth");
-                }}/>
+                }} />
 
                 <div className="content-area">
-                    <div className="question-container">
-                        {loading && <div className="loading-spinner"></div>}
-                        {error && <div className="error-alert">{error}</div>}
-                        {!error && <div className="question-text">פתור את התרגיל הבא : </div>}
-                        {currentQuestion && (
-                            <>
+                    <div className="personalized-message">{personalizedMessage}</div>
+
+                    {/* Centered Question Area */}
+                    <div className="question-board">
+                        <div className="question-container">
+                            {loading && <div className="loading-spinner"></div>}
+                            {error && <div className="error-alert">{error}</div>}
+                            {!error && <div className="question-text">פתור את התרגיל הבא : </div>}
+                            {currentQuestion && (
                                 <MathDisplay
                                     expression={currentQuestion.context}
                                     triggerAnimation={animationTrigger}
                                 />
-                            </>
-                        )}
-                    </div>
-
-                    <div className="stats-and-button-container">
-                        <div className="stats-bar">
-                            <div> ✅ : {score} </div>
-                            <div> רצף : {streak} </div>
-                            <div> ⏱️ : {timer} שניות</div>
+                            )}
                         </div>
 
-                        <div className="answer-input">
-                            <input
-                                className={"user-input"}
-                                type="number"
-                                value={userAnswer}
-                                onChange={(e) => setUserAnswer(e.target.value)}
-                                placeholder="הכנס תשובה"
-                            />
-                            <button className="submit-button" onClick={handleSubmitAnswer}>שלח</button>
+                        <div className="answer-section">
+                            <div className="stats-bar">
+                                <div> ✅ : {score} </div>
+                                <div> רצף : {streak} </div>
+                                <div> ⏱️ : {timer} שניות</div>
+                            </div>
+
+                            <div className="answer-input">
+                                <input
+                                    className="user-input"
+                                    type="number"
+                                    value={userAnswer}
+                                    onChange={(e) => setUserAnswer(e.target.value)}
+                                    placeholder="הכנס תשובה"
+                                />
+                                <button className="submit-button" onClick={handleSubmitAnswer}>שלח תשובה</button>
+                            </div>
                         </div>
                     </div>
-
-                    <Notebook/>
                 </div>
+
+                {/* Marginal Notebook */}
+                <Notebook />
             </div>
+            <StreakCelebration
+                streak={streak}
+                show={showStreakCelebration}
+                onHide={() => setShowStreakCelebration(false)}
+            />
 
             <Modal show={showFeedbackModal} onHide={() => setShowFeedbackModal(false)} centered>
                 <Modal.Header closeButton>
@@ -184,5 +231,6 @@ function Dashboard() {
         </div>
     );
 }
+
 
 export default Dashboard;

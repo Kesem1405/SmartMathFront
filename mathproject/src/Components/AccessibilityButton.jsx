@@ -13,7 +13,7 @@ const AccessibilityButton = () => {
                 highContrast: false,
                 grayscale: false,
                 darkMode: false,
-                underlineLinks: true,
+                underlineLinks: false,
                 readableFont: false,
             };
     };
@@ -26,7 +26,7 @@ const AccessibilityButton = () => {
     }, [settings]);
 
     useEffect(() => {
-        // Font size
+
         document.documentElement.style.fontSize = `${settings.fontSize}px`;
 
         if (settings.highContrast) {

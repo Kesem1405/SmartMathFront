@@ -10,6 +10,7 @@ import AboutIcon from "../images/about.mp4.lottie.json";
 import AdminIcon from "../images/admin.mp4.lottie.json";
 import ExitIcon from "../images/logout.mp4.lottie.json";
 
+// eslint-disable-next-line react/prop-types
 const Navbar = ({ handleSignOut = () => {} }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +19,7 @@ const Navbar = ({ handleSignOut = () => {} }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
+
     setIsAdmin(localStorage.getItem("ADMIN") === "true");
     setActiveTab(location.pathname.split("/")[1] || "home");
   }, [location]);
@@ -40,9 +42,9 @@ const Navbar = ({ handleSignOut = () => {} }) => {
     { path: "/aboutPage",icon: AboutIcon,    label: "אודות",    key: "aboutPage" },
     { path: "/Profile",  icon: ProfileIcon,  label: "פרופיל",   key: "Profile" },
     { path: "/Dashboard",icon: PracticeIcon, label: "תרגול",    key: "Dashboard" },
-    ...(isAdmin 
-      ? [{ path: "/AdminPanel", icon: AdminIcon, label: "מנהל", key: "AdminPanel" }] 
-      : []
+    ...(isAdmin
+            ? [{ path: "/admin-panel", icon: AdminIcon, label: "מנהל", key: "AdminPanel" }]
+            : []
     ),
     { path: null,        icon: ExitIcon,     label: "יציאה",   key: "signout", action: signOutAndRedirect }
   ];
