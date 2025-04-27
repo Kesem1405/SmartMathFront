@@ -34,6 +34,7 @@ function AuthPage() {
                             : "איפוס סיסמא"}
                 </h2>
 
+
                 <div className="d-flex justify-content-center mb-3">
                     <img src="https://i.ibb.co/yVGxFPR/2.png" alt="User" height="80px" width="80px" />
                 </div>
@@ -64,11 +65,11 @@ function AuthPage() {
                                 <button className="btn btn-link p-0" onClick={() => toggleForm("register")}>
                                     הרשמה
                                 </button>
-                                {" "}  ? אין לך משתמש
+                                {" "} ? אין לך משתמש
                             </p>
                         ) : (
                             <p>
-                               כבר יש לך משתמש?{" "}
+                                כבר יש לך משתמש?{" "}
                                 <button className="btn btn-link p-0" onClick={() => toggleForm("login")}>
                                     התחברות
                                 </button>
@@ -78,7 +79,12 @@ function AuthPage() {
                             <button className="btn btn-link p-0" onClick={() => toggleForm("forgot")}>
                                 שכחת סיסמא?
                             </button>
+
                         </p>
+                        <button className="btn btn-link p-0" onClick={() => navigate("/home")}>
+                            <i className="bi bi-house-door-fill me-2"></i>
+                            חזרה לדף הבית
+                        </button>
                     </div>
                 )}
             </div>

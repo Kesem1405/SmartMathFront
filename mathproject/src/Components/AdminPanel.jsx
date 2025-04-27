@@ -16,6 +16,15 @@ export const AdminPanel = () => {
     const [searchText, setSearchText] = useState('');
     const [difficultyFilter, setDifficultyFilter] = useState('all');
     const [topicFilter, setTopicFilter] = useState('all');
+    const [adminToken, setAdminToken] = useState('');
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        if (token) {
+            setAdminToken(token);
+        }
+    }, []);
 
     const difficultyOptions = [
         { value: 'all', label: 'כל הרמות' },
@@ -36,7 +45,11 @@ export const AdminPanel = () => {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:8080/api/progress/get/all');
+            const response = await fetch('http://localhost:8080/api/progress/get/all', {
+                headers: {
+                    'Authorization': `Bearer ${adminToken}`
+                }
+            });
             if (!response.ok) throw new Error('Failed to fetch users');
             const data = await response.json();
             setUsers(data);
@@ -49,10 +62,21 @@ export const AdminPanel = () => {
         }
     };
 
+    const handleAdminChange = (userId, newIsAdmin) => {
+        setUsers(users.map(user =>
+            user.userId === userId ? { ...user, isAdmin: newIsAdmin } : user
+        ));
+        setFilteredUsers(filteredUsers.map(user =>
+            user.userId === userId ? { ...user, isAdmin: newIsAdmin } : user
+        ));
+    };
+
     useEffect(() => {
         if (!isAdmin()) return;
-        fetchUsers();
-    }, []);
+        if (adminToken) {
+            fetchUsers();
+        }
+    }, [adminToken]);
 
     useEffect(() => {
         const filtered = users.filter(user => {
@@ -118,7 +142,12 @@ export const AdminPanel = () => {
                             {error}
                         </Alert>
                     ) : (
-                        <UserTable users={filteredUsers} loading={loading} />
+                        <UserTable
+                            users={filteredUsers}
+                            loading={loading}
+                            token={adminToken}
+                            onAdminChange={handleAdminChange}
+                        />
                     )}
                 </Paper>
 

@@ -1,9 +1,32 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { Box } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { difficultyTranslations, topicTranslations } from "./Constants.js";
+import { useState } from 'react';
+import axios from 'axios';
 
-// eslint-disable-next-line react/prop-types
-export const UserTable = ({ users, loading }) => {
+export const UserTable = ({ users, loading, token, onAdminChange }) => {
+    const [updatingId, setUpdatingId] = useState(null);
+
+    const handleAdminToggle = async (userId, currentIsAdmin) => {
+        setUpdatingId(userId);
+        try {
+            await axios.post('http://localhost:8080/api/admin/authority-granting', null, {
+                params: {
+                    token: token,
+                    userId: userId,
+                    isAdmin: !currentIsAdmin
+                }
+            });
+            onAdminChange(userId, !currentIsAdmin);
+        } catch (error) {
+            console.error('Error updating admin status:', error);
+
+        } finally {
+            setUpdatingId(null);
+        }
+    };
+
     const columns = [
         {
             field: 'userId',
@@ -22,6 +45,29 @@ export const UserTable = ({ users, loading }) => {
             headerName: 'שם מלא',
             width: 150,
             headerClassName: 'kids-header',
+        },
+        {
+            field: 'isAdmin',
+            headerName: 'הרשאות',
+            width: 120,
+            headerClassName: 'kids-header',
+            renderCell: (params) => (
+                <Tooltip title={params.value ? "Revoke admin" : "Make admin"}>
+                    <IconButton
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleAdminToggle(params.row.userId, params.value);
+                        }}
+                        disabled={updatingId === params.row.userId}
+                        color={params.value ? "primary" : "default"}
+                    >
+                        <AdminPanelSettingsIcon
+                            color={params.value ? "primary" : "action"}
+                            fontSize="small"
+                        />
+                    </IconButton>
+                </Tooltip>
+            ),
         },
         {
             field: 'currentDifficulty',
@@ -114,7 +160,7 @@ export const UserTable = ({ users, loading }) => {
                 pageSize={10}
                 rowsPerPageOptions={[10, 25, 50]}
                 getRowId={(row) => row.userId}
-                loading={loading}
+                loading={loading || Boolean(updatingId)}
                 localeText={{
                     noRowsLabel: 'לא נמצאו תוצאות',
                     footerRowSelected: count => `${count.toLocaleString()} שורות נבחרו`

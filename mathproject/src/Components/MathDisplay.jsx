@@ -85,7 +85,7 @@ function MathDisplay({ expression, triggerAnimation }) {
                         {char}
                     </span>
                 ))}
-                <span style={{ animationDelay: `${formatted.length * 0.05}s` }}>= ?</span>
+                <span style={{ animationDelay: `${formatted.length * 0.05}s` }}></span>
             </div>
         );
     } catch (error) {

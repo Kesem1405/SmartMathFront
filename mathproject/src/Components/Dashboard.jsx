@@ -11,6 +11,7 @@ import MathDisplay from "./MathDisplay.jsx";
 import { topicTranslations } from "./Constants.js";
 import DashboardTour from "./DashboardTour.jsx";
 import StreakCelebration from "./StreakCelebration";
+import PersonalizedMessage from "./PersonalizedMessage";
 
 
 function Dashboard() {
@@ -28,7 +29,6 @@ function Dashboard() {
     const [feedback, setFeedback] = useState("");
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [animationTrigger, setAnimationTrigger] = useState(0);
-    const [personalizedMessage, setPersonalizedMessage] = useState("");
     const isSeenTutorial = localStorage.getItem("hasSeenTour");
     const [showStreakCelebration, setShowStreakCelebration] = useState(false);
 
@@ -38,7 +38,6 @@ function Dashboard() {
             navigate("/auth");
         } else {
             fetchQuestion();
-            fetchPersonalizedMessage();
         }
     }, [navigate]);
 
@@ -69,39 +68,6 @@ function Dashboard() {
         }
     };
 
-    const fetchPersonalizedMessage = async () => {
-        try {
-            const token = localStorage.getItem("userToken");
-            const response = await axios.get(`http://localhost:8080/api/user/behavior?token=${token}`);
-            const clusterId = response.data.clusterId;
-            if (clusterId === 0) {
-                if (successRateAddSub < 0.7) {
-                    setPersonalizedMessage("בואו נתרגל חיבור וחיסור כדי לבנות בסיס חזק!");
-                } else if (successRateMultDev < 0.7) {
-                    setPersonalizedMessage("כל הכבוד! עכשיו נתמקד בכפל וחילוק.");
-                } else {
-                    setPersonalizedMessage("אתה מוכן לאתגר? ננסה משוואות!");
-                }
-            } else if (clusterId === 1) {
-                if (successRateAddSub < 0.7) {
-                    setPersonalizedMessage("חזרה על חיבור וחיסור תעזור לך להתקדם!");
-                } else if (successRateMultDev < 0.7) {
-                    setPersonalizedMessage("מעולה! בוא נתרגל כפל וחילוק.");
-                } else {
-                    setPersonalizedMessage("אתה מתקדם! נתחיל עם משוואות.");
-                }
-            } else if (clusterId === 2) {
-                if (successRateMultDev < 0.7) {
-                    setPersonalizedMessage("נחזק את הכפל והחילוק לפני משוואות.");
-                } else {
-                    setPersonalizedMessage("מדהים! בוא נפתור משוואות מתקדמות!");
-                }
-            }
-        } catch (err) {
-            console.error("Error fetching personalized message:", err);
-            setPersonalizedMessage("בואו נתרגל כדי להתקדם!");
-        }
-    };
 
     const handleSubmitAnswer = async () => {
         setIsTimerRunning(false);
@@ -157,7 +123,6 @@ function Dashboard() {
         setUserAnswer("");
         setAnimationTrigger(prev => prev + 1);
         fetchQuestion();
-        fetchPersonalizedMessage();
     };
 
     return (
@@ -172,14 +137,13 @@ function Dashboard() {
                 }} />
 
                 <div className="content-area">
-                    <div className="personalized-message">{personalizedMessage}</div>
+                    <PersonalizedMessage refreshTrigger={animationTrigger}/>
 
-                    {/* Centered Question Area */}
                     <div className="question-board">
                         <div className="question-container">
                             {loading && <div className="loading-spinner"></div>}
                             {error && <div className="error-alert">{error}</div>}
-                            {!error && <div className="question-text">פתור את התרגיל הבא : </div>}
+
                             {currentQuestion && (
                                 <MathDisplay
                                     expression={currentQuestion.context}

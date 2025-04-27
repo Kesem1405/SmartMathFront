@@ -127,13 +127,13 @@ function Register() {
                     />
                     <div className="passwordCriteria mt-2">
                         <p style={{color: passwordCriteria.minLength ? "green" : "red"}}>
-                            Minimum 8 characters {passwordCriteria.minLength ? "✔️" : "❌"}
+                            לפחות 8 תווים {passwordCriteria.minLength ? "✔️" : "❌"}
                         </p>
                         <p style={{color: passwordCriteria.specialChar ? "green" : "red"}}>
-                            Special character {passwordCriteria.specialChar ? "✔️" : "❌"}
+                            תו מיוחד {passwordCriteria.specialChar ? "✔️" : "❌"}
                         </p>
                         <p style={{color: passwordCriteria.capitalLetter ? "green" : "red"}}>
-                            Capital letter {passwordCriteria.capitalLetter ? "✔️" : "❌"}
+                            אות גדולה{passwordCriteria.capitalLetter ? "✔️" : "❌"}
                         </p>
                     </div>
                     <div className="mb-3">
