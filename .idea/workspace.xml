@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c38afb66-7f6d-481a-ae96-367e823a44de" name="Changes" comment="minor changes commit">
-      <change afterPath="$PROJECT_DIR$/mathproject/src/Components/PersonalizedMessage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AdminPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/AuthPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/ChartPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/ChartPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/DashboardTour.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/DashboardTour.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/MathDisplay.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/Components/UserTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/Components/UserTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mathproject/src/css/ChartPanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/mathproject/src/css/ChartPanel.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +124,8 @@
       <workItem from="1744145870088" duration="1012000" />
       <workItem from="1744192377043" duration="338000" />
       <workItem from="1745255584325" duration="6306000" />
-      <workItem from="1745780228916" duration="6930000" />
+      <workItem from="1745780228916" duration="7081000" />
+      <workItem from="1745948259218" duration="704000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -264,7 +255,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1745601084840</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL‎-00017" summary="minor changes commit">
+      <option name="closed" value="true" />
+      <created>1745793055640</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL‎-00017" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1745793055641</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

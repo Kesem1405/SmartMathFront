@@ -102,7 +102,7 @@ const AccessibilityButton = () => {
             highContrast: false,
             grayscale: false,
             darkMode: false,
-            underlineLinks: true,
+            underlineLinks: false,
             readableFont: false,
         });
     };
