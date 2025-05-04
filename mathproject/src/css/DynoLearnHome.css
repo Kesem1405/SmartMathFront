@@ -143,6 +143,7 @@ body {
     border-radius: 15px;
     display: inline-block;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .equation {
@@ -216,4 +217,34 @@ body {
     font-size: 0.9rem;
     color: #6A4C93;
     opacity: 0.81;
+}
+/* WhatsApp specific styles */
+.whatsapp-link {
+    position: relative;
+}
+
+.whatsapp-icon {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-link:hover .whatsapp-icon {
+    transform: scale(1.2);
+    color: #25D366; /* WhatsApp brand color */
+}
+
+/* Pulse animation for WhatsApp */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.whatsapp-link:hover .whatsapp-icon {
+    animation: pulse 1.5s infinite;
+}
+
+/* For the tooltip */
+.whatsapp-link::after {
+    content: attr(data-tooltip);
 }

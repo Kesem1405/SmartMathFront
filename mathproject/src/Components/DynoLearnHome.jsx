@@ -148,6 +148,17 @@ const DynoLearnHome = () => {
                 <div className="copyright">
                     © {new Date().getFullYear()} DynoLearn. All rights reserved
                 </div>
+                <div className="contactMe">
+                    <a href="tel:054-7473737" className="contact-link" data-tooltip="Call me!">📱</a>
+                    <span className="contact-spacer">•</span>
+                    <a href="mailto:shimondj@gmail.com" className="contact-link" data-tooltip="Email me!">✉️</a>
+                    <span className="contact-spacer">•</span>
+                    <a href="https://wa.me/972547473737" className="contact-link whatsapp-link"
+                       data-tooltip="WhatsApp me!">
+                        <span className="whatsapp-icon">💬</span>
+                    </a>
+                </div>
+
             </footer>
         </div>
     );
